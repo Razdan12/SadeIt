@@ -3,78 +3,50 @@
     <!-- <NavbarSiswa /> -->
     <div class="row">
       <div class="col-md-12">
-        <q-card class="text-center bg-blue-2" style="height: 87vh">
+        <q-card class="text-center bg-blue-2" style="height: auto">
           <q-card-section>
             <div class="text-center">
               <p>
-                <span
-                  class="text-center text-black text-bold"
-                  style="font-size: x-large"
-                  >BANK SAMPAH</span
-                >
+                <span class="text-center text-black text-bold" style="font-size: x-large">BANK SAMPAH</span>
               </p>
             </div>
           </q-card-section>
           <q-card-section>
-            <q-card style="height: 76vh">
+            <q-card style="height: auto">
               <q-card-section>
-                <div class="row">
-                  <div class="col-4">
-                    <q-card
-                      class="bg-light-green-1"
-                      style="width: 95%; height: 32vh"
-                    >
+                <div class="row flex justify-center tw-gap-3">
+                  <div class="col-md col-12">
+                    <q-card class="bg-light-green-1 tw-h-80" >
                       <q-card-section>
                         <p>
                           <span style="font-size: xx-large">History</span>
                         </p>
                         <div class="row flex justify-center items-center">
                           <div class="col-md-4">
-                            <q-img
-                              src="../../assets/garbage.png"
-                              style="width: 70%"
-                            />
+                            <q-img src="../../assets/garbage.png" style="width: 70%" />
                           </div>
-                          <div class="col-md-8 text-left">
-                            <q-markup-table class="bg-light-green-1" flat>
-                              <tbody class="text-bold text-blue">
+                          <div class="col-md-8 text-left tw-w-full">
+                            <q-markup-table class="bg-light-green-1 tw-w-full" flat>
+                              <tbody class="text-bold text-blue tw-w-full">
                                 <tr>
-                                  <td
-                                    class="text-left"
-                                    style="font-size: larger"
-                                  >
+                                  <td class="text-left" style="font-size: larger">
                                     Hari ini
                                   </td>
-                                  <td
-                                    class="text-right"
-                                    style="font-size: larger"
-                                  >
+                                  <td class="text-right" style="font-size: larger">
                                     2
                                   </td>
-                                  <td
-                                    class="text-left text-red"
-                                    style="font-size: small"
-                                  >
+                                  <td class="text-left text-red" style="font-size: small">
                                     Kg
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td
-                                    class="text-left"
-                                    style="font-size: larger"
-                                  >
+                                  <td class="text-left" style="font-size: larger">
                                     Bulan ini
                                   </td>
-                                  <td
-                                    class="text-right"
-                                    style="font-size: larger"
-                                  >
+                                  <td class="text-right" style="font-size: larger">
                                     4
                                   </td>
-                                  <td
-                                    class="text-left text-red"
-                                    style="font-size: small"
-                                  >
+                                  <td class="text-left text-red" style="font-size: small">
                                     Kg
                                   </td>
                                 </tr>
@@ -85,144 +57,89 @@
                       </q-card-section>
                     </q-card>
                   </div>
-                  <div class="col-4 text center">
-                    <q-card style="width: 95%; height: 32vh">
+                  <div class="col-md col-12 text center">
+                    <q-card class=" tw-h-80">
                       <q-card-section>
                         <div class="text-center">
                           <p class="text-bold" style="font-size: x-large">
                             Target dan Capaian
                           </p>
-                          <p
-                            class="text-blue-4 text-bold"
-                            style="font-size: larger"
-                          >
+                          <p class="text-blue-4 text-bold" style="font-size: larger">
                             Capaian bulan lalu 15 Kg
                           </p>
                           <q-separator class="q-my-lg" color="orange" inset />
                           <p class="text-bold" style="font-size: large">
                             Target <br />
 
-                            <q-img
-                              src="../../assets/target.png"
-                              style="width: 55%"
-                            />
+                            <q-img src="../../assets/target.png" style="width: 55%" />
                           </p>
                         </div>
                       </q-card-section>
                     </q-card>
                   </div>
-                  <div class="col-4">
-                    <q-card
-                      class="bg-light-green-1"
-                      style="width: 95%; height: 32vh"
-                    >
+                  <div class="col-md col-12">
+                    <q-card class="bg-light-green-1 tw-h-80" >
                       <q-card-section>
                         <div class="row">
-                          <div class="col-md-12 text-left">
+                          <div class="col-md-12 text-left flex justify-center">
                             <p class="text-center">
-                              <span class="text-bold" style="font-size: larger"
-                                >Rekap Periode:
+                              <span class="text-bold" style="font-size: larger">Rekap Periode:
                               </span>
                             </p>
-                            <q-markup-table class="bg-light-green-1" flat>
+                            <q-markup-table class="bg-light-green-1 tw-w-full" flat>
                               <tbody class="text-bold text-blue">
                                 <tr>
-                                  <td
-                                    class="text-left"
-                                    style="font-size: small"
-                                  >
+                                  <td class="text-left" style="font-size: small">
                                     Senin
                                   </td>
-                                  <td
-                                    class="text-right"
-                                    style="font-size: small"
-                                  >
+                                  <td class="text-right" style="font-size: small">
                                     2
                                   </td>
-                                  <td
-                                    class="text-left text-red"
-                                    style="font-size: smaller"
-                                  >
+                                  <td class="text-left text-red" style="font-size: smaller">
                                     Kg
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td
-                                    class="text-left"
-                                    style="font-size: small"
-                                  >
+                                  <td class="text-left" style="font-size: small">
                                     Selasa
                                   </td>
-                                  <td
-                                    class="text-right"
-                                    style="font-size: small"
-                                  >
+                                  <td class="text-right" style="font-size: small">
                                     3
                                   </td>
-                                  <td
-                                    class="text-left text-red"
-                                    style="font-size: smaller"
-                                  >
+                                  <td class="text-left text-red" style="font-size: smaller">
                                     Kg
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td
-                                    class="text-left"
-                                    style="font-size: small"
-                                  >
+                                  <td class="text-left" style="font-size: small">
                                     Rabu
                                   </td>
-                                  <td
-                                    class="text-right"
-                                    style="font-size: small"
-                                  >
+                                  <td class="text-right" style="font-size: small">
                                     2
                                   </td>
-                                  <td
-                                    class="text-left text-red"
-                                    style="font-size: smaller"
-                                  >
+                                  <td class="text-left text-red" style="font-size: smaller">
                                     Kg
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td
-                                    class="text-left"
-                                    style="font-size: small"
-                                  >
+                                  <td class="text-left" style="font-size: small">
                                     Kamis
                                   </td>
-                                  <td
-                                    class="text-right"
-                                    style="font-size: small"
-                                  >
+                                  <td class="text-right" style="font-size: small">
                                     1
                                   </td>
-                                  <td
-                                    class="text-left text-red"
-                                    style="font-size: smaller"
-                                  >
+                                  <td class="text-left text-red" style="font-size: smaller">
                                     Kg
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td
-                                    class="text-left"
-                                    style="font-size: small"
-                                  >
+                                  <td class="text-left" style="font-size: small">
                                     Jumat
                                   </td>
-                                  <td
-                                    class="text-right"
-                                    style="font-size: small"
-                                  >
+                                  <td class="text-right" style="font-size: small">
                                     5
                                   </td>
-                                  <td
-                                    class="text-left text-red"
-                                    style="font-size: smaller"
-                                  >
+                                  <td class="text-left text-red" style="font-size: smaller">
                                     Kg
                                   </td>
                                 </tr>
@@ -242,9 +159,9 @@
               </p>
 
               <div>
-                <div class="row">
-                  <div class="col-md text-center q-ml-md">
-                    <q-card class="bg-blue-1" style="width: 15vw; height: 32vh">
+                <div class="row flex justify-center tw-gap-3 tw-p-5">
+                  <div class="col-md col-12 tw-min-h-80 ">
+                    <q-card class="bg-blue-1 tw-h-full" >
                       <br />
                       <p class="text-bold text-blue" style="font-size: medium">
                         Senin
@@ -258,10 +175,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -272,10 +186,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -286,10 +197,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -300,10 +208,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -314,10 +219,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -328,10 +230,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -342,10 +241,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -354,8 +250,8 @@
                     </q-card>
                   </div>
 
-                  <div class="col-md">
-                    <q-card class="bg-pink-1" style="width: 15vw; height: 32vh">
+                  <div class="col-md col-12 tw-min-h-80">
+                    <q-card class="bg-pink-1 tw-h-full">
                       <br />
                       <p class="text-bold text-blue" style="font-size: medium">
                         Selasa
@@ -369,10 +265,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -383,10 +276,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -397,10 +287,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -409,11 +296,8 @@
                     </q-card>
                   </div>
 
-                  <div class="col-md">
-                    <q-card
-                      class="bg-yellow-1"
-                      style="width: 15vw; height: 32vh"
-                    >
+                  <div class="col-md col-12 tw-min-h-80">
+                    <q-card class="bg-yellow-1 tw-h-full" >
                       <br />
                       <p class="text-bold text-blue" style="font-size: medium">
                         Rabu
@@ -427,10 +311,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -441,10 +322,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -455,10 +333,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -469,10 +344,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -483,10 +355,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -495,11 +364,8 @@
                     </q-card>
                   </div>
 
-                  <div class="col-md">
-                    <q-card
-                      class="bg-green-1"
-                      style="width: 15vw; height: 32vh"
-                    >
+                  <div class="col-md col-12 tw-min-h-80">
+                    <q-card class="bg-green-1 tw-h-full" >
                       <br />
                       <p class="text-bold text-blue" style="font-size: medium">
                         Kamis
@@ -513,10 +379,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -527,10 +390,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -541,10 +401,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -555,10 +412,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -567,11 +421,8 @@
                     </q-card>
                   </div>
 
-                  <div class="col-md">
-                    <q-card
-                      class="bg-purple-1"
-                      style="width: 15vw; height: 32vh"
-                    >
+                  <div class="col-md col-12 tw-min-h-80">
+                    <q-card class="bg-purple-1 tw-h-full" >
                       <br />
                       <p class="text-bold text-blue" style="font-size: medium">
                         Jumat
@@ -585,10 +436,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -599,10 +447,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>
@@ -613,10 +458,7 @@
                             <td class="text-right" style="font-size: small">
                               0.5
                             </td>
-                            <td
-                              class="text-left text-red"
-                              style="font-size: smaller"
-                            >
+                            <td class="text-left text-red" style="font-size: smaller">
                               Kg
                             </td>
                           </tr>

@@ -3,7 +3,7 @@
     <!-- <NavbarSiswa /> -->
     <div class="row">
       <div class="col-md-12">
-        <q-card class="text-center bg-blue-2" style="height: 87vh">
+        <q-card class="text-center bg-blue-2" style="height: auto">
           <q-card-section>
             <div class="text-center">
               <p>
@@ -16,10 +16,10 @@
             </div>
           </q-card-section>
           <q-card-section>
-            <q-card class="my-card">
+            <q-card class="my-card tw-w-full">
               <q-card-section>
                 <q-table class="my-sticky-header-table" flat bordered :rows="rows"  :rows-per-page-options="[10]" :columns="columns"
-                  row-key="name" style="height: 70vh;" />
+                  row-key="name" style="height: fit-content;" />
 
                 <!-- <div class="subcontent">
                   <navigation-bar

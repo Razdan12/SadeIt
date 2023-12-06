@@ -3,7 +3,7 @@
    <!-- <NavbarSiswa/> -->
     <div class="row">
       <div class="col-md-12">
-        <q-card class="text-center bg-blue-2" style="height: 87vh">
+        <q-card class="text-center bg-blue-2 flex tw-flex-col">
 
           <q-card-section>
             <div class="text-center">
@@ -15,13 +15,13 @@
             </div>
           </q-card-section>
           <q-card-section>
-            <q-card class="my-card">
-              <q-card-section>
-                <div class="subcontent">
+            <q-card class="my-card tw-h-full flex tw-w-full ">
+              <q-card-section class=" tw-w-full">
+                <div class="subcontent tw-h-full">
                   <navigation-bar @today="onToday" @prev="onPrev" @next="onNext" style="color: green;" flat />
 
                   <div class="row justify-center">
-                    <div style="display: max-width: 900px; width: 90%; height: 60vh;">
+                    <div style=" width: 90%; ">
                       <q-calendar-month ref="calendar" v-model="selectedDate" animated bordered focusable hoverable locale="id"
                         no-active-date :day-min-height="80" :day-height="0" @change="onChange" @moved="onMoved"
                         @click-date="onClickDate" @click-day="onClickDay" @click-workweek="onClickWorkweek"
@@ -183,13 +183,13 @@ export default defineComponent({
         },
 
       ],
-    
+
     }
   },
 
 
   methods: {
-   
+
 
     getWeekEvents(week, weekdays) {
       const firstDay = parsed(week[0].date + ' 00:00')
