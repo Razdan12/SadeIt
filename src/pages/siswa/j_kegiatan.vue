@@ -2,8 +2,8 @@
   <div class="container">
     <!-- <NavbarSiswa /> -->
     <div class="row">
-      <div class="col-md-12">
-        <q-card class="text-center bg-blue-2" style="height: auto">
+      <div class="col">
+        <div class="text-center bg-blue-2 tw-min-h-screen">
           <q-card-section>
             <div class="text-center">
               <p>
@@ -18,87 +18,41 @@
           <q-card-section>
             <q-card class="my-card tw-w-full">
               <q-card-section>
-                <q-table class="my-sticky-header-table" flat bordered :rows="rows"  :rows-per-page-options="[10]" :columns="columns"
-                  row-key="name" style="height: fit-content;" />
 
-                <!-- <div class="subcontent">
-                  <navigation-bar
-                    @today="onToday"
-                    @prev="onPrev"
-                    @next="onNext"
-                    style="color: green"
-                    flat
-                  />
+                <q-table class="my-sticky-header-table" flat bordered :separator="separator" :rows="rows"
+                  :rows-per-page-options="[10]" :columns="columns" row-key="name" style="height: fit-content;">
+                  <template v-slot:body-cell-senin="props">
+                    <q-td :props="props"
+                      :style="{ backgroundColor: props.row.senin === 'Aktivitas 1' ? 'yellow' : props.row.senin === 'Aktivitas 2' ? 'green' : 'white' }">
+                      {{ props.row.senin }}
+                    </q-td>
+                  </template>
+                  <template v-slot:body-cell-rabu="props">
+                    <q-td :props="props"
+                      :style="{ backgroundColor: props.row.rabu === 'Aktivitas 1' ? 'yellow' : props.row.rabu === 'Aktivitas 2' ? 'green' : 'white'}">
+                      {{ props.row.rabu }}
+                    </q-td>
+                  </template>
+                  <template v-slot:body-cell-kamis="props">
+                    <q-td :props="props"
+                      :style="{ backgroundColor: props.row.kamis === 'Aktivitas 1' ? 'yellow' : props.row.kamis === 'Aktivitas 2' ? 'green' : 'white' }">
+                      {{ props.row.kamis }}
+                    </q-td>
+                  </template>
+                </q-table>
 
-                  <div class="row justify-center">
-                    <div
-                      style="display: max-width: 900px; width: 90%; height: 60vh;"
-                    >
-                      <q-calendar-month
-                        ref="calendar"
-                        v-model="selectedDate"
-                        animated
-                        bordered
-                        focusable
-                        hoverable
-                        wrap
-                        no-active-date
-                        :day-min-height="80"
-                        :day-height="0"
-                        @change="onChange"
-                        @moved="onMoved"
-                        @click-date="onClickDate"
-                        @click-day="onClickDay"
-                        @click-workweek="onClickWorkweek"
-                        @click-head-workweek="onClickHeadWorkweek"
-                        @click-head-day="onClickHeadDay"
-                      >
-                        <template #week="{ scope: { week, weekdays } }">
-                          <template
-                            v-for="(computedEvent, index) in getWeekEvents(
-                              week,
-                              weekdays
-                            )"
-                            :key="index"
-                          >
-                            <div
-                              :class="badgeClasses(computedEvent)"
-                              :style="badgeStyles(computedEvent, week.length)"
-                            >
-                              <div
-                                v-if="
-                                  computedEvent.event &&
-                                  computedEvent.event.details
-                                "
-                                class="title q-calendar__ellipsis"
-                              >
-                                {{
-                                  computedEvent.event.title +
-                                  (computedEvent.event.time
-                                    ? " - " + computedEvent.event.time
-                                    : "")
-                                }}
-                                <q-tooltip>{{
-                                  computedEvent.event.details
-                                }}</q-tooltip>
-                              </div>
-                            </div>
-                          </template>
-                        </template>
-                      </q-calendar-month>
-                    </div>
-                  </div>
-                </div> -->
+
               </q-card-section>
             </q-card>
           </q-card-section>
-        </q-card>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { ref } from 'vue'
 const columns = [
 
   { name: 'senin', label: 'Senin', field: 'senin', align: 'center' },
@@ -110,30 +64,23 @@ const columns = [
 ]
 
 const rows = [
-  { senin: 'Buka Kelas, upacara bersama', selasa: 'Upacara', rabu: 'Senam', kamis: 'pelajaran', jumat: 'olahraga' },
-  { senin: 'Buka Kelas', selasa: 'Upacara', rabu: 'Senam', kamis: 'pelajaran', jumat: 'olahraga' },
-  { senin: 'Buka Kelas', selasa: 'Upacara', rabu: 'Senam', kamis: 'pelajaran', jumat: 'olahraga' },
-  { senin: 'Buka Kelas', selasa: 'Upacara', rabu: 'Senam', kamis: 'pelajaran', jumat: 'olahraga' },
-  { senin: 'Buka Kelas', selasa: 'Upacara', rabu: 'Senam', kamis: 'pelajaran', jumat: 'olahraga' },
-  { senin: 'Buka Kelas', selasa: 'Upacara', rabu: 'Senam', kamis: 'pelajaran', jumat: 'olahraga' },
-  { senin: 'Buka Kelas', selasa: 'Upacara', rabu: 'Senam', kamis: 'pelajaran', jumat: 'olahraga' },
-  { senin: 'Buka Kelas', selasa: 'Upacara', rabu: 'Senam', kamis: 'pelajaran', jumat: 'olahraga' },
-  { senin: 'Buka Kelas', selasa: 'Upacara', rabu: 'Senam', kamis: 'pelajaran', jumat: 'olahraga' },
-  { senin: 'Buka Kelas', selasa: 'Upacara', rabu: 'Senam', kamis: 'pelajaran', jumat: 'olahraga' },
-  { senin: 'Buka Kelas', selasa: 'Upacara', rabu: 'Senam', kamis: 'pelajaran', jumat: 'olahraga' },
-  { senin: 'Buka Kelas', selasa: 'Upacara', rabu: 'Senam', kamis: 'pelajaran', jumat: 'olahraga' },
-  { senin: 'Buka Kelas', selasa: 'Upacara', rabu: 'Senam', kamis: 'pelajaran', jumat: 'olahraga' },
-  { senin: 'Buka Kelas', selasa: 'Upacara', rabu: 'Senam', kamis: 'pelajaran', jumat: 'olahraga' },
-  { senin: 'Buka Kelas', selasa: 'Upacara', rabu: 'Senam', kamis: 'pelajaran', jumat: 'olahraga' },
-  { senin: 'Buka Kelas', selasa: 'Upacara', rabu: 'Senam', kamis: 'pelajaran', jumat: 'olahraga' },
-  { senin: 'Buka Kelas', selasa: 'Upacara', rabu: 'Senam', kamis: 'pelajaran', jumat: 'olahraga' },
-  { senin: 'Buka Kelas', selasa: 'Upacara', rabu: 'Senam', kamis: 'pelajaran', jumat: 'olahraga' },
+  { senin: 'Buka Kelas, Sholat Dhuha', selasa: 'Apel , Buka Kelas', rabu: 'Upacara Buka Kelas', kamis: 'Buka Kelas, Sholat Dhuha', jumat: 'Buka Kelas, Sholat Dhuha' },
+  { senin: 'Tahsin, Tahfizh', selasa: 'Sholat dhuha', rabu: 'Sholat Dhuha', kamis: 'Tahsin Tahfizh', jumat: 'Tahsin, Tahfizh' },
+  { senin: 'Snacktime', selasa: 'Snacktime', rabu: 'Tahsin Tahfizh', kamis: 'Snacktime', jumat: 'Snacktime' },
+  { senin: 'Freeplay', selasa: 'Freeplay', rabu: 'Snacktime', kamis: 'Freeplay', jumat: 'Freeplay' },
+  { senin: 'Aktivitas 1', selasa: 'SASS', rabu: 'Freeplay', kamis: 'Aktivitas 1', jumat: 'Jumsih' },
+  { senin: 'ISHOMA', selasa: 'ISHOMA', rabu: 'Aktivitas 1', kamis: 'ISHOMA', jumat: 'ISHOMA' },
+  { senin: 'Aktivitas 2', selasa: 'Islamika', rabu: 'ISHOMA', kamis: 'Aktivitas 2', jumat: 'Tutup Kelas' },
+  { senin: 'Tutup Kelas', selasa: 'Tutup Kelas', rabu: 'Aktivitas 2', kamis: 'Tutup Kelas', jumat: 'Ekstrakulikuler' },
+  { senin: '', selasa: '', rabu: 'Tutup Kelas', kamis: '', jumat: '' },
+
 
 ]
 
 export default {
   setup() {
     return {
+      separator: ref('cell'),
       columns,
       rows
     }

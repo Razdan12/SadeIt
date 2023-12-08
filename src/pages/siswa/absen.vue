@@ -3,76 +3,37 @@
     <!-- <NavbarSiswa/> -->
     <div class="row">
       <div class="col-md-12">
-        <q-card class="text-center bg-blue-2" style="height: fit-content">
-          <q-card-section >
-            <div class="text-center">
+        <q-card class="text-center bg-blue-2">
+          <q-card-section>
+            <div class="text-center tw-mb-5">
               <p>
-                <span
-                  class="text-center text-black text-bold"
-                  style="font-size: x-large"
-                  >KEHADIRAN SISWA TAHUN 2023-2024</span
-                ><br />
-                <span
-                  class="text-center text-black text-bold"
-                  style="font-size: larger"
-                >
-                  BULAN OKTOBER 2023</span
-                >
+                <span class="text-center text-black text-bold" style="font-size: x-large">KEHADIRAN SISWA TAHUN
+                  2023-2024</span><br />
+                <span class="text-center text-black text-bold" style="font-size: larger">
+                  Bulan {{ currentmonth }}</span>
               </p>
             </div>
             <div>
-              <q-card>
-                <q-card-section style="padding-bottom: 8%;">
-                  <div class="subcontent">
-                    <navigation-bar
-                      @today="onToday"
-                      @prev="onPrev"
-                      @next="onNext"
-                      style="color: green"
-                      flat
-                    />
+              <q-card class="my-card tw-h-full flex tw-w-full ">
+                <q-card-section class=" tw-w-full">
+                  <div class="subcontent tw-w-full">
+                    <navigation-bar @today="onToday" @prev="onPrev" @next="onNext" style="color: green" flat />
 
                     <div class="row justify-center">
-                      <div
-                        style="display: max-width: 900px; width: 90%; height: 48vh;"
-                      >
-                        <q-calendar-month
-                          ref="calendar"
-                          v-model="selectedDate"
-                          animated
-                          bordered
-                          focusable
-                          hoverable
-                          no-active-date
-                          :day-min-height="80"
-                          :day-height="0"
-                          @change="onChange"
-                          @moved="onMoved"
-                          @click-date="onClickDate"
-                          @click-day="onClickDay"
-                          @click-workweek="onClickWorkweek"
-                          @click-head-workweek="onClickHeadWorkweek"
-                          @click-head-day="onClickHeadDay"
-                        >
+                      <div style="width: 90%;">
+                        <q-calendar-month ref="calendar" v-model="selectedDate" animated bordered focusable hoverable
+                          no-active-date :day-min-height="80" :day-height="0" @change="onChange" @moved="onMoved"
+                          @click-date="onClickDate" @click-day="onClickDay" @click-workweek="onClickWorkweek"
+                          @click-head-workweek="onClickHeadWorkweek" @click-head-day="onClickHeadDay">
                           <template #week="{ scope: { week, weekdays } }">
-                            <template
-                              v-for="(computedEvent, index) in getWeekEvents(
-                                week,
-                                weekdays
-                              )"
-                              :key="index"
-                            >
-                              <div
-                                :class="badgeClasses(computedEvent)"
-                                :style="badgeStyles(computedEvent, week.length)"
-                              >
-                                <div
-                                  v-if="
-                                    computedEvent.event &&
-                                    computedEvent.event.details
-                                  "
-                                  class="title q-calendar__ellipsis"
-                                >
+                            <template v-for="(computedEvent, index) in getWeekEvents(
+                                  week,
+                                  weekdays
+                                )" :key="index">
+                              <div :class="badgeClasses(computedEvent)" :style="badgeStyles(computedEvent, week.length)">
+                                <div v-if="computedEvent.event &&
+                                  computedEvent.event.details
+                                  " class="title q-calendar__ellipsis">
                                   {{
                                     computedEvent.event.title +
                                     (computedEvent.event.time
@@ -90,16 +51,16 @@
                       </div>
                     </div>
                   </div>
-                  
+
                 </q-card-section>
               </q-card>
             </div>
             <br />
             <div class="text-center">
-              <div class="row">
-                <div class="col-md-3 text-bold">
-                  <q-card style="width: 90%; height: 18vh">
-                    <q-card-section>
+              <div class="row flex">
+                <div class="col-md-3 col-12 text-bold tw-p-2">
+                  <q-card class="tw-h-52 flex justify-center items-center">
+                    <q-card-section class="tw-w-full">
                       <q-markup-table>
                         <tbody>
                           <tr>
@@ -119,8 +80,8 @@
                     </q-card-section>
                   </q-card>
                 </div>
-                <div class="col-md-9 text-bold">
-                  <q-card style="height: 18vh">
+                <div class="col-md-9 col-12 text-bold tw-p-2">
+                  <q-card class="tw-h-52">
                     <q-card-section>
                       <p class="text-left">rekapan hadir tepat waktu dan telat</p>
                     </q-card-section>
@@ -238,12 +199,21 @@ export default defineComponent({
           bgcolor: "yellow",
         },
       ],
-     
+      currentmonth: "",
+
     };
   },
-  
+  mounted() {
+    this.getCurrentDateTime();
+  },
+
   methods: {
-    
+    getCurrentDateTime() {
+      const now = new Date();
+      const options = { month: 'long', year: 'numeric' };
+      this.currentmonth = now.toLocaleDateString('id-ID', options);
+    },
+
     getWeekEvents(week, weekdays) {
       const firstDay = parsed(week[0].date + " 00:00");
       const lastDay = parsed(week[week.length - 1].date + " 23:59");

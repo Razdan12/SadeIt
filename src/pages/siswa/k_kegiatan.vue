@@ -3,7 +3,7 @@
    <!-- <NavbarSiswa/> -->
     <div class="row">
       <div class="col-md-12">
-        <q-card class="text-center bg-blue-2 flex tw-flex-col">
+        <div class="text-center bg-blue-2 flex tw-flex-col tw-min-h-screen">
 
           <q-card-section>
             <div class="text-center">
@@ -48,7 +48,7 @@
 
 
 
-        </q-card>
+        </div>
       </div>
     </div>
   </div>

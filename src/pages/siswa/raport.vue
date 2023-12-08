@@ -2,10 +2,10 @@
   <div class="container">
     <!-- <NavbarSiswa /> -->
     <div class="row">
-      <div class="col-md-12">
-        <q-card class="text-center bg-blue-2" style="height: 87vh">
+      <div class="col">
+        <div class="text-center bg-blue-2 tw-min-h-screen">
           <q-card-section>
-            <div class="text-center">
+            <div class="text-center tw-mb-10">
               <p>
                 <span
                   class="text-center text-black text-bold"
@@ -42,7 +42,7 @@
               </q-card>
             </div>
           </q-card-section>
-        </q-card>
+        </div>
       </div>
     </div>
   </div>

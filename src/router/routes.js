@@ -23,11 +23,7 @@ const routes = [
          component: () => import("pages/siswa/IndexPage.vue"),
          meta: { requiresAuth: true }
       },
-      {
-        path: "/siswa/jadwal",
-        component: () => import("pages/siswa/jadwal.vue"),
-        meta: { requiresAuth: true }
-      },
+    
       {
         path: "/siswa/raport",
         component: () => import("pages/siswa/raport.vue"),
@@ -88,35 +84,35 @@ const routes = [
       { 
         path: "/wali", 
         component: () => import("pages/wali/dashboard.vue"),
-         meta: { requiresAuth: true } 
+        
       },
       { 
         path: "/wali/absen", 
         component: () => import("pages/wali/absen.vue"),
-         meta: { requiresAuth: true } 
+        
       },
       {
         path: "/wali/raport",
         component: () => import("pages/wali/raport.vue"),
-         meta: { requiresAuth: true }
+       
       },
       {
         path: "/wali/billing",
         component: () => import("pages/wali/billing.vue"),
-         meta: { requiresAuth: true }
+      
       },
       {
         path: "/wali/kkegiatan",
         component: () => import("pages/wali/k_kegiatan.vue"),
-         meta: { requiresAuth: true }
+        
       },
       {
         path: "/wali/lkegiatan",
         component: () => import("pages/wali/l_kegiatan.vue"),
-         meta: { requiresAuth: true }
+        
       },
     ],
-    meta: { requiresAuth: true },
+  
   },
 
   // Always leave this as last one,

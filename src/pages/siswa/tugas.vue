@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <!-- <NavbarSiswa/> -->
-    <div class="row">
-      <div class="col-md-12">
-        <q-card class="text-center bg-blue-2" style="height: 87vh">
+    <div class="row ">
+      <div class="col">
+        <div class="text-center bg-blue-2 tw-max-w-1/2 tw-min-h-screen">
 
           <q-card-section>
             <div class="text-center">
@@ -201,7 +201,7 @@
             </q-card>
           </q-card-section>
 
-        </q-card>
+        </div>
       </div>
     </div>
   </div>

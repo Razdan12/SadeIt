@@ -7,24 +7,23 @@
         </div>
         <div class="col text-center flex justify-center tw-flex-col tw-gap-5">
           <div>
-
             <p class="text-bold text-blue-7" style="font-size: xx-large;">SISTEM INFORMASI AKADEMIK</p> <br>
           </div>
           <div class="tw-w-full flex justify-center">
 
             <img alt="Quasar logo" src="../assets/sade.png">
           </div>
-          <div class="tw-mt-5">
-            <q-btn class="q-mx-sm" color="light-blue-6" label="Login" style="width: 8vw;" to="/login" />
-            <q-btn class="q-mx-sm" color="light-blue-6" label="wabsite" style="width: 8vw;" type="a" target="_blank"
+          <div class="tw-mt-5 flex tw-w-full justify-center items-center">
+            <q-btn class="q-mx-sm" color="light-blue-6" label="Login"  to="/login" />
+            <q-btn class="q-mx-sm" color="light-blue-6" label="wabsite" type="a" target="_blank"
               href="https://sekolahalamdepok.sch.id" />
           </div>
         </div>
       </div>
-      <div class="q-mb-sm absolute-bottom-left">
-        <q-btn class="text-blue-1" flat color="light-blue-3" label="siswa" style="width: 8vw;" to="/siswa" />
-        <q-btn class="text-blue-1" flat color="light-blue-3" label="wali" style="width: 8vw;" to="/wali" />
-        <q-btn class="text-blue-1" flat color="light-blue-3" label="timbangan" style="width: 8vw;" to="/timbangan" />
+      <div class="q-mb-sm absolute-bottom-left flex tw-w-full justify-center items-center">
+        <q-btn class="text-blue-1" flat color="light-blue-3" label="siswa" to="/siswa" />
+        <q-btn class="text-blue-1" flat color="light-blue-3" label="wali" to="/wali" />
+        <q-btn class="text-blue-1" flat color="light-blue-3" label="timbangan"  to="/timbangan" />
       </div>
     </q-page>
   </div>

@@ -1,4 +1,6 @@
-import Vue from 'vue'
-import VuePlugin from 'ui' // "ui" is aliased in quasar.conf.js
+import Plugin from '@quasar/quasar-ui-qcalendar/src/QCalendarDay.js'
+import '@quasar/quasar-ui-qcalendar/src/css/calendar-day.sass'
+import App from '../App.vue'
 
-Vue.use(VuePlugin)
+const app = createApp(App)
+  .use(Plugin)

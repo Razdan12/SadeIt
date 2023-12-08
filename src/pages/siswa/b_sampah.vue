@@ -3,7 +3,7 @@
     <!-- <NavbarSiswa /> -->
     <div class="row">
       <div class="col-md-12">
-        <q-card class="text-center bg-blue-2" style="height: auto">
+        <div class="text-center bg-blue-2 tw-min-h-screen">
           <q-card-section>
             <div class="text-center">
               <p>
@@ -16,7 +16,7 @@
               <q-card-section>
                 <div class="row flex justify-center tw-gap-3">
                   <div class="col-md col-12">
-                    <q-card class="bg-light-green-1 tw-h-80" >
+                    <q-card class="bg-light-green-1 tw-h-80">
                       <q-card-section>
                         <p>
                           <span style="font-size: xx-large">History</span>
@@ -78,7 +78,7 @@
                     </q-card>
                   </div>
                   <div class="col-md col-12">
-                    <q-card class="bg-light-green-1 tw-h-80" >
+                    <q-card class="bg-light-green-1 tw-h-80">
                       <q-card-section>
                         <div class="row">
                           <div class="col-md-12 text-left flex justify-center">
@@ -161,7 +161,7 @@
               <div>
                 <div class="row flex justify-center tw-gap-3 tw-p-5">
                   <div class="col-md col-12 tw-min-h-80 ">
-                    <q-card class="bg-blue-1 tw-h-full" >
+                    <q-card class="bg-blue-1 tw-h-full">
                       <br />
                       <p class="text-bold text-blue" style="font-size: medium">
                         Senin
@@ -297,7 +297,7 @@
                   </div>
 
                   <div class="col-md col-12 tw-min-h-80">
-                    <q-card class="bg-yellow-1 tw-h-full" >
+                    <q-card class="bg-yellow-1 tw-h-full">
                       <br />
                       <p class="text-bold text-blue" style="font-size: medium">
                         Rabu
@@ -365,7 +365,7 @@
                   </div>
 
                   <div class="col-md col-12 tw-min-h-80">
-                    <q-card class="bg-green-1 tw-h-full" >
+                    <q-card class="bg-green-1 tw-h-full">
                       <br />
                       <p class="text-bold text-blue" style="font-size: medium">
                         Kamis
@@ -422,7 +422,7 @@
                   </div>
 
                   <div class="col-md col-12 tw-min-h-80">
-                    <q-card class="bg-purple-1 tw-h-full" >
+                    <q-card class="bg-purple-1 tw-h-full">
                       <br />
                       <p class="text-bold text-blue" style="font-size: medium">
                         Jumat
@@ -470,7 +470,7 @@
               </div>
             </q-card>
           </q-card-section>
-        </q-card>
+        </div>
       </div>
     </div>
   </div>
