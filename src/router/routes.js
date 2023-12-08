@@ -79,7 +79,7 @@ const routes = [
   },
   {
     path: "/wali",
-    component: () => import("layouts/WaliLayout.vue"),
+    component: () => import("layouts/LayoutWali.vue"),
     children: [
       { 
         path: "/wali", 
@@ -109,6 +109,11 @@ const routes = [
       {
         path: "/wali/lkegiatan",
         component: () => import("pages/wali/l_kegiatan.vue"),
+        
+      },
+      {
+        path: "/wali/cs",
+        component: () => import("pages/wali/customer_care.vue"),
         
       },
     ],

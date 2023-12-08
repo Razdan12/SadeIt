@@ -12,9 +12,7 @@
                 </div>
                 <div class="flex col-md col-12 text-left tw-my-10" style="height: auto">
                   <div class="tw-w-full flex ">
-
                     <div class=" tw-w-full flex tw-flex-col justify-center items-center">
-
                       <p class="text-center text-blue-6 text-bold" style="font-size: x-large">
                         SISTEM INFORMASI SEKOLAH <br />
                         <span class="text-blue-6" style="font-size: large">SEKOLAH ALAM DEPOK</span>
@@ -23,7 +21,6 @@
                         <q-img class="tw-w-32" src="../assets/lock2.png" />
                       </div>
                     </div>
-
                     <div class="flex tw-w-full justify-center items-center">
 
                       <div class="col flex justify-center">
@@ -35,14 +32,13 @@
                             </template>
                           </q-input>
 
-                          <q-input v-model="password" class="tw-w-full" bottom-slots filled type="password" label="Password"
-                            style="width: 70%">
+                          <q-input v-model="password" class="tw-w-full" bottom-slots filled type="password"
+                            label="Password" style="width: 70%">
                             <template v-slot:prepend>
                               <q-icon name="key" />
                             </template>
                           </q-input>
-                          <q-btn type="submit"  color="blue-grey-6" glossy label="Login"
-                            style="width: 70%" />
+                          <q-btn type="submit" color="blue-grey-6" glossy label="Login" style="width: 70%" />
                         </q-form>
                       </div>
 
@@ -52,7 +48,6 @@
               </div>
             </q-card-section>
           </q-card>
-
         </div>
 
       </div>
@@ -76,8 +71,9 @@ export default {
         const response = await this.$api.post("/auth/login", loginData);
         const status = response.data.code
         const token = response.data.tokens.refresh.token
+        const role = response.data.data.role_id
 
-        status === 200 ? this.$router.push("/siswa") : ""
+        status === 200 ? role === 7 ? this.$router.push("/siswa") : role === 8 ? this.$router.push("/wali") : "" : ""
         sessionStorage.setItem("token", token)
 
       } catch (error) {

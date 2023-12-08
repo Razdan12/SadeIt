@@ -24,7 +24,7 @@
                 </div>
             </div>
             <q-list padding class="menu-list">
-                <q-item class="text-blue-4"  clickable v-ripple to="/siswa">
+                <q-item class="text-blue-4" clickable v-ripple to="/wali">
                     <q-item-section avatar>
                         <q-icon name="dashboard" style="font-size: 2rem" />
                     </q-item-section>
@@ -33,68 +33,36 @@
                         Dashboard
                     </q-item-section>
                 </q-item>
-
-                <q-item to="/siswa/bsampah" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
-                    <q-item-section avatar>
-                        <q-icon name="recycling" style="font-size: 2rem" />
-                    </q-item-section>
-
-                    <q-item-section class="text-bold" style="font-size: 1rem">
-                        Bank Sampah
-                    </q-item-section>
-                </q-item>
-
-                <q-item to="/siswa/kkegiatan" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
+                <q-item to="/wali/kkegiatan" class="text-blue-4" active-class="text-orange" clickable v-ripple>
                     <q-item-section avatar>
                         <q-icon name="event_available" style="font-size: 2rem" />
                     </q-item-section>
 
                     <q-item-section class="text-bold" style="font-size: 1rem">
-                        Kalender Kegiatan Semester
+                        Kalender Kegiatan
                     </q-item-section>
                 </q-item>
-
-                <q-item to="/siswa/jkegiatan" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
-                    <q-item-section avatar>
-                        <q-icon name="calendar_month" style="font-size: 2rem" />
-                    </q-item-section>
-
-                    <q-item-section class="text-bold" style="font-size: 1rem">
-                        Jadwal Kegiatan
-                    </q-item-section>
-                </q-item>
-
-                <q-item to="/siswa/pbuku" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
-                    <q-item-section avatar>
-                        <q-icon name="auto_stories" style="font-size: 2rem" />
-                    </q-item-section>
-
-                    <q-item-section class="text-bold" style="font-size: 1rem">
-                        Peminjaman Buku
-                    </q-item-section>
-                </q-item>
-
-                <q-item to="/siswa/absen" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
+                <q-item to="/wali/absen" class="text-blue-4" active-class="text-orange" clickable v-ripple>
                     <q-item-section avatar>
                         <q-icon name="update" style="font-size: 2rem" />
                     </q-item-section>
 
                     <q-item-section class="text-bold" style="font-size: 1rem">
-                        Absensi
+                        Abesnsi
                     </q-item-section>
                 </q-item>
 
-                <q-item to="/siswa/tugas" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
+                <q-item to="/wali/lkegiatan" class="text-blue-4" active-class="text-orange" clickable v-ripple>
                     <q-item-section avatar>
                         <q-icon name="assignment_add" style="font-size: 2rem" />
                     </q-item-section>
 
                     <q-item-section class="text-bold" style="font-size: 1rem">
-                        Tugas
+                        Laporan Program dan Kegiatan
                     </q-item-section>
                 </q-item>
 
-                <q-item to="/siswa/raport" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
+                <q-item to="/wali/raport" class="text-blue-4" active-class="text-orange" clickable v-ripple>
                     <q-item-section avatar>
                         <q-icon name="summarize" style="font-size: 2rem" />
                     </q-item-section>
@@ -104,7 +72,17 @@
                     </q-item-section>
                 </q-item>
 
-                <q-item to="/siswa/cs" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
+                <q-item to="/wali/billing" class="text-blue-4" active-class="text-orange" clickable v-ripple>
+                    <q-item-section avatar>
+                        <q-icon name="account_balance_wallet" style="font-size: 2rem" />
+                    </q-item-section>
+
+                    <q-item-section class="text-bold" style="font-size: 1rem">
+                        Billing Info
+                    </q-item-section>
+                </q-item>
+
+                <q-item to="/wali/cs" class="text-blue-4" active-class="text-orange" clickable v-ripple>
                     <q-item-section avatar>
                         <q-icon name="headset_mic" style="font-size: 2rem" />
                     </q-item-section>
