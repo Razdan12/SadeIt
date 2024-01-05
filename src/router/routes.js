@@ -12,6 +12,14 @@ const routes = [
         path: "/login", 
         component: () => import("pages/login.vue") 
       },
+      { 
+        path: "/registrasi", 
+        component: () => import("pages/registrasi.vue") 
+      },
+      { 
+        path: "/search-siswa", 
+        component: () => import("pages/SearchSiswa.vue") 
+      },
     ],
   },
   {

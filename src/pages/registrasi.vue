@@ -24,13 +24,20 @@
                     <div class="flex tw-w-full justify-center items-center">
 
                       <div class="col flex justify-center">
-                        <q-form @submit.prevent="loginUser" class="tw-w-full flex justify-center">
-                          <q-input v-model="email" class="text-center " bottom-slots filled type="text"
-                            label="Username/Email" style="width: 70%">
+                        <q-form @submit.prevent="registerUser" class="tw-w-full flex justify-center">
+                          <q-input v-model="name" class="text-center " bottom-slots filled type="text"
+                            label="Nama Lengkap" style="width: 70%">
+                            <template v-slot:prepend>
+                              <q-icon name="people" />
+                            </template>
+                          </q-input>
+                          <q-input v-model="email" class="text-center " bottom-slots filled type="text" label="Email"
+                            style="width: 70%">
                             <template v-slot:prepend>
                               <q-icon name="email" />
                             </template>
                           </q-input>
+                          
 
                           <q-input v-model="password" class="tw-w-full" bottom-slots filled type="password"
                             label="Password" style="width: 70%">
@@ -38,11 +45,23 @@
                               <q-icon name="key" />
                             </template>
                           </q-input>
-                          <q-btn type="submit" color="blue-grey-6" glossy label="Login" style="width: 70%" />
+                          <q-input v-model="rePassword" class="tw-w-full" bottom-slots filled type="password"
+                            label="konfirmasi Password" style="width: 70%">
+                            <template v-slot:prepend>
+                              <q-icon name="key" />
+                            </template>
+                          </q-input>
+                          <q-select v-model="model" :options="options" class="tw-w-full" filled label="Register Sebagai" style="width: 70%; margin-bottom: 20px;">
+                            <template v-slot:prepend>
+                              <q-icon name="people" />
+                            </template>
+                          </q-select>
+                          
+                          <q-btn type="submit" color="blue-grey-6" glossy label="Register" style="width: 70%" />
                         </q-form>
                         <div class="tw-mt-5 flex justify-center items-center">
-                          <p>Belum Punya akun?</p>
-                          <q-btn flat style="color: #00ccff" label="Registrasi" to="/registrasi"/>
+                          <p>Sudah Punya akun?</p>
+                          <q-btn flat style="color: #00ccff" label="Login" to="/login" />
                         </div>
                       </div>
                     </div>
@@ -60,42 +79,51 @@
 
 <script>
 import Swal from 'sweetalert2'
-
+import { ref } from 'vue'
 
 export default {
 
   methods: {
-    async loginUser() {
-      const loginData = {
+    async registerUser() {
+     
+      const registerData = {
+        full_name: this.name,  
         email: this.email,
         password: this.password,
-      };
-      try {
-        const response = await this.$api.post("/auth/login", loginData);
-        const status = response.data.code
-        const token = response.data.tokens.refresh.token
-        const role = response.data.data.role_id
+        confirm_password: this.rePassword,
+        role_id : this.model === 'Orang Tua' ? 8 : 7,
 
-        status === 200 ? role === 7 ? this.$router.push("/siswa") : role === 8 ? this.$router.push("/wali") : "" : ""
+      };
+     
+      try {
+        const response = await this.$api.post("/auth/register", registerData);
+        const token = response.data.tokens.access.token
         sessionStorage.setItem("token", token)
+        this.$router.push("/search-siswa")
+       
 
       } catch (error) {
+        console.log(error);
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "Email atau Password salah!",
+          text: "Registrasi Gagal, Silakan ulangi beberapa saat lagi",
 
         });
-      } finally {
-
       }
     },
   },
 
   data() {
     return {
+      name: "",
       email: "",
       password: "",
+      rePassword: "",
+      model: ref(null),
+      options: [
+        'Orang Tua', 'Siswa'
+      ]
     };
   },
 };
