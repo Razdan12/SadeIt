@@ -37,8 +37,6 @@
                               <q-icon name="email" />
                             </template>
                           </q-input>
-                          
-
                           <q-input v-model="password" class="tw-w-full" bottom-slots filled type="password"
                             label="Password" style="width: 70%">
                             <template v-slot:prepend>
@@ -98,7 +96,12 @@ export default {
       try {
         const response = await this.$api.post("/auth/register", registerData);
         const token = response.data.tokens.access.token
+        const idUser = response.data.data.id
+        const role = response.data.data.role_id
+
+        sessionStorage.setItem("idUser", idUser)
         sessionStorage.setItem("token", token)
+        sessionStorage.setItem("role", role)
         this.$router.push("/search-siswa")
        
 

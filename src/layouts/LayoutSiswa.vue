@@ -178,22 +178,6 @@ export default {
                 }
             });
 
-            //   try {
-            //     const token = sessionStorage.getItem("token"); // Ganti dengan token akses Anda
-            //     const response = await this.$api.post(
-            //       "/auth/logout",
-            //       {},
-            //       {
-            //         headers: { Authorization: `Bearer ${token}` },
-            //       }
-            //     );
-            //     this.$router.push("/login");
-            //     sessionStorage.removeItem("token");
-            //   } catch (error) {
-            //     console.log(error);
-            //     sessionStorage.removeItem("token");
-            //     this.$router.push("/login");
-            //   }
         },
     },
 

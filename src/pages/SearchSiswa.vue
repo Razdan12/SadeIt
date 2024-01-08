@@ -25,7 +25,7 @@
                         </div>
                         <div class="tw-flex justify-center tw-items-center tw-flex-col tw-gap-5">
 
-                            <q-markup-table class="tw-w-5/6" >
+                            <q-markup-table class="tw-w-5/6">
                                 <thead>
                                     <tr>
                                         <th class="text-left">Nomor Induk Siswa</th>
@@ -61,9 +61,10 @@
                                     </tr>
                                 </thead>
                             </q-markup-table>
-                            <q-btn  v-if="siswa" type="submit" color="green-6" glossy label="Simpan Siswa" style="width: 20%" />
+                            <q-btn v-if="siswa" @click="userAccess" :disable="btn" type="submit" color="green-6" glossy
+                                label="Tautkan Siswa" />
                         </div>
-                    
+
                     </div>
                 </div>
 
@@ -111,6 +112,58 @@ export default {
                 });
             }
         },
+
+        userAccess() {
+            Swal.fire({
+                title: "Are you sure?",
+                text: `Tautkan akun anda dengan ${this.siswa?.full_name}?`,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Tautkan Sekarang"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.linkUser()
+                }
+            });
+
+        },
+
+        async linkUser() {
+            try {
+                this.btn = true
+                const token = sessionStorage.getItem("token")
+                const role = sessionStorage.getItem("role")
+                const data = {
+                    user_id: sessionStorage.getItem("idUser"),
+                    student_id: this.siswa.id
+                }
+                const response = await this.$api.post(`/user-access/create`, data, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                if (response.data) {
+                    Swal.fire({
+                        title: "Success!",
+                        text: `akun anda telah tertaut dengan siswa ${this.siswa?.full_name}`,
+                        icon: "success"
+                    });
+                    if (role == 7) {
+                        this.$router.push("/siswa")
+                    }
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Gagal menautkan siswa, silakan coba beberapa saat lagi",
+                });
+            } finally {
+                this.btn = false
+            }
+        }
     },
 
     data() {
@@ -119,6 +172,7 @@ export default {
             nis: ref(null),
             siswa: ref(null),
             date: ref(null),
+            btn: ref(false)
         };
     },
 };

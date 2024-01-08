@@ -20,6 +20,10 @@ const routes = [
         path: "/search-siswa", 
         component: () => import("pages/SearchSiswa.vue") 
       },
+      { 
+        path: "/verifikasi", 
+        component: () => import("pages/verifEmail.vue") 
+      },
     ],
   },
   {
