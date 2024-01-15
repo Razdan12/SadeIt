@@ -19,32 +19,32 @@
                   <div class="col-md col-12">
                     <div class="tw-p-2">
 
-                      <q-card >
+                      <q-card>
                         <q-card-section>
                           <p><span style="font-size: xx-large">History</span></p>
                           <div class="row flex justify-center items-center">
                             <div class="col-md-5">
-                             
+
                               <q-img src="../../assets/book/book.png" class="tw-w-1/2" />
                             </div>
-                           
+
                             <div class="col text-left">
-                             
+
                               <q-markup-table flat>
                                 <tbody class="text-bold text-blue">
                                   <tr>
                                     <td class="text-left">Wajib</td>
-                                    <td class="text-right" >3</td>
+                                    <td class="text-right">3</td>
                                   </tr>
                                   <tr>
                                     <td class="text-left">Pilihan</td>
                                     <td class="text-right">1</td>
                                   </tr>
                                   <tr>
-                                    <td class="text-left" >Target</td>
+                                    <td class="text-left">Target</td>
                                     <td class="text-right">10</td>
                                   </tr>
-  
+
                                 </tbody>
                               </q-markup-table>
                             </div>
@@ -61,56 +61,60 @@
                           <p class="text-center text-bold text-h6 text-blue-grey-8">Rekomendasi Buku</p>
                           <div>
                             <q-carousel v-model="slide" transition-prev="scale" transition-next="scale" swipeable animated
-                              control-color="black"  arrows height="18vh">
+                              control-color="black" arrows height="18vh">
+
                               <q-carousel-slide name="style">
                                 <div class="tw-w-full">
                                   <div class=" flex tw-flex-wrap justify-between">
                                     <div class="tw-w-1/2">
-                                      <q-img src="../../assets/book/1.jpg" class="tw-w-24"/>
+                                      <q-img src="../../assets/book/1.jpg" class="tw-w-24" />
                                     </div>
                                     <div class="tw-w-1/2 text-left">
-                                      <p class="q-pl-md">Judul Buku : <span class="text-indigo">Reach For The Sky</span></p>
+                                      <p class="q-pl-md">Judul Buku : <span class="text-indigo">Reach For The Sky</span>
+                                      </p>
                                       <p class="q-pl-md">Pengarang : <span class="text-indigo">unknow</span></p>
                                       <p class="q-pl-md">Penerbit : <span class="text-indigo">pt.gramedia</span></p>
                                     </div>
 
                                   </div>
                                 </div>
-                                
+
                               </q-carousel-slide>
                               <q-carousel-slide name="book">
                                 <div class="tw-w-full">
                                   <div class=" flex tw-flex-wrap justify-between">
                                     <div class="tw-w-1/2">
-                                      <q-img src="../../assets/book/1.jpg" class="tw-w-24"/>
+                                      <q-img src="../../assets/book/1.jpg" class="tw-w-24" />
                                     </div>
                                     <div class="tw-w-1/2 text-left">
-                                      <p class="q-pl-md">Judul Buku : <span class="text-indigo">Reach For The Sky</span></p>
+                                      <p class="q-pl-md">Judul Buku : <span class="text-indigo">Reach For The Sky</span>
+                                      </p>
                                       <p class="q-pl-md">Pengarang : <span class="text-indigo">unknow</span></p>
                                       <p class="q-pl-md">Penerbit : <span class="text-indigo">pt.gramedia</span></p>
                                     </div>
 
                                   </div>
                                 </div>
-                                
+
                               </q-carousel-slide>
                               <q-carousel-slide name="name">
                                 <div class="tw-w-full">
                                   <div class=" flex tw-flex-wrap justify-between">
                                     <div class="tw-w-1/2">
-                                      <q-img src="../../assets/book/1.jpg" class="tw-w-24"/>
+                                      <q-img src="../../assets/book/1.jpg" class="tw-w-24" />
                                     </div>
                                     <div class="tw-w-1/2 text-left">
-                                      <p class="q-pl-md">Judul Buku : <span class="text-indigo">Reach For The Sky</span></p>
+                                      <p class="q-pl-md">Judul Buku : <span class="text-indigo">Reach For The Sky</span>
+                                      </p>
                                       <p class="q-pl-md">Pengarang : <span class="text-indigo">unknow</span></p>
                                       <p class="q-pl-md">Penerbit : <span class="text-indigo">pt.gramedia</span></p>
                                     </div>
 
                                   </div>
                                 </div>
-                                
+
                               </q-carousel-slide>
-                              
+
                             </q-carousel>
                           </div>
                         </q-card-section>
@@ -122,7 +126,8 @@
               </q-card-section>
               <q-card-section>
                 <q-card class="bg-blue-grey-4 text-white text-bold">
-                  <p>13 Oktober 2023 buku dengan judul <span class="text-amber-12"> Reach For The Sky</span> telah dikembalikan</p>
+                  <p>13 Oktober 2023 buku dengan judul <span class="text-amber-12"> Reach For The Sky</span> telah
+                    dikembalikan</p>
                 </q-card>
               </q-card-section>
               <q-card-section>
@@ -131,8 +136,8 @@
 
                     <div class="text-center">
                       <div class="text-h6 text-blue">BUKU WAJIB</div>
-                      
-                      <q-markup-table class="tw-h-96 tw-mt-5" >
+
+                      <q-markup-table class="tw-h-96 tw-mt-5">
                         <thead>
                           <tr>
                             <th class="text-left">Judul Buku</th>
@@ -174,7 +179,7 @@
 
                     <div class="text-center">
                       <div class="text-h6 text-blue">BUKU PILIHAN</div>
-                    
+
                       <q-markup-table class="tw-h-96 tw-mt-5">
                         <thead>
                           <tr>
@@ -197,7 +202,7 @@
                             <td class="text-center">13 Oktober 2023</td>
                             <td class="text-center text-green">Kembali</td>
                           </tr>
-  
+
                         </tbody>
                       </q-markup-table>
                     </div>
@@ -207,8 +212,6 @@
               </q-card-section>
             </q-card>
           </q-card-section>
-
-
 
         </div>
       </div>
@@ -221,7 +224,7 @@ import { ref } from 'vue'
 import NavbarService from '../../components/siswa/HederSiswa.vue'
 
 export default {
-  components : {
+  components: {
     NavbarService
 
   },

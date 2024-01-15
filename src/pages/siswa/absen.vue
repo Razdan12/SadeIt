@@ -138,8 +138,8 @@ export default defineComponent({
           id: 1,
           title: "Hadir",
           details: "Hadir",
-          start: getCurrentDay(2),
-          end: getCurrentDay(2),
+          start: getCurrentDay(25),
+          end: getCurrentDay(25),
           bgcolor: "green",
         },
         {

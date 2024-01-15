@@ -38,7 +38,7 @@
                               <q-icon name="key" />
                             </template>
                           </q-input>
-                          <q-btn type="submit" color="blue-grey-6" glossy label="Login" style="width: 70%" />
+                          <q-btn type="submit" color="blue-grey-6" glossy label="Login" :disable="submit" style="width: 70%" />
                         </q-form>
                         <div class="tw-mt-5 flex justify-center items-center">
                           <p>Belum Punya akun?</p>
@@ -71,10 +71,13 @@ export default {
         password: this.password,
       };
       try {
+        this.submit = true
         const response = await this.$api.post("/auth/login", loginData);
         const status = response.data.code
-        const token = response.data.tokens.refresh.token
+        const token = response.data.tokens.access.token
         const role = response.data.data.role_id
+        const id = response.data.data.id
+        sessionStorage.setItem("id", id)
 
         status === 200 ? role === 7 ? this.$router.push("/siswa") : role === 8 ? this.$router.push("/wali") : "" : ""
         sessionStorage.setItem("token", token)
@@ -84,10 +87,9 @@ export default {
           icon: "error",
           title: "Oops...",
           text: "Email atau Password salah!",
-
         });
       } finally {
-
+        this.submit = false
       }
     },
   },
@@ -96,6 +98,7 @@ export default {
     return {
       email: "",
       password: "",
+      submit: false
     };
   },
 };

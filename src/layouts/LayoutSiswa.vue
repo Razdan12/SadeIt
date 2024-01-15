@@ -12,25 +12,89 @@
         </q-header>
 
         <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
-            <div class="flex q-pl-md" style="margin-top: 10px;flex-direction: row;">
+            <div class="flex q-pl-md tw-cursor-pointer" style="margin-top: 10px;flex-direction: row;" @click="directProfil">
                 <q-avatar class="" size="60px">
-                    <img src="../assets/sarrah.png" />
+                    <img src="https://t4.ftcdn.net/jpg/01/24/65/69/360_F_124656969_x3y8YVzvrqFZyv3YLWNo6PJaC88SYxqM.jpg" />
                 </q-avatar>
-
                 <div class="q-pl-md">
-                    <div class="text-bold text-left">
-                        <p>Sarrah Aditya Nareswari <br />120002312 <br />Kelas 3 D</p>
+                    <div class=" text-left">
+                        <p class="text-bold">{{ nama }}</p>
+                        <p>{{ nis }}</p>
+                        <p> kelas {{ kelas }}</p>
                     </div>
                 </div>
             </div>
             <q-list padding class="menu-list">
-                <q-item class="text-blue-4"  clickable v-ripple to="/siswa">
+                <q-item class="text-blue-4" clickable v-ripple to="/siswa">
                     <q-item-section avatar>
                         <q-icon name="dashboard" style="font-size: 2rem" />
                     </q-item-section>
 
                     <q-item-section class="text-bold" style="font-size: 1rem">
                         Dashboard
+                    </q-item-section>
+                </q-item>
+                <q-item to="/siswa/absen" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
+                    <q-item-section avatar>
+                        <q-icon name="update" style="font-size: 2rem" />
+                    </q-item-section>
+
+                    <q-item-section class="text-bold" style="font-size: 1rem">
+                        Presensi
+                    </q-item-section>
+                </q-item>
+                <q-item to="/siswa/kkegiatan" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
+                    <q-item-section avatar>
+                        <q-icon name="event_available" style="font-size: 2rem" />
+                    </q-item-section>
+
+                    <q-item-section class="text-bold" style="font-size: 1rem">
+                        Kalender Kegiatan Semester
+                    </q-item-section>
+                </q-item>
+                <q-item to="/siswa/jkegiatan" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
+                    <q-item-section avatar>
+                        <q-icon name="calendar_month" style="font-size: 2rem" />
+                    </q-item-section>
+
+                    <q-item-section class="text-bold" style="font-size: 1rem">
+                        Jadwal Kegiatan
+                    </q-item-section>
+                </q-item>
+                <q-item to="/siswa/tugas" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
+                    <q-item-section avatar>
+                        <q-icon name="assignment_add" style="font-size: 2rem" />
+                    </q-item-section>
+
+                    <q-item-section class="text-bold" style="font-size: 1rem">
+                        Tugas
+                    </q-item-section>
+                </q-item>
+                <q-item to="/siswa/pbuku" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
+                    <q-item-section avatar>
+                        <q-icon name="auto_stories" style="font-size: 2rem" />
+                    </q-item-section>
+
+                    <q-item-section class="text-bold" style="font-size: 1rem">
+                        Peminjaman Buku
+                    </q-item-section>
+                </q-item>
+                <q-item to="/siswa/ekstra" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
+                    <q-item-section avatar>
+                        <q-icon name="home" style="font-size: 2rem" />
+                    </q-item-section>
+
+                    <q-item-section class="text-bold" style="font-size: 1rem">
+                        Ekstrakulikuler
+                    </q-item-section>
+                </q-item>
+                <q-item to="/siswa/raport" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
+                    <q-item-section avatar>
+                        <q-icon name="summarize" style="font-size: 2rem" />
+                    </q-item-section>
+
+                    <q-item-section class="text-bold" style="font-size: 1rem">
+                        Raport Digital
                     </q-item-section>
                 </q-item>
 
@@ -43,67 +107,15 @@
                         Bank Sampah
                     </q-item-section>
                 </q-item>
-
-                <q-item to="/siswa/kkegiatan" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
+                <q-item to="/siswa/abk" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
                     <q-item-section avatar>
-                        <q-icon name="event_available" style="font-size: 2rem" />
+                        <q-icon name="person" style="font-size: 2rem" />
                     </q-item-section>
 
                     <q-item-section class="text-bold" style="font-size: 1rem">
-                        Kalender Kegiatan Semester
+                        ABK
                     </q-item-section>
                 </q-item>
-
-                <q-item to="/siswa/jkegiatan" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
-                    <q-item-section avatar>
-                        <q-icon name="calendar_month" style="font-size: 2rem" />
-                    </q-item-section>
-
-                    <q-item-section class="text-bold" style="font-size: 1rem">
-                        Jadwal Kegiatan
-                    </q-item-section>
-                </q-item>
-
-                <q-item to="/siswa/pbuku" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
-                    <q-item-section avatar>
-                        <q-icon name="auto_stories" style="font-size: 2rem" />
-                    </q-item-section>
-
-                    <q-item-section class="text-bold" style="font-size: 1rem">
-                        Peminjaman Buku
-                    </q-item-section>
-                </q-item>
-
-                <q-item to="/siswa/absen" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
-                    <q-item-section avatar>
-                        <q-icon name="update" style="font-size: 2rem" />
-                    </q-item-section>
-
-                    <q-item-section class="text-bold" style="font-size: 1rem">
-                        Absensi
-                    </q-item-section>
-                </q-item>
-
-                <q-item to="/siswa/tugas" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
-                    <q-item-section avatar>
-                        <q-icon name="assignment_add" style="font-size: 2rem" />
-                    </q-item-section>
-
-                    <q-item-section class="text-bold" style="font-size: 1rem">
-                        Tugas
-                    </q-item-section>
-                </q-item>
-
-                <q-item to="/siswa/raport" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
-                    <q-item-section avatar>
-                        <q-icon name="summarize" style="font-size: 2rem" />
-                    </q-item-section>
-
-                    <q-item-section class="text-bold" style="font-size: 1rem">
-                        Raport Digital
-                    </q-item-section>
-                </q-item>
-
                 <q-item to="/siswa/cs" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
                     <q-item-section avatar>
                         <q-icon name="headset_mic" style="font-size: 2rem" />
@@ -144,6 +156,9 @@ export default {
         return {
             currentDate: "",
             currentTime: "",
+            nama: ref(""),
+            nis: ref(""),
+            kelas: ref("")
         };
     },
 
@@ -152,6 +167,9 @@ export default {
         setInterval(() => {
             this.getCurrentDateTime();
         }, 60000);
+
+        this.getDataSiswa()
+        // getDataSiswa();
     },
 
     methods: {
@@ -179,6 +197,28 @@ export default {
             });
 
         },
+
+        async getDataSiswa() {
+            const idUser = sessionStorage.getItem("id")
+            const token = sessionStorage.getItem("token")
+            try {
+
+                const response = await this.$api.get(`/user-access/show-by-user/${idUser}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                this.nama = response.data.data[0].student.full_name
+                this.nis = response.data.data[0].student.nis
+                this.kelas = response.data.data[0].student.class
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        directProfil(){
+            this.$router.push("/siswa/profil")
+        }
     },
 
 

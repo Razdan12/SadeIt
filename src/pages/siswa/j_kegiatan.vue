@@ -59,7 +59,7 @@ const columns = [
   { name: 'selasa', label: 'Selasa', field: 'selasa', align: 'center' },
   { name: 'rabu', label: 'Rabu', field: 'rabu', align: 'center' },
   { name: 'kamis', label: 'Kamis', field: 'kamis', align: 'center' },
-  { name: 'jumat', label: 'Jum\'at', field: 'jumat', align: 'center' },
+  { name: 'jumat', label: 'Jumat', field: 'jumat', align: 'center' },
 
 ]
 

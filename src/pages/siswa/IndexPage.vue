@@ -14,7 +14,7 @@
                 <q-card class="bg-green-1 tw-w-full tw-h-80">
                   <q-card-section>
                     <div class="row flex tw-flex-col justify-center items-center">
-                      <p><span style="font-size: xx-large">Absensi</span></p>
+                      <p><span style="font-size: xx-large">Presensi</span></p>
                       <div class="row flex justify-center items-center tw-w-full">
 
                         <div class="img">
@@ -110,15 +110,17 @@
                     </P>
 
                     <div class="text-justify" style="width: 95%">
-                      <p>
-                        Bertani atau berkebun ini juga merupakan salah satu
-                        contoh pendidikan lingkungan hidup. Kegiatan ini
-                        memiliki tujuan untuk mencintai lingkungan dan bisa
-                        menghargai alam. <br />Kegiatannya bisa dilakukan
-                        semacam menanam bunga di halaman sekolah misalnya.
-                        Atau membersihkan sampah yang ada di sekitar sekolah
-                        sehingga lingkungan nampak bersih dan asri.
-                      </p>
+                      <q-scroll-area style="height: 20vh" class="q-pa-sm">
+                        <p>
+                          Bertani atau berkebun ini juga merupakan salah satu
+                          contoh pendidikan lingkungan hidup. Kegiatan ini
+                          memiliki tujuan untuk mencintai lingkungan dan bisa
+                          menghargai alam. <br />Kegiatannya bisa dilakukan
+                          semacam menanam bunga di halaman sekolah misalnya.
+                          Atau membersihkan sampah yang ada di sekitar sekolah
+                          sehingga lingkungan nampak bersih dan asri.
+                        </p>
+                      </q-scroll-area>
                     </div>
                   </q-card-section>
                 </q-card>

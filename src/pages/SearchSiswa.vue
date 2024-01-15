@@ -79,7 +79,7 @@ import { ref } from 'vue'
 
 export default {
 
-    methods: {
+    methods: {   
         async searchSiswa() {
             const nisSiswa = this.nis
             const token = sessionStorage.getItem("token")

@@ -76,6 +76,11 @@ const routes = [
         component: () => import("pages/siswa/customer_care.vue"),
          meta: { requiresAuth: true }
       },
+      {
+        path: "/siswa/profil",
+        component: () => import("pages/siswa/profil.vue"),
+         meta: { requiresAuth: true }
+      },
     ],
    
   },
