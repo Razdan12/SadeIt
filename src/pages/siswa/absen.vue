@@ -65,15 +65,15 @@
                         <tbody>
                           <tr>
                             <td class="text-left">Izin</td>
-                            <td class="text-right">3</td>
+                            <td class="text-right">{{totalPresensi.izin}}</td>
                           </tr>
                           <tr>
                             <td class="text-left">Sakit</td>
-                            <td class="text-right">1</td>
+                            <td class="text-right">{{totalPresensi.sakit}}</td>
                           </tr>
                           <tr>
                             <td class="text-left">Alfa</td>
-                            <td class="text-right">-</td>
+                            <td class="text-right">{{totalPresensi.alfa}}</td>
                           </tr>
                         </tbody>
                       </q-markup-table>
@@ -86,6 +86,7 @@
                       <p class="text-left">rekapan hadir tepat waktu dan telat</p>
                     </q-card-section>
                   </q-card>
+
                 </div>
               </div>
             </div>
@@ -110,7 +111,7 @@ import "@quasar/quasar-ui-qcalendar/src/QCalendarVariables.sass";
 import "@quasar/quasar-ui-qcalendar/src/QCalendarTransitions.sass";
 import "@quasar/quasar-ui-qcalendar/src/QCalendarMonth.sass";
 
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import NavigationBar from "../../components/NavigationBar.vue";
 import NavbarSiswa from "../../components/siswa/HederSiswa.vue"
 
@@ -133,85 +134,34 @@ export default defineComponent({
   data() {
     return {
       selectedDate: today(),
-      events: [
-        {
-          id: 1,
-          title: "Hadir",
-          details: "Hadir",
-          start: getCurrentDay(25),
-          end: getCurrentDay(25),
-          bgcolor: "green",
-        },
-        {
-          id: 2,
-          title: "Hadir",
-          details: "Hadir",
-          start: getCurrentDay(3),
-          end: getCurrentDay(3),
-          bgcolor: "green",
-        },
-        {
-          id: 3,
-          title: "Hadir",
-          details: "Hadir",
-          start: getCurrentDay(4),
-          end: getCurrentDay(4),
-          bgcolor: "green",
-        },
-        {
-          id: 4,
-          title: "Sakit",
-          details: "Sakit",
-          start: getCurrentDay(5),
-          end: getCurrentDay(5),
-          bgcolor: "blue",
-        },
-        {
-          id: 5,
-          title: "Hadir",
-          details: "Hadir",
-          start: getCurrentDay(6),
-          end: getCurrentDay(6),
-          bgcolor: "green",
-        },
-        {
-          id: 6,
-          title: "Hadir",
-          details: "Hadir",
-          start: getCurrentDay(9),
-          end: getCurrentDay(9),
-          bgcolor: "green",
-        },
-        {
-          id: 7,
-          title: "Hadir",
-          details: "Hadir",
-          start: getCurrentDay(10),
-          end: getCurrentDay(10),
-          bgcolor: "green",
-        },
-        {
-          id: 8,
-          title: "Izin",
-          details: "Izin",
-          start: getCurrentDay(11),
-          end: getCurrentDay(13),
-          bgcolor: "yellow",
-        },
-      ],
-      currentmonth: "",
-
+      events: ref([]),
+      currentmonth: ref(''),
+      year: ref(''),
+      month: ref(''),
+      totalPresensi: ref('-')
     };
   },
   mounted() {
     this.getCurrentDateTime();
+    this.getPresensi();
   },
+  watch: {
+    year(newVal) {
+      this.getPresensi();
+    },
+    month(newVal) {
+      this.getPresensi();
+    }
 
+  },
   methods: {
+
     getCurrentDateTime() {
       const now = new Date();
       const options = { month: 'long', year: 'numeric' };
       this.currentmonth = now.toLocaleDateString('id-ID', options);
+      this.year = now.getFullYear()
+      this.month = now.getMonth() + 1
     },
 
     getWeekEvents(week, weekdays) {
@@ -329,7 +279,12 @@ export default defineComponent({
       this.$refs.calendar.next();
     },
     onMoved(data) {
-      console.log("onMoved", data);
+      const tanggalBaru = new Date(data.date)
+      this.year = tanggalBaru.getFullYear()
+      this.month = tanggalBaru.getMonth() + 1
+      const options = { month: 'long', year: 'numeric' };
+      this.currentmonth = tanggalBaru.toLocaleDateString('id-ID', options);
+      this.getPresensi()
     },
     onChange(data) {
       console.log("onChange", data);
@@ -349,6 +304,60 @@ export default defineComponent({
     onClickHeadWorkweek(data) {
       console.log("onClickHeadWorkweek", data);
     },
+
+    async getPresensi() {
+      try {
+        const token = sessionStorage.getItem('token')
+        const idSiswa = sessionStorage.getItem('idSiswa')
+        const response = await this.$api.get(`student-attendance/show-by-student-month/${idSiswa}?year=${this.year}&month=${this.month}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const data = response.data.data
+        console.log(data);
+        const dataPresensi = await Promise.all(
+          data.map((Item, index) => {
+            const date = new Date(Item.att_date)
+
+            if (date.getMonth() + 1 != this.month) {
+              return null
+            } else {
+              const rest = {
+                id: index,
+                title: Item.status,
+                details: Item.status,
+                start: getCurrentDay(date.getDate()),
+                end: getCurrentDay(date.getDate()),
+                bgcolor: Item.status === 'Hadir' ? "green" : Item.status === 'Izin' ? 'yellow' : Item.status === 'Sakit' ? 'blue': 'red',
+              }
+              return rest
+            }
+          })
+        );
+
+        this.events = dataPresensi
+        this.getTotalPresensi(dataPresensi)
+
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async getTotalPresensi(data) {
+      let counts = data.reduce((acc, item) => {
+        if (item.title === 'Sakit') {
+          acc.sakit++;
+        } else if (item.title === 'Izin') {
+          acc.izin++;
+        } else if (item.title === 'Alfa') {
+          acc.alfa++;
+        }
+        return acc;
+      }, { sakit: 0, izin: 0, alfa: 0 });
+
+      this.totalPresensi = counts
+    }
   },
 });
 </script>

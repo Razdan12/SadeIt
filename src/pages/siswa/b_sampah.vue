@@ -160,312 +160,9 @@
 
               <div>
                 <div class="row flex justify-center tw-gap-3 tw-p-5">
-                  <div class="col-md col-12 tw-min-h-80 ">
-                    <q-card class="bg-blue-1 tw-h-full">
-                      <br />
-                      <p class="text-bold text-blue" style="font-size: medium">
-                        Senin
-                      </p>
-                      <q-markup-table style="height: 25vh">
-                        <tbody class="text-bold text-blue bg-blue-1">
-                          <tr>
-                            <td class="text-left" style="font-size: smaller">
-                              Botol Plastik Bening
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Gelas Plastik Bening
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Gelas Plastik warna
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Tutup Botol
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Compact Disk
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Compact Disk
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Compact Disk
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                        </tbody>
-                      </q-markup-table>
-                    </q-card>
-                  </div>
-
-                  <div class="col-md col-12 tw-min-h-80">
-                    <q-card class="bg-pink-1 tw-h-full">
-                      <br />
-                      <p class="text-bold text-blue" style="font-size: medium">
-                        Selasa
-                      </p>
-                      <q-markup-table>
-                        <tbody class="text-bold text-blue bg-pink-1">
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Toples Kristal
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Plastik Mika
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Bahan Plastik
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                        </tbody>
-                      </q-markup-table>
-                    </q-card>
-                  </div>
-
-                  <div class="col-md col-12 tw-min-h-80">
-                    <q-card class="bg-yellow-1 tw-h-full">
-                      <br />
-                      <p class="text-bold text-blue" style="font-size: medium">
-                        Rabu
-                      </p>
-                      <q-markup-table style="height: 25vh">
-                        <tbody class="text-bold text-blue bg-yellow-1">
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Kertas Bekas
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Kertas Duplek
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Majalah & Buku
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Kardus
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Koran
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                        </tbody>
-                      </q-markup-table>
-                    </q-card>
-                  </div>
-
-                  <div class="col-md col-12 tw-min-h-80">
-                    <q-card class="bg-green-1 tw-h-full">
-                      <br />
-                      <p class="text-bold text-blue" style="font-size: medium">
-                        Kamis
-                      </p>
-                      <q-markup-table>
-                        <tbody class="text-bold text-blue bg-green-1">
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Besii Dan Baja
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Kaleng
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Botol kaca Bening
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Botol kaca Warna
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                        </tbody>
-                      </q-markup-table>
-                    </q-card>
-                  </div>
-
-                  <div class="col-md col-12 tw-min-h-80">
-                    <q-card class="bg-purple-1 tw-h-full">
-                      <br />
-                      <p class="text-bold text-blue" style="font-size: medium">
-                        Jumat
-                      </p>
-                      <q-markup-table>
-                        <tbody class="text-bold text-blue bg-purple-1">
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Karung
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Minyak Jelantah
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-left" style="font-size: small">
-                              Barang Bekas <br />Berkualitas
-                            </td>
-                            <td class="text-right" style="font-size: small">
-                              0.5
-                            </td>
-                            <td class="text-left text-red" style="font-size: smaller">
-                              Kg
-                            </td>
-                          </tr>
-                        </tbody>
-                      </q-markup-table>
-                    </q-card>
-                  </div>
+                  <div>
+    <canvas id="myChart"></canvas>
+  </div>
                 </div>
               </div>
             </q-card>
@@ -477,25 +174,51 @@
 </template>
 
 <script>
-import { ref } from "vue";
-import NavbarSiswa from "../../components/siswa/HederSiswa.vue";
+import { Chart } from 'chart.js';
+import { ref, onMounted } from 'vue';
 
 export default {
-  components: {
-    NavbarSiswa,
-  },
-
   setup() {
-    return {
-      tab: ref("mails"),
-      innerTab: ref("innerMails"),
-      small: ref(false),
-      medium: ref(false),
-      splitterModel: ref(20),
-      shape: ref(),
-      shape2: ref(),
-      model: ref(null),
-    };
-  },
+    const chart = ref(null);
+
+    onMounted(() => {
+      const data = [
+        { venue: "sen", count1: 24, count2: 32 },
+        { venue: "sel", count1: 25, count2: 32 },
+        { venue: "rab", count1: 21, count2: 12 },
+        { venue: "kam", count1: 40, count2: 12 },
+        { venue: "jum", count1: 32, count2: 34 },
+      ];
+
+      chart.value = new Chart(document.getElementById('myChart'), {
+        type: 'bar',
+        data: {
+          labels: data.map(item => item.venue),
+          datasets: [{
+            label: 'Count 1',
+            data: data.map(item => item.count1),
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }, {
+            label: 'Count 2',
+            data: data.map(item => item.count2),
+            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+            borderColor: 'rgba(153, 102, 255, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    });
+
+    return { chart };
+  }
 };
 </script>
