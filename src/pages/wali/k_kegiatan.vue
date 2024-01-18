@@ -1,27 +1,26 @@
 <template>
   <div class="container">
-   <!-- <NavbarSiswa/> -->
     <div class="row">
       <div class="col-md-12">
-        <div class="text-center bg-blue-2 flex tw-flex-col tw-min-h-screen">
+        <q-card class="text-center bg-blue-2" style="height: 87vh">
 
           <q-card-section>
             <div class="text-center">
               <p>
                 <span class="text-center text-black text-bold" style="font-size: x-large">KALENDER KEGIATAN TAHUN 2023-2024</span><br>
-                <span class="text-center text-black text-bold" style="font-size: x-large"> BULAN OKTOBER 2023</span>
+                <span class="text-center text-black text-bold" style="font-size: x-large"> BULAN {{ new Date().toLocaleString('en-US', { month: 'long' }).toUpperCase() }} {{ new Date().getFullYear() }}</span>
 
               </p>
             </div>
           </q-card-section>
           <q-card-section>
-            <q-card class="my-card tw-h-full flex tw-w-full ">
-              <q-card-section class=" tw-w-full">
-                <div class="subcontent tw-h-full">
+            <q-card class="my-card">
+              <q-card-section>
+                <div class="subcontent">
                   <navigation-bar @today="onToday" @prev="onPrev" @next="onNext" style="color: green;" flat />
 
                   <div class="row justify-center">
-                    <div style=" width: 90%; ">
+                    <div style="display: max-width: 900px; width: 90%; height: 60vh;">
                       <q-calendar-month ref="calendar" v-model="selectedDate" animated bordered focusable hoverable locale="id"
                         no-active-date :day-min-height="80" :day-height="0" @change="onChange" @moved="onMoved"
                         @click-date="onClickDate" @click-day="onClickDay" @click-workweek="onClickWorkweek"
@@ -48,7 +47,7 @@
 
 
 
-        </div>
+        </q-card>
       </div>
     </div>
   </div>
@@ -70,7 +69,6 @@ import '@quasar/quasar-ui-qcalendar/src/QCalendarMonth.sass'
 
 import { defineComponent } from 'vue'
 import NavigationBar from '../../components/NavigationBar.vue'
-import NavbarSiswa from '../../components/siswa/HederSiswa.vue'
 
 // The function below is used to set up our demo data
 const CURRENT_DAY = new Date()
@@ -85,8 +83,7 @@ export default defineComponent({
   name: 'MonthSlotWeek',
   components: {
     NavigationBar,
-    QCalendarMonth,
-    NavbarSiswa
+    QCalendarMonth
   },
   data() {
     return {
@@ -182,15 +179,10 @@ export default defineComponent({
           bgcolor: 'blue'
         },
 
-      ],
-
+      ]
     }
   },
-
-
   methods: {
-
-
     getWeekEvents(week, weekdays) {
       const firstDay = parsed(week[0].date + ' 00:00')
       const lastDay = parsed(week[week.length - 1].date + ' 23:59')

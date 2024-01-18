@@ -4,25 +4,25 @@ const routes = [
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
     children: [
-      { 
-        path: "", 
-        component: () => import("pages/IndexPage.vue") 
+      {
+        path: "",
+        component: () => import("pages/IndexPage.vue")
       },
-      { 
-        path: "/login", 
-        component: () => import("pages/login.vue") 
+      {
+        path: "/login",
+        component: () => import("pages/login.vue")
       },
-      { 
-        path: "/registrasi", 
-        component: () => import("pages/registrasi.vue") 
+      {
+        path: "/registrasi",
+        component: () => import("pages/registrasi.vue")
       },
-      { 
-        path: "/search-siswa", 
-        component: () => import("pages/SearchSiswa.vue") 
+      {
+        path: "/search-siswa",
+        component: () => import("pages/SearchSiswa.vue")
       },
-      { 
-        path: "/verifikasi", 
-        component: () => import("pages/verifEmail.vue") 
+      {
+        path: "/verifikasi",
+        component: () => import("pages/verifEmail.vue")
       },
     ],
   },
@@ -31,11 +31,11 @@ const routes = [
     component: () => import("layouts/LayoutSiswa.vue"),
     children: [
       {
-         path: "/siswa", 
+         path: "/siswa",
          component: () => import("pages/siswa/IndexPage.vue"),
          meta: { requiresAuth: true }
       },
-    
+
       {
         path: "/siswa/raport",
         component: () => import("pages/siswa/raport.vue"),
@@ -82,7 +82,7 @@ const routes = [
          meta: { requiresAuth: true }
       },
     ],
-   
+
   },
   {
     path: "/timbangan",
@@ -98,43 +98,53 @@ const routes = [
     path: "/wali",
     component: () => import("layouts/LayoutWali.vue"),
     children: [
-      { 
-        path: "/wali", 
+      {
+        path: "/wali",
         component: () => import("pages/wali/dashboard.vue"),
-        
+
       },
-      { 
-        path: "/wali/absen", 
+      {
+        path: "/wali/absen",
         component: () => import("pages/wali/absen.vue"),
-        
+
       },
       {
         path: "/wali/raport",
         component: () => import("pages/wali/raport.vue"),
-       
+
       },
       {
         path: "/wali/billing",
         component: () => import("pages/wali/billing.vue"),
-      
+
       },
       {
         path: "/wali/kkegiatan",
         component: () => import("pages/wali/k_kegiatan.vue"),
-        
+
       },
       {
         path: "/wali/lkegiatan",
         component: () => import("pages/wali/l_kegiatan.vue"),
-        
+
+      },
+      {
+        path: "/wali/country",
+        component: () => import("pages/wali/country.vue"),
+
+      },
+      {
+        path: "/wali/ppekanan",
+        component: () => import("pages/wali/p_pekanan.vue"),
+
       },
       {
         path: "/wali/cs",
         component: () => import("pages/wali/customer_care.vue"),
-        
+
       },
     ],
-  
+
   },
 
   // Always leave this as last one,
