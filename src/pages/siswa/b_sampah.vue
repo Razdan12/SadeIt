@@ -33,7 +33,7 @@
                                     Hari ini
                                   </td>
                                   <td class="text-right" style="font-size: larger">
-                                    2
+                                    {{Math.round(rekapSampah[0]?.today)}}
                                   </td>
                                   <td class="text-left text-red" style="font-size: small">
                                     Kg
@@ -44,7 +44,7 @@
                                     Bulan ini
                                   </td>
                                   <td class="text-right" style="font-size: larger">
-                                    4
+                                    {{Math.round(rekapSampah[0]?.this_month)}}
                                   </td>
                                   <td class="text-left text-red" style="font-size: small">
                                     Kg
@@ -60,19 +60,18 @@
                   <div class="col-md col-12 text center">
                     <q-card class=" tw-h-80">
                       <q-card-section>
-                        <div class="text-center">
+                        <div class="text-center flex tw-flex-col tw-justify-center items-center">
                           <p class="text-bold" style="font-size: x-large">
                             Target dan Capaian
                           </p>
                           <p class="text-blue-4 text-bold" style="font-size: larger">
                             Capaian bulan lalu 15 Kg
                           </p>
-                          <q-separator class="q-my-lg" color="orange" inset />
-                          <p class="text-bold" style="font-size: large">
-                            Target <br />
-
-                            <q-img src="../../assets/target.png" style="width: 55%" />
-                          </p>
+                        
+                         <p class="tw-mt-5 tw-text-xl tw-font-bold">Target</p>
+                          <div id="chart" class="tw-w-full">
+                            <apexchart type="radialBar" :options="chartOptions1" :series="series1"></apexchart>
+                          </div>
                         </div>
                       </q-card-section>
                     </q-card>
@@ -93,7 +92,7 @@
                                     Senin
                                   </td>
                                   <td class="text-right" style="font-size: small">
-                                    2
+                                    {{rekapMinggu[0]?.weight}}
                                   </td>
                                   <td class="text-left text-red" style="font-size: smaller">
                                     Kg
@@ -104,7 +103,7 @@
                                     Selasa
                                   </td>
                                   <td class="text-right" style="font-size: small">
-                                    3
+                                    {{rekapMinggu[1]?.weight}}
                                   </td>
                                   <td class="text-left text-red" style="font-size: smaller">
                                     Kg
@@ -115,7 +114,7 @@
                                     Rabu
                                   </td>
                                   <td class="text-right" style="font-size: small">
-                                    2
+                                    {{rekapMinggu[2]?.weight}}
                                   </td>
                                   <td class="text-left text-red" style="font-size: smaller">
                                     Kg
@@ -126,7 +125,7 @@
                                     Kamis
                                   </td>
                                   <td class="text-right" style="font-size: small">
-                                    1
+                                    {{rekapMinggu[3]?.weight}}
                                   </td>
                                   <td class="text-left text-red" style="font-size: smaller">
                                     Kg
@@ -137,7 +136,7 @@
                                     Jumat
                                   </td>
                                   <td class="text-right" style="font-size: small">
-                                    5
+                                    {{rekapMinggu[4]?.weight}}
                                   </td>
                                   <td class="text-left text-red" style="font-size: smaller">
                                     Kg
@@ -159,11 +158,10 @@
               </p>
 
               <div>
-                <div class="row flex justify-center tw-gap-3 tw-p-5">
-                  <div>
-    <canvas id="myChart"></canvas>
-  </div>
+                <div id="chart">
+                  <apexchart type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
                 </div>
+
               </div>
             </q-card>
           </q-card-section>
@@ -174,51 +172,168 @@
 </template>
 
 <script>
-import { Chart } from 'chart.js';
-import { ref, onMounted } from 'vue';
-
+import { ref } from "vue";
 export default {
-  setup() {
-    const chart = ref(null);
-
-    onMounted(() => {
-      const data = [
-        { venue: "sen", count1: 24, count2: 32 },
-        { venue: "sel", count1: 25, count2: 32 },
-        { venue: "rab", count1: 21, count2: 12 },
-        { venue: "kam", count1: 40, count2: 12 },
-        { venue: "jum", count1: 32, count2: 34 },
-      ];
-
-      chart.value = new Chart(document.getElementById('myChart'), {
-        type: 'bar',
-        data: {
-          labels: data.map(item => item.venue),
-          datasets: [{
-            label: 'Count 1',
-            data: data.map(item => item.count1),
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1
-          }, {
-            label: 'Count 2',
-            data: data.map(item => item.count2),
-            backgroundColor: 'rgba(153, 102, 255, 0.2)',
-            borderColor: 'rgba(153, 102, 255, 1)',
-            borderWidth: 1
-          }]
+  name: 'chartBar',
+  data() {
+    return {
+      series: [
+        {
+          name: 'senin',
+          data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
         },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
+        {
+          name: 'selasa',
+          data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+        },
+        {
+          name: 'rabu',
+          data: [35, 41, 36, 26, 45, 48, 52, 53, 24]
+        },
+        {
+          name: 'kamis',
+          data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+        },
+        {
+          name: 'Jumat',
+          data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+        }
+      ],
+      chartOptions: {
+        chart: {
+          type: 'bar',
+          height: 350
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '55%',
+            endingShape: 'rounded'
+          },
+        },
+        dataLabels: {
+          enabled: true
+        },
+        stroke: {
+          show: true,
+          width: 1,
+          colors: ['transparent']
+        },
+        xaxis: {
+          categories: ['plastik', 'kertas', 'kantong', 'karung', 'daun', 'sampah 1', 'sampah 2', 'sampah 5', 'sampah 6'],
+        },
+        yaxis: {
+          title: {
+            text: 'g (gram)'
+          }
+        },
+        fill: {
+          opacity: 1
+        },
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return val + " Gram"
             }
           }
         }
-      });
-    });
+      },
 
-    return { chart };
-  }
-};
+      series1: [90],
+      chartOptions1: {
+        chart: {
+          type: 'radialBar',
+          offsetY: -20,
+          sparkline: {
+            enabled: true
+          }
+        },
+        plotOptions: {
+          radialBar: {
+            startAngle: -90,
+            endAngle: 90,
+            track: {
+              background: "#e7e7e7",
+              strokeWidth: '97%',
+              margin: 5, // margin is in pixels
+              dropShadow: {
+                enabled: true,
+                top: 2,
+                left: 0,
+                color: '#999',
+                opacity: 1,
+                blur: 2
+              }
+            },
+            dataLabels: {
+              name: {
+                show: false
+              },
+              value: {
+                offsetY: -2,
+                fontSize: '22px'
+              }
+            }
+          }
+        },
+        grid: {
+          padding: {
+            top: -10
+          }
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'light',
+            shadeIntensity: 0.4,
+            inverseColors: false,
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [0, 50, 53, 91]
+          },
+        },
+        labels: ['Average Results'],
+      },
+
+      token: ref(sessionStorage.getItem("token")),
+      idSiswa: ref(sessionStorage.getItem("idSiswa")),
+      rekapMinggu: ref([]),
+      rekapSampah: ref([]),
+    }
+
+  },
+  methods: {
+    async getRekapSampah() {
+     try {
+      const response = await this.$api.get(`waste-collection/collection-week-by-student/${this.idSiswa}`, {
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
+        });
+
+        this.rekapMinggu = response.data.data
+     } catch (error) {
+      
+     }
+    },
+    async getRekapSampahbulan() {
+     try {
+      const response = await this.$api.get(`waste-collection/show-recap-history/${this.idSiswa}`, {
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
+        });
+        console.log(response.data.data);
+        this.rekapSampah = response.data.data
+     } catch (error) {
+      
+     }
+    },
+  },
+  mounted() {
+   this.getRekapSampah()
+   this.getRekapSampahbulan()
+  },
+
+}
 </script>
