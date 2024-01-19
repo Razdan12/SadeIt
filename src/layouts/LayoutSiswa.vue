@@ -208,17 +208,18 @@ export default {
                         'Authorization': `Bearer ${token}`
                     }
                 });
-
+               
                 this.nama = response.data.data[0].student.full_name
                 this.nis = response.data.data[0].student.nis
                 this.kelas = response.data.data[0].student.class
                 const id = response.data.data[0].student.id
                 sessionStorage.setItem('idSiswa', id)
+                
             } catch (error) {
                 console.log(error);
             }
         },
-        directProfil(){
+        directProfil() {
             this.$router.push("/siswa/profil")
         }
     },

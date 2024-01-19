@@ -9,11 +9,10 @@
                         <p class="text-h4 text-bold">Verifikasi Email</p>
                         <q-separator style="width: 100%; margin-top: 10px; margin-bottom: 20px;" color="blue" />
                         <p class="text-h6 text-center">
-                            {{`Tautan verifikasi akun telah dikirimkan ke alamat Email ${email} silakan cek email anda, periksa juga folder spam apabila email tidak muncul di home`}}
+                            {{`Akun anda ${status} di verifikasi, Silakang ${status == 'gagal' ? 'Hubungi Admin Sekolah Alam Depok' : 'Login untuk mengakses akun anda'}`}} 
                         </p>
-                       
                         <div style="margin-top: 5%;">
-                            <q-btn color="primary" label="Back to home" to="/"/>
+                            <q-btn color="primary" label="Login" to="/login" :disable="status == 'gagal'"/>
                         </div>
                        
                     </div>
@@ -30,9 +29,26 @@ export default {
   
   setup() {
     return {
-     email : ref(sessionStorage.getItem("email"))
+     id : ref(window.location.href.split("/")[4]),
+     status: ref('berhasil')
     }
   },
+  methods: {
+    async VerifEmail() {
+        try {
+            const response = await this.$api.post(`auth/verify-email/${this.id}`,);
+            if(response){
+                this.status = 'berhasil'
+            }
+        } catch (error) {
+            console.log(error);
+            this.status = 'gagal'
+        }
+    },
+},
+mounted() {
+    this.VerifEmail()
+}
 
 }
 </script>

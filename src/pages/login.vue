@@ -38,11 +38,12 @@
                               <q-icon name="key" />
                             </template>
                           </q-input>
-                          <q-btn type="submit" color="blue-grey-6" glossy label="Login" :disable="submit" style="width: 70%" />
+                          <q-btn type="submit" color="blue-grey-6" glossy label="Login" :disable="submit"
+                            style="width: 70%" />
                         </q-form>
                         <div class="tw-mt-5 flex justify-center items-center">
                           <p>Belum Punya akun?</p>
-                          <q-btn flat style="color: #00ccff" label="Registrasi" to="/registrasi"/>
+                          <q-btn flat style="color: #00ccff" label="Registrasi" to="/registrasi" />
                         </div>
                       </div>
                     </div>
@@ -73,16 +74,32 @@ export default {
       try {
         this.submit = true
         const response = await this.$api.post("/auth/login", loginData);
-        const status = response.data.code
-        const token = response.data.tokens.access.token
-        const role = response.data.data.role_id
+        const verif = response.data.data.email_verified
         const id = response.data.data.id
+
         sessionStorage.setItem("id", id)
 
-        status === 200 ? role === 7 ? this.$router.push("/siswa") : role === 8 ? this.$router.push("/wali") : "" : ""
-        sessionStorage.setItem("token", token)
+        if (verif == 1) {
+
+          const token = response.data.tokens.access.token
+          const role = response.data.data.role_id
+          sessionStorage.setItem("token", token)
+          sessionStorage.setItem("idUser", id)
+          sessionStorage.setItem("role", role)
+
+          const data = {
+            id,
+            token,
+            role
+          }
+          this.getUserAccess(data)
+
+        } else {
+          this.$router.push("/verifikasi")
+        }
 
       } catch (error) {
+
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -90,6 +107,29 @@ export default {
         });
       } finally {
         this.submit = false
+      }
+    },
+
+    async getUserAccess(data) {
+      const idCust = data.id
+      const token = data.token
+      const role = data.role
+      try {
+
+        const response = await this.$api.get(`/user-access/show-by-user/${idCust}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const data = response.data.data
+
+        if (data.length === 0) {
+          this.$router.push("/search-siswa")
+        } else {
+          role === 7 ? this.$router.push("/siswa") : role === 8 ? this.$router.push("/wali") : ""
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
   },

@@ -98,11 +98,14 @@ export default {
         const token = response.data.tokens.access.token
         const idUser = response.data.data.id
         const role = response.data.data.role_id
+        const email = response.data.data.email
 
         sessionStorage.setItem("idUser", idUser)
         sessionStorage.setItem("token", token)
         sessionStorage.setItem("role", role)
-        this.$router.push("/search-siswa")
+        sessionStorage.setItem("email", email )
+        
+        this.$router.push("/verifikasi")
        
 
       } catch (error) {
