@@ -135,8 +135,9 @@ export default {
                 this.btn = true
                 const token = sessionStorage.getItem("token")
                 const role = sessionStorage.getItem("role")
+                const idUser = sessionStorage.getItem("idUser")
                 const data = {
-                    user_id: sessionStorage.getItem("idUser"),
+                    user_id: parseInt(idUser),
                     student_id: this.siswa.id
                 }
                 const response = await this.$api.post(`/user-access/create`, data, {
@@ -152,9 +153,12 @@ export default {
                     });
                     if (role == 7) {
                         this.$router.push("/siswa")
+                    } else if (role == 8){
+                        this.$router.push("/wali") 
                     }
                 }
             } catch (error) {
+                console.log(error);
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",

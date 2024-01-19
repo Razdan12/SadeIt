@@ -24,6 +24,10 @@ const routes = [
         path: "/verifikasi",
         component: () => import("pages/verifEmail.vue")
       },
+      {
+        path: "/verifikasi/:id",
+        component: () => import("pages/verifEmailBerhasil.vue")
+      },
     ],
   },
   {
