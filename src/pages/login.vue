@@ -77,21 +77,20 @@ export default {
         const verif = response.data.data.email_verified
         const id = response.data.data.id
 
-        sessionStorage.setItem("id", id)
-
         if (verif == 1) {
 
           const token = response.data.tokens.access.token
           const role = response.data.data.role_id
           sessionStorage.setItem("token", token)
-          sessionStorage.setItem("idUser", id)
           sessionStorage.setItem("role", role)
+          sessionStorage.setItem("idUser", id)
 
           const data = {
             id,
             token,
             role
           }
+          
           this.getUserAccess(data)
 
         } else {

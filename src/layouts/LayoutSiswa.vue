@@ -169,7 +169,7 @@ export default {
         }, 60000);
 
         this.getDataSiswa()
-        // getDataSiswa();
+
     },
 
     methods: {
@@ -180,6 +180,7 @@ export default {
             this.currentDate = formattedDate;
             this.currentTime = formattedTime;
         },
+        
         async logOut() {
             Swal.fire({
                 title: "Log out?",
@@ -195,14 +196,12 @@ export default {
                     this.$router.push("/");
                 }
             });
-
         },
 
         async getDataSiswa() {
-            const idUser = sessionStorage.getItem("id")
+            const idUser = sessionStorage.getItem("idUser")
             const token = sessionStorage.getItem("token")
             try {
-
                 const response = await this.$api.get(`/user-access/show-by-user/${idUser}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
