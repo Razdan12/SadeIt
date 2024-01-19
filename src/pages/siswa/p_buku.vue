@@ -131,88 +131,172 @@
                 </q-card>
               </q-card-section>
               <q-card-section>
-                <div class="row">
-                  <div class="col-md col-12 tw-p-2">
+                <div class="col-md col-12 tw-p-2">
 
-                    <div class="text-center">
-                      <div class="text-h6 text-blue">BUKU WAJIB</div>
+                  <div class="text-center">
+                    <div class="text-h6 text-blue">DAFTAR BUKU</div>
 
-                      <q-markup-table class="tw-h-96 tw-mt-5">
-                        <thead>
-                          <tr>
-                            <th class="text-left">Judul Buku</th>
-                            <th class="text-center">cover</th>
-                            <th class="text-center">Tanggal pinjam</th>
-                            <th class="text-center">Tanggal kembali</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td class="text-left">Matematika 3 </td>
-                            <td class="text-center">
-                              <q-img src="../../assets/book/matematika3.png" />
-                            </td>
-                            <td class="text-center">1 Juli 2023</td>
-                            <td class="text-center">30 Desember 2023</td>
-                          </tr>
-                          <tr>
-                            <td class="text-left">IPA 3 </td>
-                            <td class="text-center">
-                              <q-img src="../../assets/book/ipa3.jpg" />
-                            </td>
-                            <td class="text-center">1 Juli 2023</td>
-                            <td class="text-center">30 Desember 2023</td>
-                          </tr>
-                          <tr>
-                            <td class="text-left">IPS 3 </td>
-                            <td class="text-center">
-                              <q-img src="../../assets/book/ips3.jpg" />
-                            </td>
-                            <td class="text-center">1 Juli 2023</td>
-                            <td class="text-center">30 Desember 2023</td>
-                          </tr>
-                        </tbody>
-                      </q-markup-table>
-                    </div>
-                  </div>
-                  <div class="col-md col-12 tw-p-2">
-
-                    <div class="text-center">
-                      <div class="text-h6 text-blue">BUKU PILIHAN</div>
-
-                      <q-markup-table class="tw-h-96 tw-mt-5">
-                        <thead>
-                          <tr>
-                            <th class="text-left">Judul Buku</th>
-                            <th class="text-center">cover</th>
-                            <th class="text-center">Katagori</th>
-                            <th class="text-center">Tanggal pinjam</th>
-                            <th class="text-center">Tanggal kembali</th>
-                            <th class="text-center">Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
+                    <q-markup-table class="tw-h-96 tw-mt-5">
+                      <thead>
+                        <tr>
+                          <th class="text-left">Judul Buku</th>
+                          <th class="text-left">Kategori</th>
+                          <th class="text-center">cover</th>
+                          <th class="text-center">Tanggal pinjam</th>
+                          <th class="text-center">Batas Pengembalian</th>
+                          <th class="text-center">Tanggal kembali</th>
+                          <th class="text-center">Rating</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="text-left">Matematika 3 </td>
+                          <td class="text-left">Wajib</td>
+                          <td class="text-center">
+                            <q-img src="../../assets/book/matematika3.png" />
+                          </td>
+                          <td class="text-center">1 Juli 2023</td>
+                          <td class="text-center">30 Desember 2023</td>
+                          <td class="text-center">30 Desember 2023</td>
+                          <td class="text-center" @click="medium = true" style="cursor: pointer;">
+                            <div class="flex justify-center items-center">
+                              <q-icon name="grade" size="1.5rem" color="orange" />
+                              <p class="text-h6">
+                                4.5
+                              </p>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
                             <td class="text-left">Reach For The Sky </td>
+                            <td class="text-left">Pilihan</td>
                             <td class="text-center">
                               <q-img src="../../assets/book/1.jpg" />
                             </td>
-                            <td class="text-center">Non Fiksi</td>
-                            <td class="text-center">10 Oktober 2023</td>
-                            <td class="text-center">13 Oktober 2023</td>
-                            <td class="text-center text-green">Kembali</td>
+                            <td class="text-center">1 Juli 2023</td>
+                            <td class="text-center">30 Desember 2023</td>
+                            <td class="text-center">30 Desember 2023</td>
+                            <td class="text-center" @click="medium = true" style="cursor: pointer;">
+                              <div class="flex justify-center items-center">
+                                <q-icon name="grade" size="1.5rem" color="orange" />
+                                <p class="text-h6">
+                                  4.5
+                                </p>
+                              </div>
+                            </td>
                           </tr>
 
-                        </tbody>
-                      </q-markup-table>
-                    </div>
+                      </tbody>
+                    </q-markup-table>
                   </div>
-
                 </div>
               </q-card-section>
             </q-card>
           </q-card-section>
 
+          <q-dialog v-model="medium">
+            <q-card style="width: 700px; max-width: 80vw; max-height: 700px;">
+              <q-card-section class="">
+                <div class="text-h4 text-bold q-pl-md">150 Review</div>
+                <div class="flex items-center q-pl-md">
+                  <p class="text-h4 text-bold">2.5</p>
+                  <q-rating v-model="ratingWajib" max="5" size="2em" color="orange" icon="star_border"
+                    icon-selected="star" icon-half="star_half" no-dimming readonly />
+                </div>
+              </q-card-section>
+
+              <q-card-section class="q-pt-none flex justify-center items-center">
+                <div style="width: 100%; margin-left: 20px; margin-right: 20px;">
+                  <p>Masukan Rating</p>
+                  <q-rating v-model="ratingWajib" max="5" size="2em" color="orange" icon="star_border"
+                    icon-selected="star" icon-half="star_half" no-dimming />
+                  <q-input outlined bottom-slots v-model="text" label="Label" counter maxlength="100" :dense="dense">
+                    <template v-slot:after>
+                      <q-btn round dense flat icon="send" />
+                    </template>
+                  </q-input>
+                </div>
+                <q-separator style="width: 100%; margin-top: 10px; margin-bottom: 20px;" color="orange" />
+                <div style="margin: 20px;">
+                  <p class="text-h5">Semua Rating</p>
+                </div>
+                <div style="width: 95%; border-radius: 10px; box-shadow: 3px 2px 6px rgb(65, 65, 65); margin: 5px;"
+                  class="q-pa-md">
+                  <div>
+                    <q-rating v-model="ratingWajib" max="5" size="2em" color="orange" icon="star_border"
+                      icon-selected="star" icon-half="star_half" no-dimming readonly />
+                    <p class="text-bold text-h6">Salman Diwan</p>
+                    <p class="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam,
+                      architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo.</p>
+                  </div>
+                </div>
+                <div style="width: 95%; border-radius: 10px; box-shadow: 3px 2px 6px rgb(65, 65, 65); margin: 5px;"
+                  class="q-pa-md">
+                  <div>
+                    <q-rating v-model="ratingWajib" max="5" size="2em" color="orange" icon="star_border"
+                      icon-selected="star" icon-half="star_half" no-dimming readonly />
+                    <p class="text-bold text-h6">Salman Diwan</p>
+                    <p class="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam,
+                      architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo.</p>
+                  </div>
+                </div>
+                <div style="width: 95%; border-radius: 10px; box-shadow: 3px 2px 6px rgb(65, 65, 65); margin: 5px;"
+                  class="q-pa-md">
+                  <div>
+                    <q-rating v-model="ratingWajib" max="5" size="2em" color="orange" icon="star_border"
+                      icon-selected="star" icon-half="star_half" no-dimming readonly />
+                    <p class="text-bold text-h6">Salman Diwan</p>
+                    <p class="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam,
+                      architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo.</p>
+                  </div>
+                </div>
+                <div style="width: 95%; border-radius: 10px; box-shadow: 3px 2px 6px rgb(65, 65, 65); margin: 5px;"
+                  class="q-pa-md">
+                  <div>
+                    <q-rating v-model="ratingWajib" max="5" size="2em" color="orange" icon="star_border"
+                      icon-selected="star" icon-half="star_half" no-dimming readonly />
+                    <p class="text-bold text-h6">Salman Diwan</p>
+                    <p class="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam,
+                      architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo.</p>
+                  </div>
+                </div>
+                <div style="width: 95%; border-radius: 10px; box-shadow: 3px 2px 6px rgb(65, 65, 65); margin: 5px;"
+                  class="q-pa-md">
+                  <div>
+                    <q-rating v-model="ratingWajib" max="5" size="2em" color="orange" icon="star_border"
+                      icon-selected="star" icon-half="star_half" no-dimming readonly />
+                    <p class="text-bold text-h6">Salman Diwan</p>
+                    <p class="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam,
+                      architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo.</p>
+                  </div>
+                </div>
+                <div style="width: 95%; border-radius: 10px; box-shadow: 3px 2px 6px rgb(65, 65, 65); margin: 5px;"
+                  class="q-pa-md">
+                  <div>
+                    <q-rating v-model="ratingWajib" max="5" size="2em" color="orange" icon="star_border"
+                      icon-selected="star" icon-half="star_half" no-dimming readonly />
+                    <p class="text-bold text-h6">Salman Diwan</p>
+                    <p class="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam,
+                      architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo.</p>
+                  </div>
+                </div>
+                <div style="width: 95%; border-radius: 10px; box-shadow: 3px 2px 6px rgb(65, 65, 65); margin: 5px;"
+                  class="q-pa-md">
+                  <div>
+                    <q-rating v-model="ratingWajib" max="5" size="2em" color="orange" icon="star_border"
+                      icon-selected="star" icon-half="star_half" no-dimming readonly />
+                    <p class="text-bold text-h6">Salman Diwan</p>
+                    <p class="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam,
+                      architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo.</p>
+                  </div>
+                </div>
+              </q-card-section>
+
+              <q-card-actions align="right" class="bg-white text-teal">
+                <q-btn flat label="OK" v-close-popup />
+              </q-card-actions>
+            </q-card>
+          </q-dialog>
         </div>
       </div>
     </div>
@@ -232,7 +316,9 @@ export default {
   setup() {
     return {
       slide: ref('style'),
-      lorem: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo.'
+      lorem: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo.',
+      ratingWajib: ref(2.3),
+      medium: ref(false)
     }
   },
 
