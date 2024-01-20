@@ -71,7 +71,7 @@
                     </div>
                     <div></div>
                     <div class="col-md-3 col-3 q-px-md"  style="height: 60vh;">
-                      <br /><br /><br /><br />
+                      <br /><br /><br />
                       <q-card class="q-px-sm q-mt-lg text-center bg-red-5" style="height: 100%;">
                         <q-card-section>
                           <div class="text-left">
