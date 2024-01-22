@@ -257,7 +257,7 @@ export default {
     const getDataSiswa = async () => {
       try {
         const token = sessionStorage.getItem("token");
-        const idSiswa = sessionStorage.getItem("id");
+        const idSiswa = sessionStorage.getItem("idUser");
 
         // Use getCurrentInstance to get access to the current component instance
         const instance = getCurrentInstance();
@@ -305,7 +305,6 @@ export default {
       selectedSiswa,
       selectedStudent,
       getDataSiswa,
-
     };
   },
 };
