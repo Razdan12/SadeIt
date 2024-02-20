@@ -110,7 +110,7 @@ import "@quasar/quasar-ui-qcalendar/src/QCalendarVariables.sass";
 import "@quasar/quasar-ui-qcalendar/src/QCalendarTransitions.sass";
 import "@quasar/quasar-ui-qcalendar/src/QCalendarMonth.sass";
 
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import NavigationBar from "../../components/NavigationBar.vue";
 import NavbarSiswa from "../../components/siswa/HederSiswa.vue"
 
@@ -200,11 +200,13 @@ export default defineComponent({
         },
       ],
       currentmonth: "",
-
+      idSiswa: ref(sessionStorage.getItem("idStudent")),
+      rekapSampah: ref([]),
     };
   },
   mounted() {
     this.getCurrentDateTime();
+    this.getRekapSampahbulan()
   },
 
   methods: {
@@ -213,7 +215,19 @@ export default defineComponent({
       const options = { month: 'long', year: 'numeric' };
       this.currentmonth = now.toLocaleDateString('id-ID', options);
     },
+    async getRekapSampahbulan() {
+     try {
+      const response = await this.$api.get(`waste-collection/show-recap-history/${this.idSiswa}`, {
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
+        });
+        console.log(response.data.data);
+        this.rekapSampah = response.data.data
+     } catch (error) {
 
+     }
+    },
     getWeekEvents(week, weekdays) {
       const firstDay = parsed(week[0].date + " 00:00");
       const lastDay = parsed(week[week.length - 1].date + " 23:59");

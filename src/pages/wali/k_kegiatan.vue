@@ -67,7 +67,7 @@ import '@quasar/quasar-ui-qcalendar/src/QCalendarVariables.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarTransitions.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarMonth.sass'
 
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import NavigationBar from '../../components/NavigationBar.vue'
 
 // The function below is used to set up our demo data
@@ -179,7 +179,11 @@ export default defineComponent({
           bgcolor: 'blue'
         },
 
-      ]
+      ],
+      token: ref(sessionStorage.getItem("token")),
+      idSiswa: ref(sessionStorage.getItem("idStudent")),
+      rekapMinggu: ref([]),
+      rekapSampah: ref([]),
     }
   },
   methods: {
@@ -315,8 +319,24 @@ export default defineComponent({
     },
     onClickHeadWorkweek(data) {
       console.log('onClickHeadWorkweek', data)
-    }
-  }
+    },
+    async getKalenderKegitan() {
+     try {
+      const response = await this.$api.get(`academic-year/show/${this.idSiswa}`, {
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
+        });
+        console.log(response);
+        // this.rekapMinggu = response.data.data
+     } catch (error) {
+
+     }
+    },
+  },
+  mounted() {
+    this.getKalenderKegitan();
+  },
 })
 </script>
 
