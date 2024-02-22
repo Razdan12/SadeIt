@@ -315,7 +315,7 @@ export default defineComponent({
           }
         });
         const data = response.data.data
-        console.log(data);
+      
         const dataPresensi = await Promise.all(
           data.map((Item, index) => {
             const date = new Date(Item.att_date)

@@ -34,11 +34,11 @@
                                 <tbody class="text-bold text-blue">
                                   <tr>
                                     <td class="text-left">Wajib</td>
-                                    <td class="text-right">3</td>
+                                    <td class="text-right">{{ rekap?.wajib }}</td>
                                   </tr>
                                   <tr>
                                     <td class="text-left">Pilihan</td>
-                                    <td class="text-right">1</td>
+                                    <td class="text-right">{{ rekap?.pilihan }}</td>
                                   </tr>
                                   <tr>
                                     <td class="text-left">Target</td>
@@ -47,6 +47,7 @@
 
                                 </tbody>
                               </q-markup-table>
+
                             </div>
                           </div>
                         </q-card-section>
@@ -59,7 +60,7 @@
                       <q-card>
                         <q-card-section>
                           <p class="text-center text-bold text-h6 text-blue-grey-8">Rekomendasi Buku</p>
-                          <div class="q-pa-md">
+                          <div class="q-pa-md" style="overflow: hidden;">
                             <q-carousel swipeable animated v-model="slide" :autoplay="autoplay" ref="carousel" infinite
                               class="carousel">
                               <q-carousel-slide v-for="(item, index) in slider" :key="item.id"  :name="item?.title" class="flex flex-center">
@@ -89,10 +90,7 @@
                                 </div>
 
                               </q-carousel-slide>
-                              <!-- <q-carousel-slide :name="2" img-src="https://cdn.quasar.dev/img/parallax1.jpg" />
-                              <q-carousel-slide :name="3" img-src="https://cdn.quasar.dev/img/parallax2.jpg" />
-                              <q-carousel-slide :name="4" img-src="https://cdn.quasar.dev/img/quasar.jpg" /> -->
-
+                         
                               <template v-slot:control>
                                 <q-carousel-control position="top-right" :offset="[1, 1]"
                                   class="text-white rounded-borders"
@@ -118,10 +116,11 @@
                 </div>
               </q-card-section>
               <q-card-section>
-                <q-card class="bg-blue-grey-4 text-white text-bold">
+                <!-- <q-card class="bg-blue-grey-4 text-white text-bold">
                   <p>13 Oktober 2023 buku dengan judul <span class="text-amber-12"> Reach For The Sky</span> telah
                     dikembalikan</p>
-                </q-card>
+                </q-card> -->
+                <q-separator/>
               </q-card-section>
               <q-card-section>
                 <div class="col-md col-12 tw-p-2">
@@ -132,9 +131,9 @@
                     <q-markup-table class="tw-h-96 tw-mt-5">
                       <thead>
                         <tr>
+                          <th class="text-center">cover</th>
                           <th class="text-left">Judul Buku</th>
                           <th class="text-left">Kategori</th>
-                          <th class="text-center">cover</th>
                           <th class="text-center">Tanggal pinjam</th>
                           <th class="text-center">Batas Pengembalian</th>
                           <th class="text-center">Tanggal kembali</th>
@@ -142,15 +141,15 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td class="text-left">Matematika 3 </td>
-                          <td class="text-left">Wajib</td>
+                        <tr v-for="(item, index) in borrow" :key="item.id">
                           <td class="text-center">
-                            <q-img src="../../assets/book/matematika3.png" />
+                            <q-img :src="item?.book.cover ? item?.book.cover : 'https://www.marytribble.com/wp-content/uploads/2020/12/book-cover-placeholder.png'" />
                           </td>
-                          <td class="text-center">1 Juli 2023</td>
-                          <td class="text-center">30 Desember 2023</td>
-                          <td class="text-center">30 Desember 2023</td>
+                          <td class="text-left">{{ item?.book.title }}</td>
+                          <td class="text-left">{{ item?.book.category }}</td>    
+                          <td class="text-center">{{ getDateTime(item?.start_date) }}</td>
+                          <td class="text-center">{{ getDateTime(item?.end_date) }}</td>
+                          <td class="text-center">{{ getDateTime(item?.end_date) }}</td>
                           <td class="text-center" @click="medium = true" style="cursor: pointer;">
                             <div class="flex justify-center items-center">
                               <q-icon name="grade" size="1.5rem" color="orange" />
@@ -160,25 +159,6 @@
                             </div>
                           </td>
                         </tr>
-                        <tr>
-                          <td class="text-left">Reach For The Sky </td>
-                          <td class="text-left">Pilihan</td>
-                          <td class="text-center">
-                            <q-img src="../../assets/book/1.jpg" />
-                          </td>
-                          <td class="text-center">1 Juli 2023</td>
-                          <td class="text-center">30 Desember 2023</td>
-                          <td class="text-center">30 Desember 2023</td>
-                          <td class="text-center" @click="medium = true" style="cursor: pointer;">
-                            <div class="flex justify-center items-center">
-                              <q-icon name="grade" size="1.5rem" color="orange" />
-                              <p class="text-h6">
-                                4.5
-                              </p>
-                            </div>
-                          </td>
-                        </tr>
-
                       </tbody>
                     </q-markup-table>
                   </div>
@@ -263,12 +243,13 @@ export default {
     return {
       slide: ref(1),
       autoplay: ref(true),
-      lorem: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque voluptatem totam, architecto cupiditate officia rerum, error dignissimos praesentium libero ab nemo.',
       ratingWajib: ref(2.3),
       medium: ref(false),
       token: ref(sessionStorage.getItem("token")),
       idSiswa: ref(sessionStorage.getItem("idSiswa")),
-      slider: ref()
+      slider: ref(),
+      rekap: ref(),
+      borrow: ref()
     }
   },
   methods: {
@@ -292,10 +273,39 @@ export default {
         console.log(error);
       }
     },
+    async getRecapBook() {
+      try {
+        const response = await this.$api.get(`borrow-book/show-recap-by-student/${this.idSiswa}`, {
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
+        });
+       
+       this.rekap = response.data.data[0]
+
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getBorrowBook() {
+      try {
+        const response = await this.$api.get(`borrow-book/show-by-student/${this.idSiswa}`, {
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
+        });
+       
+       console.log(response.data.data);
+        this.borrow = response.data.data
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   mounted() {
     this.getSliderBook()
-
+    this.getRecapBook()
+    this.getBorrowBook()
   },
 
 }
@@ -313,6 +323,7 @@ export default {
 
 .carousel {
   height: 200px;
+  overflow: hidden;
 }
 
 @media (max-width: 480px) {

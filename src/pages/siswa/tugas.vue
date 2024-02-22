@@ -39,14 +39,14 @@
                         <td class="text-center">{{ item?.subject.name }}</td>
                         <td class="text-center">{{ item?.topic }}</td>
                         <td class="text-center">{{ item?.characteristic }}</td>
-                        <td class="text-center">{{ getDateTime(item?.start_date)  }}</td>
+                        <td class="text-center">{{ getDateTime(item?.start_date) }}</td>
                         <td class="text-center">{{ getDateTime(item?.end_date) }}</td>
                         <td class="text-center">{{ item?.status }}</td>
                         <td class="text-center">-</td>
                         <td class="text-center">
                           <div>
                             <q-btn class="q-mx-sm" icon="download" color="green" />
-                            <q-btn class="q-mx-sm" icon="upload" color="blue" @click="small = true" />
+                            <q-btn class="q-mx-sm" icon="upload" color="blue" @click="getTaskId(item.id)" />
                           </div>
                         </td>
                       </tr>
@@ -76,18 +76,18 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td class="text-center">20 sep 2023</td>
-                        <td class="text-center">Matematika</td>
-                        <td class="text-center">Trigonometri</td>
-                        <td class="text-center">individu</td>
-                        <td class="text-center">20 sep 2023</td>
-                        <td class="text-center">21 sep 2023</td>
-                        <td class="text-center">Berjalan</td>
+                      <tr v-for="(item, index) in task2" :key="item.id">
+                        <td class="text-center">{{ getDateTime(item?.createdAt) }}</td>
+                        <td class="text-center">{{ item?.subject.name }}</td>
+                        <td class="text-center">{{ item?.topic }}</td>
+                        <td class="text-center">{{ item?.characteristic }}</td>
+                        <td class="text-center">{{ getDateTime(item?.start_date) }}</td>
+                        <td class="text-center">{{ getDateTime(item?.end_date) }}</td>
+                        <td class="text-center">{{ item?.status }}</td>
                         <td class="text-center">-</td>
                         <td class="text-center">
                           <div>
-                            <q-btn class="q-mx-sm" icon="upload" color="blue" />
+                            <q-btn class="q-mx-sm" icon="upload" color="blue" @click="getTaskId(item.id)" />
                           </div>
                         </td>
                       </tr>
@@ -108,19 +108,37 @@
       <q-card-section>
         <div class="text-h6 text-center">Upload Tugas</div>
       </q-card-section>
-      <q-separator />
+    
       <br>
       <q-card-section class="q-pt-none">
-        <p>Mata pelajaran : <span> Matematika</span></p>
-        <p>Topik : <span> Trigonometri</span></p>
+        <q-markup-table flat>
+          <tbody>
+            <tr>
+              <td class="text-left text-bold">Mata Pelajaran</td>
+              <td class="text-left">: {{ dataTask?.subject.name }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-bold">Topik</td>
+              <td class="text-left">: {{ dataTask?.topic }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-bold">Tanggal Mulai</td>
+              <td class="text-left">: {{ getDateTime(dataTask?.start_date) }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-bold">Tanggal Selesai</td>
+              <td class="text-left">: {{ getDateTime(dataTask?.end_date) }} | {{ getTimeDeadline(dataTask?.end_date) }}</td>
+            </tr>
 
-        <q-separator />
+          </tbody>
+        </q-markup-table>
+
         <br>
         <q-uploader color="teal" flat bordered style="width: 100%;" />
       </q-card-section>
 
       <q-card-actions align="right" class="bg-white text-teal">
-        <q-btn flat label="submit" v-close-popup />
+        <q-btn flat label="close" v-close-popup />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -129,6 +147,7 @@
 <script>
 import { ref } from 'vue'
 import NavbarSiswa from '../../components/siswa/HederSiswa.vue'
+
 
 export default {
 
@@ -147,29 +166,70 @@ export default {
       model: ref(null),
       token: ref(sessionStorage.getItem("token")),
       idSiswa: ref(sessionStorage.getItem("idSiswa")),
-      task: ref()
+      task: ref(),
+      task2: ref(),
+      idTask: ref(''),
+      dataTask: ref(),
     }
   },
   methods: {
     getDateTime(date) {
       const now = new Date(date);
-      const formattedDate = now.toLocaleDateString('id-ID', {  day: 'numeric', month: 'long', year: 'numeric' });
+      const formattedDate = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
       return formattedDate
+    },
+
+    getTimeDeadline(date) {
+
+      const durasi = new Date(new Date(date) - new Date());
+      const hari = durasi.getUTCDate() - 1; 
+      const jam = durasi.getUTCHours();
+      const menit = durasi.getUTCMinutes();
+
+      return (`${hari} hari, ${jam} jam, ${menit} menit`);
     },
     async getDataTugas() {
       try {
-        const response = await this.$api.get(`student-task/show-by-student/${this.idSiswa}`, {
+        const taskParent = await this.$api.get(`student-task/show-by-student/${this.idSiswa}?cat=Work With Parents`, {
           headers: {
             'Authorization': `Bearer ${this.token}`
           }
         });
-        this.task = response.data.data
-        console.log(response.data.data);
+        const taskKelompok = await this.$api.get(`student-task/show-by-student/${this.idSiswa}?cat=Project Kelompok`, {
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
+        });
+     
+        this.task = taskParent.data.data
+        this.task2 = taskKelompok.data.data
+
       } catch (error) {
         console.log(error);
       }
     },
+    async getTaskById(id) {
+      try {
+        const response = await this.$api.get(`student-task/show/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
+        });
+        console.log(response);
+        this.dataTask = response.data.data[0]
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    getTaskId(id) {
+      this.idTask = id
+      this.getTaskById(id)
+      this.small = true
+
+    }
   },
+
   mounted() {
     this.getDataTugas()
 
