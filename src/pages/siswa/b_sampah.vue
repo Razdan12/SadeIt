@@ -65,10 +65,10 @@
                             Target dan Capaian
                           </p>
                           <p class="text-blue-4 text-bold" style="font-size: larger">
-                            Capaian bulan lalu 15 Kg
+                           Target {{ target }} Kg
                           </p>
                         
-                         <p class="tw-mt-5 tw-text-xl tw-font-bold">Target</p>
+                         <p class="tw-mt-5 tw-text-xl tw-font-bold">Capaian</p>
                           <div id="chart" class="tw-w-full">
                             <apexchart type="radialBar" :options="chartOptions1" :series="series1"></apexchart>
                           </div>
@@ -239,7 +239,7 @@ export default {
         }
       },
 
-      series1: [90],
+      series1: ref([0]),
       chartOptions1: {
         chart: {
           type: 'radialBar',
@@ -270,7 +270,7 @@ export default {
                 show: false
               },
               value: {
-                offsetY: -2,
+                offsetY: -3,
                 fontSize: '22px'
               }
             }
@@ -299,6 +299,8 @@ export default {
       idSiswa: ref(sessionStorage.getItem("idSiswa")),
       rekapMinggu: ref([]),
       rekapSampah: ref([]),
+      total: ref(0),
+      target: ref(0)
     }
 
   },
@@ -330,10 +332,30 @@ export default {
       
      }
     },
+    async getRekapSampah() {
+     try {
+      const response = await this.$api.get(`waste-collection/target-achievement-by-student/${this.idSiswa}?is_current=1`, {
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
+        });
+      
+        const total = [response.data.data[0].weight]
+        const target = Math.round(response.data.data[0].studentclass.class.waste_target)
+
+        const hasilTarget = (total / target) * 100
+
+        this.series1 = [Math.round(hasilTarget)]
+        this.target = target
+     } catch (error) {
+      
+     }
+    },
   },
   mounted() {
    this.getRekapSampah()
    this.getRekapSampahbulan()
+   this.getRekapSampah()
   },
 
 }

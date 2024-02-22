@@ -34,6 +34,7 @@
                                 {{ computedEvent.event.title + (computedEvent.event.time ? ' - ' +
                                   computedEvent.event.time : '') }}
                                 <q-tooltip>{{ computedEvent.event.details }}</q-tooltip>
+                               
                               </div>
                             </div>
                           </template>

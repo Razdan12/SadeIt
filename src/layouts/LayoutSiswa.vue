@@ -79,7 +79,7 @@
                         Peminjaman Buku
                     </q-item-section>
                 </q-item>
-                <q-item to="/siswa/ekstra" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
+                <!-- <q-item to="/siswa/ekstra" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
                     <q-item-section avatar>
                         <q-icon name="home" style="font-size: 2rem" />
                     </q-item-section>
@@ -87,7 +87,7 @@
                     <q-item-section class="text-bold" style="font-size: 1rem">
                         Ekstrakulikuler
                     </q-item-section>
-                </q-item>
+                </q-item> -->
                 <q-item to="/siswa/raport" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
                     <q-item-section avatar>
                         <q-icon name="summarize" style="font-size: 2rem" />
@@ -107,7 +107,7 @@
                         Bank Sampah
                     </q-item-section>
                 </q-item>
-                <q-item to="/siswa/abk" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
+                <!-- <q-item to="/siswa/abk" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
                     <q-item-section avatar>
                         <q-icon name="person" style="font-size: 2rem" />
                     </q-item-section>
@@ -115,7 +115,7 @@
                     <q-item-section class="text-bold" style="font-size: 1rem">
                         ABK
                     </q-item-section>
-                </q-item>
+                </q-item> -->
                 <q-item to="/siswa/cs" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
                     <q-item-section avatar>
                         <q-icon name="headset_mic" style="font-size: 2rem" />
