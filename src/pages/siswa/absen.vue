@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <!-- <NavbarSiswa/> -->
-    <div class="row">
-      <div class="col-md-12">
+    <div>
+      <div >
         <q-card class="text-center bg-blue-2">
           <q-card-section>
             <div class="text-center tw-mb-5">

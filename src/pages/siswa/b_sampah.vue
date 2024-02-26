@@ -33,7 +33,7 @@
                                     Hari ini
                                   </td>
                                   <td class="text-right" style="font-size: larger">
-                                    {{Math.round(rekapSampah[0]?.today)}}
+                                    {{ Math.round(rekapSampah[0]?.today) }}
                                   </td>
                                   <td class="text-left text-red" style="font-size: small">
                                     Kg
@@ -44,7 +44,7 @@
                                     Bulan ini
                                   </td>
                                   <td class="text-right" style="font-size: larger">
-                                    {{Math.round(rekapSampah[0]?.this_month)}}
+                                    {{ Math.round(rekapSampah[0]?.this_month) }}
                                   </td>
                                   <td class="text-left text-red" style="font-size: small">
                                     Kg
@@ -65,10 +65,10 @@
                             Target dan Capaian
                           </p>
                           <p class="text-blue-4 text-bold" style="font-size: larger">
-                           Target {{ target }} Kg
+                            Target {{ target }} Kg
                           </p>
-                        
-                         <p class="tw-mt-5 tw-text-xl tw-font-bold">Capaian</p>
+
+                          <p class="tw-mt-5 tw-text-xl tw-font-bold">Capaian</p>
                           <div id="chart" class="tw-w-full">
                             <apexchart type="radialBar" :options="chartOptions1" :series="series1"></apexchart>
                           </div>
@@ -92,7 +92,7 @@
                                     Senin
                                   </td>
                                   <td class="text-right" style="font-size: small">
-                                    {{rekapMinggu[0]?.weight ? rekapMinggu[0]?.weight : 0 }}
+                                    {{ rekapMinggu[0]?.weight ? rekapMinggu[0]?.weight : 0 }}
                                   </td>
                                   <td class="text-left text-red" style="font-size: smaller">
                                     Kg
@@ -103,7 +103,7 @@
                                     Selasa
                                   </td>
                                   <td class="text-right" style="font-size: small">
-                                    {{rekapMinggu[1]?.weight ? rekapMinggu[1]?.weight : 0}}
+                                    {{ rekapMinggu[1]?.weight ? rekapMinggu[1]?.weight : 0 }}
                                   </td>
                                   <td class="text-left text-red" style="font-size: smaller">
                                     Kg
@@ -114,7 +114,7 @@
                                     Rabu
                                   </td>
                                   <td class="text-right" style="font-size: small">
-                                    {{rekapMinggu[2]?.weight ? rekapMinggu[2]?.weight : 0}}
+                                    {{ rekapMinggu[2]?.weight ? rekapMinggu[2]?.weight : 0 }}
                                   </td>
                                   <td class="text-left text-red" style="font-size: smaller">
                                     Kg
@@ -125,7 +125,7 @@
                                     Kamis
                                   </td>
                                   <td class="text-right" style="font-size: small">
-                                    {{rekapMinggu[3]?.weight ? rekapMinggu[3]?.weight : 0}}
+                                    {{ rekapMinggu[3]?.weight ? rekapMinggu[3]?.weight : 0 }}
                                   </td>
                                   <td class="text-left text-red" style="font-size: smaller">
                                     Kg
@@ -136,7 +136,7 @@
                                     Jumat
                                   </td>
                                   <td class="text-right" style="font-size: small">
-                                    {{rekapMinggu[4]?.weight ? rekapMinggu[4]?.weight : 0}}
+                                    {{ rekapMinggu[4]?.weight ? rekapMinggu[4]?.weight : 0 }}
                                   </td>
                                   <td class="text-left text-red" style="font-size: smaller">
                                     Kg
@@ -158,11 +158,12 @@
               </p>
 
               <div>
-                <div id="chart">
+                <div v-if="chartCollection" id="chart">
                   <apexchart type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
                 </div>
 
               </div>
+            
             </q-card>
           </q-card-section>
         </div>
@@ -173,32 +174,37 @@
 
 <script>
 import { ref } from "vue";
+
+let dataSampah = ref([])
+
 export default {
   name: 'chartBar',
+
   data() {
     return {
       series: [
         {
           name: 'senin',
-          data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+          data: []
         },
         {
           name: 'selasa',
-          data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+          data: []
         },
         {
           name: 'rabu',
-          data: [35, 41, 36, 26, 45, 48, 52, 53, 24]
+          data: []
         },
         {
           name: 'kamis',
-          data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+          data: []
         },
         {
           name: 'Jumat',
-          data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+          data: []
         }
       ],
+
       chartOptions: {
         chart: {
           type: 'bar',
@@ -220,7 +226,7 @@ export default {
           colors: ['transparent']
         },
         xaxis: {
-          categories: ['plastik', 'kertas', 'kantong', 'karung', 'daun', 'sampah 1', 'sampah 2', 'sampah 5', 'sampah 6'],
+          categories: dataSampah,
         },
         yaxis: {
           title: {
@@ -300,46 +306,73 @@ export default {
       rekapMinggu: ref([]),
       rekapSampah: ref([]),
       total: ref(0),
-      target: ref(0)
+      target: ref(0),
+      chartCollection: ref(false)
+
     }
 
   },
   methods: {
-    async getRekapSampah() {
-     try {
-      const response = await this.$api.get(`waste-collection/collection-week-by-student/${this.idSiswa}`, {
+    async getRekapSampahMingguan() {
+      try {
+        const response = await this.$api.get(`waste-collection/recap-week-by-student/${this.idSiswa}`, {
           headers: {
             'Authorization': `Bearer ${this.token}`
           }
         });
-    
+
         this.rekapMinggu = response.data.data
-     } catch (error) {
-      
-     }
+      } catch (error) {
+
+      }
     },
-    
-    async getRekapSampahbulan() {
-     try {
-      const response = await this.$api.get(`waste-collection/show-recap-history/${this.idSiswa}`, {
+    async getCollectionSampahMingguan() {
+      try {
+        const response = await this.$api.get(`waste-collection/collection-week-by-student/${this.idSiswa}`, {
           headers: {
             'Authorization': `Bearer ${this.token}`
           }
         });
-      
+        const data = response.data.data
+        const categories = data.map(item => item.waste_type);
+        this.chartOptions.xaxis.categories = categories
+
+        data.forEach(item => {
+          this.series[0].data.push(item.weekday.senin);
+          this.series[1].data.push(item.weekday.selasa);
+          this.series[2].data.push(item.weekday.rabu);
+          this.series[3].data.push(item.weekday.kamis);
+          this.series[4].data.push(item.weekday.jumat);
+        });
+
+        this.chartCollection = true
+
+      } catch (error) {
+
+      }
+    },
+
+    async getRekapSampahbulan() {
+      try {
+        const response = await this.$api.get(`waste-collection/show-recap-history/${this.idSiswa}`, {
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
+        });
+
         this.rekapSampah = response.data.data
-     } catch (error) {
-      
-     }
+      } catch (error) {
+
+      }
     },
     async getRekapSampah() {
-     try {
-      const response = await this.$api.get(`waste-collection/target-achievement-by-student/${this.idSiswa}?is_current=1`, {
+      try {
+        const response = await this.$api.get(`waste-collection/target-achievement-by-student/${this.idSiswa}?is_current=1`, {
           headers: {
             'Authorization': `Bearer ${this.token}`
           }
         });
-      
+
         const total = [response.data.data[0].weight]
         const target = Math.round(response.data.data[0].studentclass.class.waste_target)
 
@@ -347,15 +380,16 @@ export default {
 
         this.series1 = [Math.round(hasilTarget)]
         this.target = target
-     } catch (error) {
-      
-     }
+      } catch (error) {
+
+      }
     },
   },
   mounted() {
-   this.getRekapSampah()
-   this.getRekapSampahbulan()
-   this.getRekapSampah()
+    this.getRekapSampahMingguan()
+    this.getRekapSampahbulan()
+    this.getRekapSampah()
+    this.getCollectionSampahMingguan()
   },
 
 }

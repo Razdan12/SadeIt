@@ -108,7 +108,7 @@
       <q-card-section>
         <div class="text-h6 text-center">Upload Tugas</div>
       </q-card-section>
-    
+
       <br>
       <q-card-section class="q-pt-none">
         <q-markup-table flat>
@@ -127,7 +127,8 @@
             </tr>
             <tr>
               <td class="text-left text-bold">Tanggal Selesai</td>
-              <td class="text-left">: {{ getDateTime(dataTask?.end_date) }} | {{ getTimeDeadline(dataTask?.end_date) }}</td>
+              <td class="text-left">: {{ getDateTime(dataTask?.end_date) }} | {{ getTimeDeadline(dataTask?.end_date) }}
+              </td>
             </tr>
 
           </tbody>
@@ -147,6 +148,7 @@
 <script>
 import { ref } from 'vue'
 import NavbarSiswa from '../../components/siswa/HederSiswa.vue'
+import Swal from 'sweetalert2';
 
 
 export default {
@@ -182,7 +184,7 @@ export default {
     getTimeDeadline(date) {
 
       const durasi = new Date(new Date(date) - new Date());
-      const hari = durasi.getUTCDate() - 1; 
+      const hari = durasi.getUTCDate() - 1;
       const jam = durasi.getUTCHours();
       const menit = durasi.getUTCMinutes();
 
@@ -200,11 +202,23 @@ export default {
             'Authorization': `Bearer ${this.token}`
           }
         });
-     
         this.task = taskParent.data.data
         this.task2 = taskKelompok.data.data
 
       } catch (error) {
+        Swal.fire({
+          title: "Gagal Mengambil data tugas !",
+          text: "Refresh halaman atau hubungi admin",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Refresh Now"
+        }).then((result) => {
+          if (result.isConfirmed) {
+           window.location.reload()
+          }
+        });
         console.log(error);
       }
     },

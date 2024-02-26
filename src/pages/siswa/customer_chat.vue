@@ -12,57 +12,11 @@
         </q-card-section>
         <q-card-section>
           <q-card style="height: 76vh" class="flex">
-            <div class="colom_nama  tw-w-1/3">
-              <div class="q-pa-lg">
-                <div class="flex justify-between items-center">
-                  <p class="text-bold text-h4">
-                    Chats
-                  </p>
-                  <p @click="medium = true" class="tw-cursor-pointer">
-                    <q-icon name="edit_square" style="font-size: 2rem" />
-                  </p>
-                </div>
-                <q-separator class="tw-mt-5" />
-                <div>
-                  <q-scroll-area style="height: 65vh" class="">
-                    <q-card class="tw-m-1 tw-cursor-pointer">
-                      <div class="flex justify-start items-center q-pa-md">
-                        <div class="tw-w-1/6">
-                          <q-avatar>
-                            <img src="https://cdn.quasar.dev/img/avatar.png">
-                          </q-avatar>
-                        </div>
-                        <div class="flex tw-flex-col justify-start items-start q-pl-md tw-w-5/6">
-                          <p class="text-bold text-h6"> nama </p>
-                          <p> isi pesan ...</p>
-                        </div>
-
-                      </div>
-                    </q-card>
-                    <q-card class="tw-m-1">
-                      <div class="flex justify-start items-center q-pa-md">
-                        <div class="tw-w-1/6">
-                          <q-avatar>
-                            <img src="https://cdn.quasar.dev/img/avatar.png">
-                          </q-avatar>
-                        </div>
-                        <div class="flex tw-flex-col justify-start items-start q-pl-md tw-w-5/6">
-                          <p class="text-bold text-h6"> nama</p>
-                          <p> isi pesan ...</p>
-                        </div>
-                      </div>
-                    </q-card>
-
-                  </q-scroll-area>
-
-                </div>
-
-              </div>
-            </div>
-            <div class="colom_chat tw-w-2/3">
+          
+            <div class="colom_chat tw-w-full">
               <q-card-section
                 style="width: 100%;   background-image: url(https://i.pinimg.com/600x315/8c/98/99/8c98994518b575bfd8c949e91d20548b.jpg);">
-                <div class="bg-white q-pa-md flex">
+                <div class="bg-white q-pa-md">
                   <p class="text-bold text-h5">
                     Nama
                   </p>
@@ -183,7 +137,7 @@ export default {
 
 </script>
 
-<!-- <style>
+<style>
 @media (max-width: 768px) {
   .colom_chat {
     display: none;
@@ -191,5 +145,8 @@ export default {
   .colom_nama{
     width: 100%;
   }
+  .colom_chat{
+    width: 100%;
+  }
 }
-</style> -->
+</style>

@@ -79,6 +79,11 @@ const routes = [
         meta: { requiresAuth: true },
       },
       {
+        path: "/siswa/cs/chat",
+        component: () => import("pages/siswa/customer_chat.vue"),
+        meta: { requiresAuth: true },
+      },
+      {
         path: "/siswa/profil",
         component: () => import("pages/siswa/profil.vue"),
         meta: { requiresAuth: true },

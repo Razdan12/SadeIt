@@ -35,9 +35,10 @@
             <tr>
               <th class="text-left">Status</th>
               <th class="text-left">
-                <q-badge outline align="middle" color="teal">
+                <q-chip outline color="teal" text-color="white" icon="verified_user">
                   {{ dataUser?.status === 1 ? "Verified" : "Not Verified" }}
-                </q-badge>
+                </q-chip>
+               
               </th>
             </tr>
 
