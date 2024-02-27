@@ -88,102 +88,101 @@ export default defineComponent({
   data() {
     return {
       selectedDate: today(),
-      events: [
-        {
-          id: 1,
-          title: 'Ekskul',
-          details: 'Ekskul',
-          start: getCurrentDay(20),
-          end: getCurrentDay(20),
-          bgcolor: 'green'
-        },
-        {
-          id: 2,
-          title: 'Acara Khusus',
-          details: 'Acara Khusus',
-          start: getCurrentDay(3),
-          end: getCurrentDay(3),
-          bgcolor: 'blue'
-        },
-        {
-          id: 3,
-          title: 'Acara Khusus',
-          details: 'Acara Khusus',
-          start: getCurrentDay(4),
-          end: getCurrentDay(4),
-          bgcolor: 'blue'
-        },
-        {
-          id: 4,
-          title: 'Acara Khusus',
-          details: 'Acara Khusus',
-          start: getCurrentDay(5),
-          end: getCurrentDay(5),
-          bgcolor: 'blue'
-        },
-        {
-          id: 5,
-          title: 'Acara Khusus',
-          details: 'Acara Khusus',
-          start: getCurrentDay(14),
-          end: getCurrentDay(14),
-          bgcolor: 'blue'
-        },
-        {
-          id: 6,
-          title: 'Acara Khusus',
-          details: 'Acara Khusus',
-          start: getCurrentDay(17),
-          end: getCurrentDay(17),
-          bgcolor: 'blue'
+      // events: [
+      //   {
+      //     id: 1,
+      //     title: 'Ekskul',
+      //     details: 'Ekskul',
+      //     start: getCurrentDay(20),
+      //     end: getCurrentDay(20),
+      //     bgcolor: 'green'
+      //   },
+      //   {
+      //     id: 2,
+      //     title: 'Acara Khusus',
+      //     details: 'Acara Khusus',
+      //     start: getCurrentDay(3),
+      //     end: getCurrentDay(3),
+      //     bgcolor: 'blue'
+      //   },
+      //   {
+      //     id: 3,
+      //     title: 'Acara Khusus',
+      //     details: 'Acara Khusus',
+      //     start: getCurrentDay(4),
+      //     end: getCurrentDay(4),
+      //     bgcolor: 'blue'
+      //   },
+      //   {
+      //     id: 4,
+      //     title: 'Acara Khusus',
+      //     details: 'Acara Khusus',
+      //     start: getCurrentDay(5),
+      //     end: getCurrentDay(5),
+      //     bgcolor: 'blue'
+      //   },
+      //   {
+      //     id: 5,
+      //     title: 'Acara Khusus',
+      //     details: 'Acara Khusus',
+      //     start: getCurrentDay(14),
+      //     end: getCurrentDay(14),
+      //     bgcolor: 'blue'
+      //   },
+      //   {
+      //     id: 6,
+      //     title: 'Acara Khusus',
+      //     details: 'Acara Khusus',
+      //     start: getCurrentDay(17),
+      //     end: getCurrentDay(17),
+      //     bgcolor: 'blue'
 
-        },
-        {
-          id: 7,
-          title: 'Acara Khusus',
-          details: 'Acara Khusus',
-          start: getCurrentDay(24),
-          end: getCurrentDay(24),
-          bgcolor: 'blue'
-        },
-        {
-          id: 8,
-          title: 'Ekskul',
-          details: 'Ekskul',
-          start: getCurrentDay(13),
-          end: getCurrentDay(13),
-          bgcolor: 'green'
-        },
-        {
-          id: 9,
-          title: 'Libur',
-          details: 'libur',
-          start: getCurrentDay(2),
-          end: getCurrentDay(6),
-          bgcolor: 'red'
-        },
-        {
-          id: 10,
-          title: 'Acara Khusus',
-          details: 'Acara Khusus',
-          start: getCurrentDay(25),
-          end: getCurrentDay(25),
-          bgcolor: 'blue'
-        },
-        {
-          id: 11,
-          title: 'Acara Khusus',
-          details: 'Acara Khusus',
-          start: getCurrentDay(26),
-          end: getCurrentDay(26),
-          bgcolor: 'blue'
-        },
+      //   },
+      //   {
+      //     id: 7,
+      //     title: 'Acara Khusus',
+      //     details: 'Acara Khusus',
+      //     start: getCurrentDay(24),
+      //     end: getCurrentDay(24),
+      //     bgcolor: 'blue'
+      //   },
+      //   {
+      //     id: 8,
+      //     title: 'Ekskul',
+      //     details: 'Ekskul',
+      //     start: getCurrentDay(13),
+      //     end: getCurrentDay(13),
+      //     bgcolor: 'green'
+      //   },
+      //   {
+      //     id: 9,
+      //     title: 'Libur',
+      //     details: 'libur',
+      //     start: getCurrentDay(2),
+      //     end: getCurrentDay(6),
+      //     bgcolor: 'red'
+      //   },
+      //   {
+      //     id: 10,
+      //     title: 'Acara Khusus',
+      //     details: 'Acara Khusus',
+      //     start: getCurrentDay(25),
+      //     end: getCurrentDay(25),
+      //     bgcolor: 'blue'
+      //   },
+      //   {
+      //     id: 11,
+      //     title: 'Acara Khusus',
+      //     details: 'Acara Khusus',
+      //     start: getCurrentDay(26),
+      //     end: getCurrentDay(26),
+      //     bgcolor: 'blue'
+      //   },
 
-      ],
+      // ],
       token: ref(sessionStorage.getItem("token")),
-      idSiswa: ref(sessionStorage.getItem("idStudent")),
-      rekapMinggu: ref([]),
-      rekapSampah: ref([]),
+      idSiswa: ref(sessionStorage.getItem("idSiswa")),
+      events: ref([]),
     }
   },
   methods: {
@@ -322,12 +321,12 @@ export default defineComponent({
     },
     async getKalenderKegitan() {
      try {
-      const response = await this.$api.get(`academic-year/show/${this.idSiswa}`, {
+      const response = await this.$api.get(`edu-calendar?search_query=&page=0&limit=10`, {
           headers: {
             'Authorization': `Bearer ${this.token}`
           }
         });
-        console.log(response);
+        this.events.values = response.data.data
         // this.rekapMinggu = response.data.data
      } catch (error) {
 

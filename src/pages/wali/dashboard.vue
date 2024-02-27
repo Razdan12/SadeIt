@@ -283,13 +283,15 @@ export default {
             };
           })
         );
-        selectedStudent.value = dataSiswa.value[0]
+        const value = JSON.parse(sessionStorage.getItem('newValue'))
+        console.log(value);
+        selectedStudent.value = value? value: dataSiswa.value[0]
       } catch (error) {
         console.log(error);
       }
     };
     const getRekapSampahbulan = async () => {
-      const idSiswa = sessionStorage.getItem("idStudent")
+      const idSiswa = sessionStorage.getItem("idSiswa")
       const token = sessionStorage.getItem("token");
       try {
         const response = await axios.get(`https://api-dev.curaweda.com:7000/api/waste-collection/show/${idSiswa}`, {
@@ -297,6 +299,7 @@ export default {
             'Authorization': `Bearer ${token}`
           }
         });
+
         rekapSampah.value = response.data.data
       } catch (error) {
         console.log(error);
@@ -304,7 +307,7 @@ export default {
     }
 
     const getRekapAbsensi = async () => {
-      const idSiswa = sessionStorage.getItem("idStudent")
+      const idSiswa = sessionStorage.getItem("idSiswa")
       const token = sessionStorage.getItem("token");
       try {
         const response = await axios.get(`https://api-dev.curaweda.com:7000/api/student-attendance/show-by-student/${idSiswa}`, {
@@ -326,9 +329,11 @@ export default {
     });
     watch(selectedStudent, (newVal, oldVal) => {
       // console.log(oldVal);
-      // console.log('selectedStudent changed:', newVal.value);
-      sessionStorage.setItem('idStudent', newVal.value)
+
+      sessionStorage.setItem('newValue', JSON.stringify(newVal))
+      sessionStorage.setItem('idSiswa', newVal.value)
       getRekapSampahbulan();
+      getRekapAbsensi();
       // Update selectedSiswa.value or perform any other actions
       selectedSiswa.value = true;
     });

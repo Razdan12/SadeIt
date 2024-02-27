@@ -91,7 +91,7 @@ export default {
         }
     },
     methods: {
-   
+
     async getRaport() {
       try {
         const response = await this.$api.get(`number-report/show-by-student/${this.idSiswa}`, {
@@ -99,14 +99,13 @@ export default {
             'Authorization': `Bearer ${this.token}`
           }
         });
-        console.log(response);
         this.dataRaport = response.data.data
-       
+
       } catch (error) {
         console.log(error);
       }
     },
-    
+
   },
   mounted() {
     this.getRaport()

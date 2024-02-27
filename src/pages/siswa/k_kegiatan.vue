@@ -34,7 +34,7 @@
                                 {{ computedEvent.event.title + (computedEvent.event.time ? ' - ' +
                                   computedEvent.event.time : '') }}
                                 <q-tooltip>{{ computedEvent.event.details }}</q-tooltip>
-                               
+
                               </div>
                             </div>
                           </template>
@@ -324,8 +324,26 @@ export default defineComponent({
     },
     onClickHeadWorkweek(data) {
       console.log('onClickHeadWorkweek', data)
-    }
-  }
+    },
+
+    async getKalenderKegitan() {
+     try {
+      const response = await this.$api.get(`edu-calendar?search_query=&page=0&limit=10`, {
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
+        });
+        this.events.values = response.data.data
+        // this.rekapMinggu = response.data.data
+     } catch (error) {
+
+     }
+    },
+  },
+  mounted() {
+    this.getKalenderKegitan();
+  },
+
 })
 </script>
 
