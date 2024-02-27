@@ -7,35 +7,25 @@
           <q-card-section>
             <div class="text-center tw-mb-10">
               <p>
-                <span
-                  class="text-center text-black text-bold"
-                  style="font-size: x-large"
-                  >RAPORT SISWA</span
-                >
+                <span class="text-center text-black text-bold" style="font-size: x-large">RAPORT SISWA</span>
               </p>
             </div>
             <div>
               <q-card>
-                <q-tabs
-                  v-model="tab"
-                  dense
-                  class="text-grey"
-                  active-color="primary"
-                  indicator-color="primary"
-                  align="justify"
-                >
-                  <q-tab name="mails" label="Semester Ganjil" />
-                  <q-tab name="alarms" label="Semester Genap" />
+                <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary"
+                  align="justify">
+                  <q-tab name="semester1" label="Semester Ganjil" />
+                  <q-tab name="semester2" label="Semester Genap" />
                 </q-tabs>
 
                 <q-separator />
 
                 <q-tab-panels v-model="tab" animated>
-                  <q-tab-panel name="mails" class="q-pa-none">
+                  <q-tab-panel name="semester1" class="q-pa-none">
                     <Rapot />
                   </q-tab-panel>
 
-                  <q-tab-panel name="alarms">
+                  <q-tab-panel name="semester2">
                     <Rapot />
                   </q-tab-panel>
                 </q-tab-panels>
@@ -61,7 +51,7 @@ export default {
 
   setup() {
     return {
-      tab: ref("mails"),
+      tab: ref("semester1"),
     };
   },
 };

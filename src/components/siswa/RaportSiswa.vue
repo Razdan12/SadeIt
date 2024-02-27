@@ -13,151 +13,11 @@
     <template v-slot:after>
       <q-tab-panels v-model="innerTab" animated transition-prev="slide-down" transition-next="slide-up">
         <q-tab-panel name="innerMails">
-          <div class="text-h4 q-mb-md">Raport Angka</div>
-          <div>
-            <q-markup-table class="text-bold" separator="cell" bordered="">
-              <thead>
-                <tr>
-                  <th rowspan="2" class="text-center">No</th>
-                  <th rowspan="2" class="text-center">Nama Pelajaran</th>
-                  <th rowspan="2" class="text-center">Kriteria <br>
-                    Ketuntasan <br>
-                    Minimal</th>
-                  <th colspan="2" class="text-center">Nilai</th>
-                </tr>
-                <tr>
-                  <th class="text-center">Angka</th>
-                  <th class="text-center">Huruf</th>
-                </tr>
-
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="text-left" style="width: 10px;">1</td>
-                  <td class="text-left">Pendidikan Agama</td>
-                  <td class="text-center">7.50</td>
-                  <td class="text-center">9.00</td>
-                  <td class="text-left">Sembilan koma nol nol</td>
-                </tr>
-
-                <tr>
-                  <td class="text-left" style="width: 10px;">2</td>
-                  <td class="text-left">Pendidikan Kewarganegaraan</td>
-                  <td class="text-center">7.50</td>
-                  <td class="text-center">8.66</td>
-                  <td class="text-left">Delapan koma enam enam</td>
-                </tr>
-
-                <tr>
-                  <td class="text-left" style="width: 10px;">3</td>
-                  <td class="text-left">Bahasa Indonesia</td>
-                  <td class="text-center">7.50</td>
-                  <td class="text-center">8.66</td>
-                  <td class="text-left">Delapan koma enam enam</td>
-                </tr>
-
-                <tr>
-                  <td class="text-left" style="width: 10px;">4</td>
-                  <td class="text-left">Matematika</td>
-                  <td class="text-center">7.50</td>
-                  <td class="text-center">8.66</td>
-                  <td class="text-left">Delapan koma enam enam</td>
-                </tr>
-
-                <tr>
-                  <td class="text-left" style="width: 10px;">5</td>
-                  <td class="text-left">Ilmu Pengetahuan Alam</td>
-                  <td class="text-center">7.50</td>
-                  <td class="text-center">8.66</td>
-                  <td class="text-left">Delapan koma enam enam</td>
-                </tr>
-
-                <tr>
-                  <td class="text-left" style="width: 10px;">6</td>
-                  <td class="text-left">Ilmu Pengetahuan Sosial</td>
-                  <td class="text-center">7.50</td>
-                  <td class="text-center">8.66</td>
-                  <td class="text-left">Delapan koma enam enam</td>
-                </tr>
-
-                <tr>
-                  <td class="text-left" style="width: 10px;">7</td>
-                  <td class="text-left">Seni Budaya dan Keterampilan</td>
-                  <td class="text-center">7.50</td>
-                  <td class="text-center">8.66</td>
-                  <td class="text-left">Delapan koma enam enam</td>
-                </tr>
-
-                <tr>
-                  <td class="text-left" style="width: 10px;">8</td>
-                  <td class="text-left">Pendidikan Jasmani, Olahraga dan Kesehatan</td>
-                  <td class="text-center">7.50</td>
-                  <td class="text-center">8.66</td>
-                  <td class="text-left">Delapan koma enam enam</td>
-                </tr>
-
-                <tr>
-                  <td class="text-left" style="width: 10px;">9</td>
-                  <td class="text-left">Bahasa Inggris</td>
-                  <td class="text-center">7.50</td>
-                  <td class="text-center">8.66</td>
-                  <td class="text-left">Delapan koma enam enam</td>
-                </tr>
-
-              </tbody>
-            </q-markup-table>
-          </div>
-          <br>
-          <q-separator />
-          <br>
-          <div>
-            <q-markup-table class="text-bold" separator="cell" bordered="">
-              <thead>
-                <tr>
-                  <th class="text-center">No</th>
-                  <th class="text-center">Kepribadian</th>
-                  <th class="text-center">Nilai <br></th>
-                  <th class="text-center">Ketidak Hadiran</th>
-                  <th class="text-center">Hari</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="text-left" style="width: 10px;">1</td>
-                  <td class="text-left">Sikap</td>
-                  <td class="text-center">A</td>
-                  <td class="text-left">Izin</td>
-                  <td class="text-left">-</td>
-                </tr>
-
-                <tr>
-                  <td class="text-left" style="width: 10px;">1</td>
-                  <td class="text-left">Kerajinan</td>
-                  <td class="text-center">A</td>
-                  <td class="text-left">Sakit</td>
-                  <td class="text-left">-</td>
-                </tr>
-
-                <tr>
-                  <td class="text-left" style="width: 10px;">1</td>
-                  <td class="text-left">Kebersihan dan Kerapihan</td>
-                  <td class="text-center">A</td>
-                  <td class="text-left">Tanpa Keterangan</td>
-                  <td class="text-left">-</td>
-                </tr>
-
-
-
-
-
-              </tbody>
-            </q-markup-table>
-          </div>
+         <NumberRaport/>
         </q-tab-panel>
-
+        
         <q-tab-panel name="innerAlarms">
           <div>
-
             <q-tabs v-model="tab2" inline-label outside-arrows mobile-arrows class="bg-blue-5 text-white shadow-2">
                 <q-tab name="page1" label="Tahsin" />
                 <q-tab name="page2" label="akhlak & Perilaku" />
@@ -261,6 +121,7 @@ import Tahsin from "./raport/narasiTahsin.vue";
 import Akhlak from "./raport/narasiAkhlak.vue";
 import Pemimpin from "./raport/narasiPemimpin.vue";
 import Berfikir from "./raport/narasiBerfikir.vue";
+import NumberRaport from "./raport/numberRaport.vue"
 
 export default {
   name: 'Rapot',
@@ -268,7 +129,8 @@ export default {
    Tahsin,
    Akhlak,
    Pemimpin,
-   Berfikir
+   Berfikir,
+   NumberRaport
   },
 
   setup() {

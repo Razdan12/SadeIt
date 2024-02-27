@@ -1,74 +1,51 @@
 <template>
   <div class="container">
-    <!-- <NavbarSiswa /> -->
     <div>
-      <div class="text-center bg-blue-2 tw-min-h-screen">
-        <q-card-section>
-          <div class="text-center">
-            <p>
-              <span class="text-center text-black text-bold" style="font-size: x-large">Customer Care</span>
-            </p>
-          </div>
-        </q-card-section>
-        <q-card-section>
-          <q-card style="height: 76vh" class="flex">
-            <div class="colom_nama  tw-w-1/3">
-              <div class="q-pa-lg">
-                <div class="flex justify-between items-center">
-                  <p class="text-bold text-h4">
-                    Chats
-                  </p>
-                  <p @click="medium = true" class="tw-cursor-pointer">
-                    <q-icon name="edit_square" style="font-size: 2rem" />
-                  </p>
-                </div>
-                <q-separator class="tw-mt-5" />
-                <div>
-                  <q-scroll-area style="height: 65vh" class="">
-                    <q-card class="tw-m-1 tw-cursor-pointer">
-                      <div class="flex justify-start items-center q-pa-md">
-                        <div class="tw-w-1/6">
-                          <q-avatar>
-                            <img src="https://cdn.quasar.dev/img/avatar.png">
-                          </q-avatar>
-                        </div>
-                        <div class="flex tw-flex-col justify-start items-start q-pl-md tw-w-5/6">
-                          <p class="text-bold text-h6"> nama </p>
-                          <p> isi pesan ...</p>
-                        </div>
+      <div class="bg-blue-2 tw-min-h-screen">
+        <div class="q-pa-md">
+          <q-layout view="lHh Lpr lff" container style="height: 820px" class="shadow-2 rounded-borders">
+            <q-header elevated class="bg-cyan-8">
+              <q-toolbar>
+                <q-btn flat @click="drawer = !drawer" round dense icon="arrow_back" />
+                <q-toolbar-title>Nama</q-toolbar-title>
+              </q-toolbar>
+            </q-header>
 
-                      </div>
-                    </q-card>
-                    <q-card class="tw-m-1">
-                      <div class="flex justify-start items-center q-pa-md">
-                        <div class="tw-w-1/6">
-                          <q-avatar>
-                            <img src="https://cdn.quasar.dev/img/avatar.png">
-                          </q-avatar>
-                        </div>
-                        <div class="flex tw-flex-col justify-start items-start q-pl-md tw-w-5/6">
-                          <p class="text-bold text-h6"> nama</p>
-                          <p> isi pesan ...</p>
-                        </div>
-                      </div>
-                    </q-card>
+            <q-drawer v-model="drawer" show-if-above :width="300" :breakpoint="400">
+              <q-scroll-area style="height: calc(100% - 150px); margin-top: 80px; border-right: 1px solid #ddd">
+                <q-list padding>
+                  <q-item clickable v-ripple>
+                    <q-item-section avatar>
+                      <q-avatar>
+                        <img src="https://cdn.quasar.dev/img/avatar.png">
+                      </q-avatar>
+                    </q-item-section>
 
-                  </q-scroll-area>
+                    <q-item-section>
+                      <p class="text-bold text-h6"> nama</p>
+                      <p> isi pesan ...</p>
+                    </q-item-section>
+                  </q-item>
+
+                </q-list>
+              </q-scroll-area>
+
+              <q-img class="absolute-top" src="https://cdn.quasar.dev/img/material.png" style="height: 80px">
+                <div class="absolute-bottom bg-transparent">
+                  <div class="text-weight-bold text-h4">Chats</div>
 
                 </div>
-
+              </q-img>
+              <div class="bg-red" style=" position: fixed; right: 80px; bottom: 80px;" @click="medium = true">
+                <q-btn key="btn_size_round_md" round color="primary" size="lg" icon="add" class="absolute" />
               </div>
-            </div>
-            <div class="colom_chat tw-w-2/3">
-              <q-card-section
-                style="width: 100%;   background-image: url(https://i.pinimg.com/600x315/8c/98/99/8c98994518b575bfd8c949e91d20548b.jpg);">
-                <div class="bg-white q-pa-md flex">
-                  <p class="text-bold text-h5">
-                    Nama
-                  </p>
 
-                </div>
-                <q-scroll-area style="height: 58vh" class="q-pa-sm">
+            </q-drawer>
+
+            <q-page-container class="bg-white">
+              <q-page padding class=""
+                style="width: 100%;   background-image: url(https://i.pinimg.com/600x315/8c/98/99/8c98994518b575bfd8c949e91d20548b.jpg);">
+                <q-scroll-area class="kolom_chat">
                   <div class="q-pa-md" rounded style="
                     height: 100%;   
                     display: flex;
@@ -86,7 +63,16 @@
                             <q-chat-message name="Jane" :text="[
                               'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ',
                             ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
-                           
+                            <q-chat-message name="Jane" :text="[
+                              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ',
+                            ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
+                            <q-chat-message name="Jane" :text="[
+                              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ',
+                            ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
+                            <q-chat-message name="Jane" :text="[
+                              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ',
+                            ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
+
                           </div>
                         </div>
                       </q-infinite-scroll>
@@ -102,12 +88,16 @@
                   </div>
 
                 </div>
-              </q-card-section>
-            </div>
+              </q-page>
+            </q-page-container>
 
-          </q-card>
-        </q-card-section>
+          </q-layout>
+        </div>
       </div>
+
+
+
+
     </div>
 
   </div>
@@ -176,20 +166,37 @@ export default {
   },
   setup() {
     return {
-      medium: ref(false)
+      medium: ref(false),
+      drawer: ref(true)
     }
   },
 };
 
 </script>
 
-<!-- <style>
-@media (max-width: 768px) {
-  .colom_chat {
-    display: none;
-  }
-  .colom_nama{
-    width: 100%;
+<style>
+
+
+@media (max-width: 600px) {
+  .kolom_chat {
+  height: 89vh;
+}
+}
+
+/* Gaya untuk layar dengan lebar antara 601px dan 1024px */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .kolom_chat {
+    height: 62vh;
   }
 }
-</style> -->
+@media (min-width: 1025px) and (max-width: 1324px) {
+  .kolom_chat {
+  height: 85vh;
+}
+}
+@media (min-width: 1325px) {
+  .kolom_chat {
+  height: 68vh;
+}
+}
+</style>

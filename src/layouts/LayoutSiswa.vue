@@ -4,6 +4,7 @@
             <q-toolbar>
                 <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
                 <q-toolbar-title>
+                  
                     {{ currentTime }} | {{ currentDate }}
                 </q-toolbar-title>
                 <q-img src="../assets/sade.png" style="width: 60px"></q-img>
@@ -140,6 +141,10 @@
 <script>
 import { ref } from "vue";
 import Swal from 'sweetalert2'
+// import Vue from 'vue';
+import moment from 'moment';
+
+// Vue.prototype.$moment = moment;
 
 export default {
     setup() {
@@ -147,6 +152,7 @@ export default {
 
         return {
             leftDrawerOpen,
+           
             toggleLeftDrawer() {
                 leftDrawerOpen.value = !leftDrawerOpen.value;
             },
@@ -166,7 +172,7 @@ export default {
         this.getCurrentDateTime();
         setInterval(() => {
             this.getCurrentDateTime();
-        }, 60000);
+        }, 20000);
 
         this.getDataSiswa()
 

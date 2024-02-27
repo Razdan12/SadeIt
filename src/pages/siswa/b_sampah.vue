@@ -154,7 +154,7 @@
               <q-separator color="blue" inset />
               <br />
               <p class="text-center text-bold" style="font-size: large">
-                Periode : 16 - 20 Oktober
+                Periode Minggu ini
               </p>
 
               <div>
