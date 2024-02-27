@@ -22,91 +22,31 @@
                   <q-markup-table style="height: 28vh;" h-scroll>
                     <thead>
                       <tr>
-                        <th class="text-left">Tanggal</th>
-                        <th class="text-right">Mata Pelajaran</th>
-                        <th class="text-right">Topik</th>
-                        <th class="text-right">Sifat</th>
-                        <th class="text-right">Mulai</th>
-                        <th class="text-right">selesai</th>
-                        <th class="text-right">Status</th>
-                        <th class="text-right">Feedforward</th>
-                        <th class="text-right">Action</th>
+                        <th class="text-center">Tanggal</th>
+                        <th class="text-center">Mata Pelajaran</th>
+                        <th class="text-center">Topik</th>
+                        <th class="text-center">Sifat</th>
+                        <th class="text-center">Mulai</th>
+                        <th class="text-center">selesai</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Feedforward</th>
+                        <th class="text-center">Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td class="text-left">20 sep 2023</td>
-                        <td class="text-right">Matematika</td>
-                        <td class="text-right">Trigonometri</td>
-                        <td class="text-right">individu</td>
-                        <td class="text-right">20 sep 2023</td>
-                        <td class="text-right">21 sep 2023</td>
-                        <td class="text-right">Berjalan</td>
-                        <td class="text-right">-</td>
-                        <td class="text-right">
+                      <tr v-for="(item, index) in task" :key="item.id">
+                        <td class="text-center">{{ getDateTime(item?.createdAt) }}</td>
+                        <td class="text-center">{{ item?.subject.name }}</td>
+                        <td class="text-center">{{ item?.topic }}</td>
+                        <td class="text-center">{{ item?.characteristic }}</td>
+                        <td class="text-center">{{ getDateTime(item?.start_date) }}</td>
+                        <td class="text-center">{{ getDateTime(item?.end_date) }}</td>
+                        <td class="text-center">{{ item?.status }}</td>
+                        <td class="text-center">-</td>
+                        <td class="text-center">
                           <div>
-                            <q-btn class="q-mx-sm" icon="download" color="blue"/>
-                            <q-btn class="q-mx-sm" icon="upload" color="blue"/>
-
-                            <q-dialog v-model="small">
-                              <q-card style="width: 300px">
-                                <q-card-section>
-                                  <div class="text-h6 text-center">Upload Tugas</div>
-                                </q-card-section>
-                                <q-separator />
-                                <br>
-                                <q-card-section class="q-pt-none">
-                                  <p>Mata pelajaran : <span> Matematika</span></p>
-                                  <p>Topik : <span> Trigonometri</span></p>
-
-                                  <q-separator />
-                                  <br>
-                                  <q-file color="teal" filled v-model="model" label="upload file">
-                                    <template v-slot:prepend>
-                                      <q-icon name="cloud_upload" />
-                                    </template>
-                                  </q-file>
-                                </q-card-section>
-
-                                <q-card-actions align="right" class="bg-white text-teal">
-                                  <q-btn flat label="submit" v-close-popup />
-                                </q-card-actions>
-                              </q-card>
-                            </q-dialog>
-                          </div>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td class="text-left">20 sep 2023</td>
-                        <td class="text-right">Matematika</td>
-                        <td class="text-right">Trigonometri</td>
-                        <td class="text-right">individu</td>
-                        <td class="text-right">20 sep 2023</td>
-                        <td class="text-right">21 sep 2023</td>
-                        <td class="text-right">Berjalan</td>
-                        <td class="text-right">-</td>
-                        <td class="text-right">
-                          <div>
-                            <q-btn class="q-mx-sm" icon="download" color="blue"/>
-                            <q-btn class="q-mx-sm" icon="upload" color="blue"/>
-                          </div>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td class="text-left">20 sep 2023</td>
-                        <td class="text-right">Matematika</td>
-                        <td class="text-right">Trigonometri</td>
-                        <td class="text-right">individu</td>
-                        <td class="text-right">20 sep 2023</td>
-                        <td class="text-right">21 sep 2023</td>
-                        <td class="text-right">Berjalan</td>
-                        <td class="text-right">-</td>
-                        <td class="text-right">
-                          <div>
-                            <q-btn class="q-mx-sm" icon="download" color="blue"/>
-                            <q-btn class="q-mx-sm" icon="upload" color="blue"/>
+                            <q-btn class="q-mx-sm" icon="download" color="green" />
+                            <q-btn class="q-mx-sm" icon="upload" color="blue" @click="getTaskId(item.id)" />
                           </div>
                         </td>
                       </tr>
@@ -124,72 +64,30 @@
                   <q-markup-table style="height: 28vh;" h-scroll>
                     <thead>
                       <tr>
-                        <th class="text-left">Tanggal</th>
-                        <th class="text-right">Mata Pelajaran</th>
-                        <th class="text-right">Topik</th>
-                        <th class="text-right">Sifat</th>
-                        <th class="text-right">Mulai</th>
-                        <th class="text-right">selesai</th>
-                        <th class="text-right">Status</th>
-                        <th class="text-right">Nilai</th>
-                        <th class="text-right">Action</th>
+                        <th class="text-center">Tanggal</th>
+                        <th class="text-center">Mata Pelajaran</th>
+                        <th class="text-center">Topik</th>
+                        <th class="text-center">Sifat</th>
+                        <th class="text-center">Mulai</th>
+                        <th class="text-center">selesai</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Nilai</th>
+                        <th class="text-center">Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td class="text-left">20 sep 2023</td>
-                        <td class="text-right">Matematika</td>
-                        <td class="text-right">Trigonometri</td>
-                        <td class="text-right">individu</td>
-                        <td class="text-right">20 sep 2023</td>
-                        <td class="text-right">21 sep 2023</td>
-                        <td class="text-right">Berjalan</td>
-                        <td class="text-right">-</td>
-                        <td class="text-right">
+                      <tr v-for="(item, index) in task2" :key="item.id">
+                        <td class="text-center">{{ getDateTime(item?.createdAt) }}</td>
+                        <td class="text-center">{{ item?.subject.name }}</td>
+                        <td class="text-center">{{ item?.topic }}</td>
+                        <td class="text-center">{{ item?.characteristic }}</td>
+                        <td class="text-center">{{ getDateTime(item?.start_date) }}</td>
+                        <td class="text-center">{{ getDateTime(item?.end_date) }}</td>
+                        <td class="text-center">{{ item?.status }}</td>
+                        <td class="text-center">-</td>
+                        <td class="text-center">
                           <div>
-                            <q-btn label="Upload" color="green" @click="small = true" />
-                          </div>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td class="text-left">20 sep 2023</td>
-                        <td class="text-right">Matematika</td>
-                        <td class="text-right">Trigonometri</td>
-                        <td class="text-right">individu</td>
-                        <td class="text-right">20 sep 2023</td>
-                        <td class="text-right">21 sep 2023</td>
-                        <td class="text-right">Berjalan</td>
-                        <td class="text-right">-</td>
-                        <td class="text-right">
-                          <div>
-                            <q-btn label="Upload" color="green" @click="small = true" />
-
-                            <q-dialog v-model="small">
-                              <q-card style="width: 300px">
-                                <q-card-section>
-                                  <div class="text-h6 text-center">Upload Tugas</div>
-                                </q-card-section>
-                                <q-separator />
-                                <br>
-                                <q-card-section class="q-pt-none">
-                                  <p>Mata pelajaran : <span> Matematika</span></p>
-                                  <p>Topik : <span> Trigonometri</span></p>
-
-                                  <q-separator />
-                                  <br>
-                                  <q-file color="teal" filled v-model="model" label="upload file">
-                                    <template v-slot:prepend>
-                                      <q-icon name="cloud_upload" />
-                                    </template>
-                                  </q-file>
-                                </q-card-section>
-
-                                <q-card-actions align="right" class="bg-white text-teal">
-                                  <q-btn flat label="submit" v-close-popup />
-                                </q-card-actions>
-                              </q-card>
-                            </q-dialog>
+                            <q-btn class="q-mx-sm" icon="upload" color="blue" @click="getTaskId(item.id)" />
                           </div>
                         </td>
                       </tr>
@@ -205,11 +103,53 @@
       </div>
     </div>
   </div>
+  <q-dialog v-model="small">
+    <q-card style="width: 700px; max-width: 80vw;">
+      <q-card-section>
+        <div class="text-h6 text-center">Upload Tugas</div>
+      </q-card-section>
+
+      <br>
+      <q-card-section class="q-pt-none">
+        <q-markup-table flat>
+          <tbody>
+            <tr>
+              <td class="text-left text-bold">Mata Pelajaran</td>
+              <td class="text-left">: {{ dataTask?.subject.name }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-bold">Topik</td>
+              <td class="text-left">: {{ dataTask?.topic }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-bold">Tanggal Mulai</td>
+              <td class="text-left">: {{ getDateTime(dataTask?.start_date) }}</td>
+            </tr>
+            <tr>
+              <td class="text-left text-bold">Tanggal Selesai</td>
+              <td class="text-left">: {{ getDateTime(dataTask?.end_date) }} | {{ getTimeDeadline(dataTask?.end_date) }}
+              </td>
+            </tr>
+
+          </tbody>
+        </q-markup-table>
+
+        <br>
+        <q-uploader color="teal" flat bordered style="width: 100%;" />
+      </q-card-section>
+
+      <q-card-actions align="right" class="bg-white text-teal">
+        <q-btn flat label="close" v-close-popup />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script>
 import { ref } from 'vue'
 import NavbarSiswa from '../../components/siswa/HederSiswa.vue'
+import Swal from 'sweetalert2';
+
 
 export default {
 
@@ -225,9 +165,89 @@ export default {
       splitterModel: ref(20),
       shape: ref(),
       shape2: ref(),
-      model: ref(null)
+      model: ref(null),
+      token: ref(sessionStorage.getItem("token")),
+      idSiswa: ref(sessionStorage.getItem("idSiswa")),
+      task: ref(),
+      task2: ref(),
+      idTask: ref(''),
+      dataTask: ref(),
     }
   },
- 
+  methods: {
+    getDateTime(date) {
+      const now = new Date(date);
+      const formattedDate = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+      return formattedDate
+    },
+
+    getTimeDeadline(date) {
+
+      const durasi = new Date(new Date(date) - new Date());
+      const hari = durasi.getUTCDate() - 1;
+      const jam = durasi.getUTCHours();
+      const menit = durasi.getUTCMinutes();
+
+      return (`${hari} hari, ${jam} jam, ${menit} menit`);
+    },
+    async getDataTugas() {
+      try {
+        const taskParent = await this.$api.get(`student-task/show-by-student/${this.idSiswa}?cat=Work With Parents`, {
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
+        });
+        const taskKelompok = await this.$api.get(`student-task/show-by-student/${this.idSiswa}?cat=Project Kelompok`, {
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
+        });
+        this.task = taskParent.data.data
+        this.task2 = taskKelompok.data.data
+
+      } catch (error) {
+        Swal.fire({
+          title: "Gagal Mengambil data tugas !",
+          text: "Refresh halaman atau hubungi admin",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Refresh Now"
+        }).then((result) => {
+          if (result.isConfirmed) {
+           window.location.reload()
+          }
+        });
+        console.log(error);
+      }
+    },
+    async getTaskById(id) {
+      try {
+        const response = await this.$api.get(`student-task/show/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
+        });
+        console.log(response);
+        this.dataTask = response.data.data[0]
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    getTaskId(id) {
+      this.idTask = id
+      this.getTaskById(id)
+      this.small = true
+
+    }
+  },
+
+  mounted() {
+    this.getDataTugas()
+
+  },
+
 }
 </script>

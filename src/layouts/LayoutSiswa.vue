@@ -4,6 +4,7 @@
             <q-toolbar>
                 <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
                 <q-toolbar-title>
+                  
                     {{ currentTime }} | {{ currentDate }}
                 </q-toolbar-title>
                 <q-img src="../assets/sade.png" style="width: 60px"></q-img>
@@ -79,7 +80,7 @@
                         Peminjaman Buku
                     </q-item-section>
                 </q-item>
-                <q-item to="/siswa/ekstra" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
+                <!-- <q-item to="/siswa/ekstra" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
                     <q-item-section avatar>
                         <q-icon name="home" style="font-size: 2rem" />
                     </q-item-section>
@@ -87,7 +88,7 @@
                     <q-item-section class="text-bold" style="font-size: 1rem">
                         Ekstrakulikuler
                     </q-item-section>
-                </q-item>
+                </q-item> -->
                 <q-item to="/siswa/raport" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
                     <q-item-section avatar>
                         <q-icon name="summarize" style="font-size: 2rem" />
@@ -107,7 +108,7 @@
                         Bank Sampah
                     </q-item-section>
                 </q-item>
-                <q-item to="/siswa/abk" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
+                <!-- <q-item to="/siswa/abk" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
                     <q-item-section avatar>
                         <q-icon name="person" style="font-size: 2rem" />
                     </q-item-section>
@@ -115,7 +116,7 @@
                     <q-item-section class="text-bold" style="font-size: 1rem">
                         ABK
                     </q-item-section>
-                </q-item>
+                </q-item> -->
                 <q-item to="/siswa/cs" class="text-blue-4" active-class="text-orange bg-blue-1" clickable v-ripple>
                     <q-item-section avatar>
                         <q-icon name="headset_mic" style="font-size: 2rem" />
@@ -140,6 +141,10 @@
 <script>
 import { ref } from "vue";
 import Swal from 'sweetalert2'
+// import Vue from 'vue';
+import moment from 'moment';
+
+// Vue.prototype.$moment = moment;
 
 export default {
     setup() {
@@ -147,6 +152,7 @@ export default {
 
         return {
             leftDrawerOpen,
+           
             toggleLeftDrawer() {
                 leftDrawerOpen.value = !leftDrawerOpen.value;
             },
@@ -166,7 +172,7 @@ export default {
         this.getCurrentDateTime();
         setInterval(() => {
             this.getCurrentDateTime();
-        }, 60000);
+        }, 20000);
 
         this.getDataSiswa()
 

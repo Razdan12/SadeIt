@@ -91,6 +91,7 @@ export default {
             role
           }
           
+          sessionStorage.setItem('data', data)
           this.getUserAccess(data)
 
         } else {
