@@ -15,7 +15,7 @@
         <q-tab-panel name="innerMails">
          <NumberRaport/>
         </q-tab-panel>
-        
+
         <q-tab-panel name="innerAlarms">
           <div>
             <q-tabs v-model="tab2" inline-label outside-arrows mobile-arrows class="bg-blue-5 text-white shadow-2">
@@ -35,7 +35,7 @@
                 <q-tab name="page14" label="silat" />
                 <q-tab name="page15" label="tari" />
                 <q-tab name="page16" label="futsal" />
-  
+
               </q-tabs>
           </div>
             <q-space />
@@ -83,7 +83,7 @@
 
             <q-separator />
 
-           
+
           </q-card>
         </q-tab-panel>
 

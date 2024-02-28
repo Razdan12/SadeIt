@@ -110,7 +110,7 @@ import "@quasar/quasar-ui-qcalendar/src/QCalendarVariables.sass";
 import "@quasar/quasar-ui-qcalendar/src/QCalendarTransitions.sass";
 import "@quasar/quasar-ui-qcalendar/src/QCalendarMonth.sass";
 
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import NavigationBar from "../../components/NavigationBar.vue";
 import NavbarSiswa from "../../components/siswa/HederSiswa.vue"
 
@@ -200,11 +200,13 @@ export default defineComponent({
         },
       ],
       currentmonth: "",
-
+      idSiswa: ref(sessionStorage.getItem("idStudent")),
+      rekapSampah: ref([]),
     };
   },
   mounted() {
     this.getCurrentDateTime();
+    this.getPresensi()
   },
 
   methods: {
@@ -213,7 +215,63 @@ export default defineComponent({
       const options = { month: 'long', year: 'numeric' };
       this.currentmonth = now.toLocaleDateString('id-ID', options);
     },
+    async getPresensi() {
+      try {
+        const token = sessionStorage.getItem('token')
+        const idSiswa = sessionStorage.getItem('idSiswa')
+        const today = new Date();
+        const year = today.getFullYear();
+        // Ingatlah bahwa bulan dalam JavaScript dimulai dari 0, sehingga kita harus menambahkan 1 untuk mendapatkan bulan yang benar.
+        const month = today.getMonth() + 1;
+        const response = await this.$api.get(`student-attendance/show-by-student-month/${idSiswa}?year=${year}&month=${month}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const data = response.data.data
 
+        const dataPresensi = await Promise.all(
+          data.map((Item, index) => {
+            const date = new Date(Item.att_date)
+
+            if (date.getMonth() + 1 != this.month) {
+              return null
+            } else {
+              const rest = {
+                id: index,
+                title: Item.status,
+                details: Item.status,
+                start: getCurrentDay(date.getDate()),
+                end: getCurrentDay(date.getDate()),
+                bgcolor: Item.status === 'Hadir' ? "green" : Item.status === 'Izin' ? 'yellow' : Item.status === 'Sakit' ? 'blue' : 'red',
+              }
+              return rest
+            }
+          })
+        );
+
+        this.events = dataPresensi
+        this.getTotalPresensi(dataPresensi)
+
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async getTotalPresensi(data) {
+      let counts = data.reduce((acc, item) => {
+        if (item.title === 'Sakit') {
+          acc.sakit++;
+        } else if (item.title === 'Izin') {
+          acc.izin++;
+        } else if (item.title === 'Alfa') {
+          acc.alfa++;
+        }
+        return acc;
+      }, { sakit: 0, izin: 0, alfa: 0 });
+
+      this.totalPresensi = counts
+    },
     getWeekEvents(week, weekdays) {
       const firstDay = parsed(week[0].date + " 00:00");
       const lastDay = parsed(week[week.length - 1].date + " 23:59");
