@@ -20,7 +20,7 @@
             <tbody>
                 <tr v-for="(item, index) in dataRaport" :key="item.id">
                     <td class="text-left" style="width: 10px;">{{ index + 1 }}</td>
-                    <td class="text-left">{{ item?.subject.name }}</td>
+                    <td class="text-left">{{ item?.subject_name }}</td>
                     <td class="text-center">7.50</td>
                     <td class="text-center">{{ item?.grade }}</td>
                     <td class="text-left">{{ item?.grade_text }}</td>
@@ -72,7 +72,6 @@
         </q-markup-table>
     </div>
     <P>
-
     </P>
 </template>
 
@@ -81,25 +80,31 @@ import { ref } from 'vue'
 
 export default {
     name: 'NumberRapot',
-
-    setup() {
+    props: {
+    TabPilihan: {
+      type: String,
+      required: true
+    }
+  },
+    setup(props) {
         return {
             shape: ref('line'),
             idSiswa: ref(sessionStorage.getItem("idSiswa")),
             token: ref(sessionStorage.getItem("token")),
-            dataRaport: ref()
+            dataRaport: ref(),
+            TabPilihan:props.TabPilihan
         }
     },
     methods: {
 
     async getRaport() {
       try {
-        const response = await this.$api.get(`number-report/show-by-student/${this.idSiswa}`, {
+        const response = await this.$api.get(`number-report/show-by-student/${this.idSiswa}?semester=${this.TabPilihan}`, {
           headers: {
             'Authorization': `Bearer ${this.token}`
           }
         });
-        this.dataRaport = response.data.data
+        this.dataRaport = response.data.data.number_reports
 
       } catch (error) {
         console.log(error);
