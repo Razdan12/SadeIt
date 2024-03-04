@@ -29,15 +29,15 @@
                           <tbody>
                             <tr>
                               <td class="text-left">Hadir</td>
-                              <td class="text-right">{{dataHadir}}</td>
+                              <td class="text-right">{{ dataHadir }}</td>
                             </tr>
                             <tr>
                               <td class="text-left">Sakit</td>
-                              <td class="text-right">{{dataSakit}}</td>
+                              <td class="text-right">{{ dataSakit }}</td>
                             </tr>
                             <tr>
                               <td class="text-left">Izin</td>
-                              <td class="text-right">{{dataIzin}}</td>
+                              <td class="text-right">{{ dataIzin }}</td>
                             </tr>
                           </tbody>
                         </q-markup-table>
@@ -251,7 +251,7 @@ export default {
     const dataSiswa = ref([]);
     const selectedSiswa = ref(false);
     const selectedStudent = ref(null);
-
+    const idSiswas = ref();
     const dataHadir = ref(0);
     const dataIzin = ref(0);
     const dataSakit = ref(0);
@@ -283,42 +283,51 @@ export default {
           })
         );
         const value = JSON.parse(sessionStorage.getItem('newValue'))
-        selectedStudent.value = value? value: dataSiswa.value[0]
+        sessionStorage.setItem('idSiswa', data[0].student_id)
+        idSiswas.value = data[0].student_id
+        selectedStudent.value = value ? value : dataSiswa.value[0]
       } catch (error) {
         console.log(error);
       }
     };
     const getRekapSampahbulan = async () => {
-      const idSiswa = sessionStorage.getItem("idSiswa")
+      const idSiswa = sessionStorage.getItem("idSiswa") !== null ? sessionStorage.getItem("idSiswa") : idSiswas.value;
+
       const token = sessionStorage.getItem("token");
       try {
-        const response = await axios.get(`https://api-dev.curaweda.com:7000/api/waste-collection/recap-week-by-student/${idSiswa}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        const totalWeight = response.data.data.reduce((total, day) => total + (day.weight === null ? 0 : day.weight), 0);
-        rekapSampah.value = totalWeight
+        if (idSiswa !== undefined) {
+          const response = await axios.get(`https://api-dev.curaweda.com:7000/api/waste-collection/recap-week-by-student/${idSiswa}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+          const totalWeight = response.data.data.reduce((total, day) => total + (day.weight === null ? 0 : day.weight), 0);
+          rekapSampah.value = totalWeight
+        }
+
       } catch (error) {
         console.log(error);
       }
     }
 
     const getRekapAbsensi = async () => {
-      const idSiswa = sessionStorage.getItem("idSiswa")
+      const idSiswa = sessionStorage.getItem("idSiswa") !== null ? sessionStorage.getItem("idSiswa") : idSiswas.value;
       const token = sessionStorage.getItem("token");
       try {
-        const response = await axios.get(`https://api-dev.curaweda.com:7000/api/student-attendance/show-by-student/${idSiswa}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        const filterHadir = response.data.data.filter((a)=>a.status==="Hadir")
-        const filterIzin = response.data.data.filter((a)=>a.status==="Izin")
-        const filterSakit = response.data.data.filter((a)=>a.status==="Sakit")
-        dataHadir.value = filterHadir.length
-        dataIzin.value = filterIzin.length
-        dataSakit.value = filterSakit.length
+        if (idSiswa !== undefined) {
+          const response = await axios.get(`https://api-dev.curaweda.com:7000/api/student-attendance/show-by-student/${idSiswa}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+          const filterHadir = response.data.data.filter((a) => a.status === "Hadir")
+          const filterIzin = response.data.data.filter((a) => a.status === "Izin")
+          const filterSakit = response.data.data.filter((a) => a.status === "Sakit")
+          dataHadir.value = filterHadir.length
+          dataIzin.value = filterIzin.length
+          dataSakit.value = filterSakit.length
+        }
+
         // rekapSampah.value = response.data.data
       } catch (error) {
         console.log(error);

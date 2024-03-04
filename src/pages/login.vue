@@ -80,6 +80,7 @@ export default {
         if (verif == 1) {
 
           const token = response.data.tokens.access.token
+          const name = response.data.data.full_name
           const role = response.data.data.role_id
           sessionStorage.setItem("token", token)
           sessionStorage.setItem("role", role)
@@ -88,10 +89,11 @@ export default {
           const data = {
             id,
             token,
-            role
+            role,
+            name
           }
-          
-          sessionStorage.setItem('data', data)
+
+          sessionStorage.setItem('data', JSON.stringify(data))
           this.getUserAccess(data)
 
         } else {

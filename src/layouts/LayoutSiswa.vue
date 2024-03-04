@@ -4,7 +4,7 @@
             <q-toolbar>
                 <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
                 <q-toolbar-title>
-                  
+
                     {{ currentTime }} | {{ currentDate }}
                 </q-toolbar-title>
                 <q-img src="../assets/sade.png" style="width: 60px"></q-img>
@@ -152,7 +152,7 @@ export default {
 
         return {
             leftDrawerOpen,
-           
+
             toggleLeftDrawer() {
                 leftDrawerOpen.value = !leftDrawerOpen.value;
             },
@@ -186,7 +186,7 @@ export default {
             this.currentDate = formattedDate;
             this.currentTime = formattedTime;
         },
-        
+
         async logOut() {
             Swal.fire({
                 title: "Log out?",
@@ -213,13 +213,13 @@ export default {
                         'Authorization': `Bearer ${token}`
                     }
                 });
-               
+
                 this.nama = response.data.data[0].student.full_name
                 this.nis = response.data.data[0].student.nis
                 this.kelas = response.data.data[0].student.class
                 const id = response.data.data[0].student.id
                 sessionStorage.setItem('idSiswa', id)
-                
+
             } catch (error) {
                 console.log(error);
             }
