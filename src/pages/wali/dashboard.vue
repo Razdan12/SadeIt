@@ -28,20 +28,16 @@
                         <q-markup-table class="bg-green-1" flat>
                           <tbody>
                             <tr>
-                              <td class="text-left">Hadir (Ontime)</td>
-                              <td class="text-right">159</td>
-                            </tr>
-                            <tr>
-                              <td class="text-left">Hadir (Late)</td>
-                              <td class="text-right">237</td>
+                              <td class="text-left">Hadir</td>
+                              <td class="text-right">{{dataHadir}}</td>
                             </tr>
                             <tr>
                               <td class="text-left">Sakit</td>
-                              <td class="text-right">262</td>
+                              <td class="text-right">{{dataSakit}}</td>
                             </tr>
                             <tr>
-                              <td class="text-left">Alfa</td>
-                              <td class="text-right">305</td>
+                              <td class="text-left">Izin</td>
+                              <td class="text-right">{{dataIzin}}</td>
                             </tr>
                           </tbody>
                         </q-markup-table>
@@ -175,7 +171,7 @@
                         <tbody>
                           <tr>
                             <td class="text-left">Terkumpul</td>
-                            <td class="text-right">159</td>
+                            <td class="text-right">{{ rekapSampah }}</td>
                             <td class="text-left">kg</td>
                           </tr>
                           <tr>
@@ -256,7 +252,10 @@ export default {
     const selectedSiswa = ref(false);
     const selectedStudent = ref(null);
 
-    const rekapSampah = ref([]);
+    const dataHadir = ref(0);
+    const dataIzin = ref(0);
+    const dataSakit = ref(0);
+    const rekapSampah = ref(0);
     const getDataSiswa = async () => {
       try {
         const token = sessionStorage.getItem("token");
@@ -284,7 +283,6 @@ export default {
           })
         );
         const value = JSON.parse(sessionStorage.getItem('newValue'))
-        console.log(value);
         selectedStudent.value = value? value: dataSiswa.value[0]
       } catch (error) {
         console.log(error);
@@ -294,13 +292,13 @@ export default {
       const idSiswa = sessionStorage.getItem("idSiswa")
       const token = sessionStorage.getItem("token");
       try {
-        const response = await axios.get(`https://api-dev.curaweda.com:7000/api/waste-collection/show/${idSiswa}`, {
+        const response = await axios.get(`https://api-dev.curaweda.com:7000/api/waste-collection/recap-week-by-student/${idSiswa}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
         });
-
-        rekapSampah.value = response.data.data
+        const totalWeight = response.data.data.reduce((total, day) => total + (day.weight === null ? 0 : day.weight), 0);
+        rekapSampah.value = totalWeight
       } catch (error) {
         console.log(error);
       }
@@ -315,7 +313,12 @@ export default {
             'Authorization': `Bearer ${token}`
           }
         });
-        console.log(response);
+        const filterHadir = response.data.data.filter((a)=>a.status==="Hadir")
+        const filterIzin = response.data.data.filter((a)=>a.status==="Izin")
+        const filterSakit = response.data.data.filter((a)=>a.status==="Sakit")
+        dataHadir.value = filterHadir.length
+        dataIzin.value = filterIzin.length
+        dataSakit.value = filterSakit.length
         // rekapSampah.value = response.data.data
       } catch (error) {
         console.log(error);
@@ -343,6 +346,10 @@ export default {
     return {
       dataSiswa,
       selectedSiswa,
+      rekapSampah,
+      dataHadir,
+      dataIzin,
+      dataSakit,
       selectedStudent,
       getDataSiswa,
     };

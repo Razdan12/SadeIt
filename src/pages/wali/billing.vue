@@ -29,36 +29,10 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td class="text-left">1</td>
-                            <td class="text-left">01 Agustus 2023</td>
-                            <td class="text-left">Spp Bulan Agustus</td>
-                            <td class="text-left">
-                              <q-btn outline style="color: grey" label="Download" />
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td class="text-left">3</td>
-                            <td class="text-left">01 September 2023</td>
-                            <td class="text-left">Spp Bulan September</td>
-                            <td class="text-left">
-                              <q-btn outline style="color: grey" label="Download" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="text-left">4</td>
-                            <td class="text-left">01 Oktober 2023</td>
-                            <td class="text-left">Spp Bulan Oktober</td>
-                            <td class="text-left">
-                              <q-btn outline style="color: grey" label="Download" />
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td class="text-left">2</td>
-                            <td class="text-left">01 November 2023</td>
-                            <td class="text-left">Spp Bulan November</td>
+                          <tr v-for="(item, index) in dataBilling" :key="index">
+                            <td class="text-left">{{ index + 1 }}</td>
+                            <td class="text-left">{{ formatDate(item.createdAt) }}</td>
+                            <td class="text-left">{{ item.academic_year }}</td>
                             <td class="text-left">
                               <q-btn outline style="color: grey" label="Download" />
                             </td>
@@ -70,7 +44,7 @@
                       </div>
                     </div>
                     <div></div>
-                    <div class="col-md-3 col-3 q-px-md"  style="height: 60vh;">
+                    <div class="col-md-3 col-3 q-px-md" style="height: 60vh;">
                       <br /><br /><br />
                       <q-card class="q-px-sm q-mt-lg text-center bg-red-5" style="height: 100%;">
                         <q-card-section>
@@ -87,13 +61,14 @@
                                 label="DPP bulan Januari Rp. 500.000"></q-checkbox><br />
                               <q-checkbox v-model="februaryCheckbox"
                                 label="DPP bulan Februari Rp. 500.000"></q-checkbox><br />
-                              <q-checkbox v-model="marchCheckbox" label="DPP bulan Maret Rp. 500.000"></q-checkbox><br />
+                              <q-checkbox v-model="marchCheckbox"
+                                label="DPP bulan Maret Rp. 500.000"></q-checkbox><br />
                               <span style="font-size: smaller">Payment deadline</span>
                               <span class="text-warning" style="font-size: smaller">10 Desember 2023</span>
                             </p>
-                            <p class="text-white" style="font-size: larger; margin-top: 10px"> Total: Rp. {{ totalAmount.toLocaleString("id-ID") }}</p>
-                            <q-btn class="full-width q-mt-lg" outline style="color: white" label="Pay Now"
-                              />
+                            <p class="text-white" style="font-size: larger; margin-top: 10px"> Total: Rp. {{
+                            totalAmount.toLocaleString("id-ID") }}</p>
+                            <q-btn class="full-width q-mt-lg" outline style="color: white" label="Pay Now" />
 
                           </div>
                         </q-card-section>
@@ -122,10 +97,45 @@
 </template>
 
 <script>
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
+import axios from "axios";
 
 export default {
+  methods:{
+    formatDate(dateTimeString) {
+      const date = new Date(dateTimeString);
+      const day = date.getDate().toString().padStart(2, '0');
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const year = date.getFullYear().toString();
+      return `${day}-${month}-${year}`;
+    }
+  },
   setup() {
+    const nilaiBilling = ref([])
+    const dataBilling = ref([])
+    const getBilling = async () => {
+      const idSiswa = sessionStorage.getItem("idSiswa")
+      const token = sessionStorage.getItem("token");
+      try {
+        const response = await axios.get(`https://api-dev.curaweda.com:7000/api/monthly/show-by-student/${idSiswa}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const filterDataBilling = response.data.data.filter((a) => a.payment_status !== "Paid")
+        const filterDataBillingSudahBayar = response.data.data.filter((a) => a.payment_status === "Paid")
+        console.log(filterDataBilling);
+        dataBilling.value = filterDataBillingSudahBayar
+        nilaiBilling.value = filterDataBilling
+        // rekapSampah.value = response.data.data
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    onMounted(() => {
+      getBilling();
+    });
     const januaryCheckbox = ref(false);
     const februaryCheckbox = ref(false);
     const marchCheckbox = ref(false);
@@ -134,8 +144,8 @@ export default {
 
     const calculateTotal = () => {
       totalAmount.value = (januaryCheckbox.value ? amountPerMonth : 0) +
-                          (februaryCheckbox.value ? amountPerMonth : 0) +
-                          (marchCheckbox.value ? amountPerMonth : 0);
+        (februaryCheckbox.value ? amountPerMonth : 0) +
+        (marchCheckbox.value ? amountPerMonth : 0);
     };
     watch([januaryCheckbox, februaryCheckbox, marchCheckbox], () => {
       calculateTotal();
@@ -150,6 +160,8 @@ export default {
       shape2: ref(),
       model: ref(null),
       januaryCheckbox,
+      nilaiBilling,
+      dataBilling,
       februaryCheckbox,
       marchCheckbox,
       totalAmount,
