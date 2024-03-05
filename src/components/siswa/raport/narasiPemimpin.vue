@@ -77,7 +77,7 @@ export default {
                         'Authorization': `Bearer ${this.token}`
                     }
                 });
-                console.log(response.data.data);
+              
                 this.data = response.data.data.narrative_categories[category].narrative_sub_categories
                 this.category = response.data.data.narrative_categories[category].category
 

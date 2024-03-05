@@ -61,26 +61,7 @@ export default {
   },
 
    setup() {
-    // const nilai = ref([])
-    // const getJadwalKegiatan = async () => {
-    //   const idSiswa = sessionStorage.getItem("idSiswa")
-    //   const token = sessionStorage.getItem("token");
-    //   try {
-    //     const response = await axios.get(`https://api-dev.curaweda.com:7000/api/number-report/show-by-student/${idSiswa}`, {
-    //       headers: {
-    //         'Authorization': `Bearer ${token}`
-    //       }
-    //     });
-    //     nilai.value = response.data.data
-    //     // rekapSampah.value = response.data.data
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
-
-    // onMounted(() => {
-    //   getJadwalKegiatan();
-    // });
+ 
     return {
       tab: ref("1"),
     };
