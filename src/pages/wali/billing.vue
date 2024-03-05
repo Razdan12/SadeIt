@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <q-card class="text-center bg-blue-2" style="height: 90vh">
+        <q-card class="text-center bg-blue-2" style="height: 100%">
           <q-card-section>
             <div class="text-center">
               <p>
@@ -16,7 +16,7 @@
             <div class="q-px-md">
               <q-card style="height: 100%">
                 <q-card-section>
-                  <div class="row" style="height: 80vh">
+                  <div class="row" style="height: 100%">
                     <div class="col-md-9 col-9">
                       <p class="text-left q-ml-md q-mt-sm text-grey">
                         <span style="font-size: large">Billing History</span
@@ -53,25 +53,22 @@
                       </q-markup-table>
                       <div></div>
                     </div>
-                    <div></div>
-                    <div class="col-md-3 col-3 q-px-md" style="height: 60vh">
-                      <br /><br /><br />
+                    <div class="col-md-3 col-3 q-px-md" style="height:100%">
                       <q-card
                         class="q-px-sm q-mt-lg text-center bg-red-5"
-                        style="height: 100%"
                       >
                         <q-card-section>
                           <div class="text-left">
                             <p class="text-left text-bold q-ml-md text-white">
-                              <span style="font-size: large">Next Payment</span>
+                              <span style="font-size: medium">Next Payment</span>
                             </p>
                           </div>
                           <q-separator color="white" inset />
                           <div class="q-mx-md">
                             <p class="text-bold q-mt-md text-white text-left">
-                              <span style="font-size: large"
+                              <span style="font-size: medium"
                                 >Payment Options</span
-                              ><br />
+                              >
                               <template
                                 v-for="(billing, index) in nilaiBilling"
                                 :key="index"
@@ -83,8 +80,9 @@
                                   } Rp. ${billing.bill_amount.toLocaleString(
                                     'id-ID'
                                   )}`"
+                                   style="font-size: 8px; margin-bottom: 3px; margin-right: 0px;"
                                 ></q-checkbox
-                                ><br />
+                                >
                               </template>
                               <span style="font-size: smaller"
                                 >Payment deadline</span
