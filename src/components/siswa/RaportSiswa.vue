@@ -13,7 +13,7 @@
     <template v-slot:after>
       <q-tab-panels v-model="innerTab" animated transition-prev="slide-down" transition-next="slide-up">
         <q-tab-panel name="innerMails">
-         <NumberRaport/>
+          <NumberRaport :TabPilihan="TabPilihan" />
         </q-tab-panel>
 
         <q-tab-panel name="innerAlarms">
@@ -125,6 +125,12 @@ import NumberRaport from "./raport/numberRaport.vue"
 
 export default {
   name: 'Rapot',
+  props: {
+    TabPilihan: {
+      type: String,
+      required: true
+    }
+  },
   components: {
    Tahsin,
    Akhlak,
@@ -133,14 +139,15 @@ export default {
    NumberRaport
   },
 
-  setup() {
+  setup(props) {
     return {
       tab: ref('mails'),
       tab2: ref('page1'),
       innerTab: ref('innerMails'),
       shape: ref('line'),
       splitterModel: ref(20),
-      editor: ref('Sangat Baik !')
+      editor: ref('Sangat Baik !'),
+      TabPilihan: props.TabPilihan
     }
   },
 
