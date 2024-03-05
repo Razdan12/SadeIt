@@ -2,22 +2,28 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <q-card class="text-center bg-blue-2" style="height: 87vh">
+        <q-card class="text-center bg-blue-2" style="height: 90vh">
           <q-card-section>
             <div class="text-center">
               <p>
-                <span class="text-center text-black text-bold" style="font-size: x-large">BILLING</span>
+                <span
+                  class="text-center text-black text-bold"
+                  style="font-size: x-large"
+                  >BILLING</span
+                >
               </p>
             </div>
             <div class="q-px-md">
-              <q-card style="height: 75vh">
+              <q-card style="height: 100%">
                 <q-card-section>
-                  <div class="row">
+                  <div class="row" style="height: 80vh">
                     <div class="col-md-9 col-9">
                       <p class="text-left q-ml-md q-mt-sm text-grey">
-                        <span style="font-size: large">Billing History</span><br />
+                        <span style="font-size: large">Billing History</span
+                        ><br />
                         <span style="font-size: smaller">
-                          manage Billing information and view receips</span>
+                          manage Billing information and view receips</span
+                        >
                       </p>
                       <q-markup-table flat class="q-px-lg">
                         <thead>
@@ -31,22 +37,29 @@
                         <tbody>
                           <tr v-for="(item, index) in dataBilling" :key="index">
                             <td class="text-left">{{ index + 1 }}</td>
-                            <td class="text-left">{{ formatDate(item.createdAt) }}</td>
-                            <td class="text-left">{{ item.academic_year }}</td>
                             <td class="text-left">
-                              <q-btn outline style="color: grey" label="Download" />
+                              {{ formatDate(item.createdAt) }}
+                            </td>
+                            <td class="text-left">{{ item.month.name }}</td>
+                            <td class="text-left">
+                              <q-btn
+                                outline
+                                style="color: grey"
+                                label="Download"
+                              />
                             </td>
                           </tr>
                         </tbody>
                       </q-markup-table>
-                      <div>
-
-                      </div>
+                      <div></div>
                     </div>
                     <div></div>
-                    <div class="col-md-3 col-3 q-px-md" style="height: 60vh;">
+                    <div class="col-md-3 col-3 q-px-md" style="height: 60vh">
                       <br /><br /><br />
-                      <q-card class="q-px-sm q-mt-lg text-center bg-red-5" style="height: 100%;">
+                      <q-card
+                        class="q-px-sm q-mt-lg text-center bg-red-5"
+                        style="height: 100%"
+                      >
                         <q-card-section>
                           <div class="text-left">
                             <p class="text-left text-bold q-ml-md text-white">
@@ -56,43 +69,71 @@
                           <q-separator color="white" inset />
                           <div class="q-mx-md">
                             <p class="text-bold q-mt-md text-white text-left">
-                              <span style="font-size: large">Payment Options</span><br />
-                              <q-checkbox v-model="januaryCheckbox"
-                                label="DPP bulan Januari Rp. 500.000"></q-checkbox><br />
-                              <q-checkbox v-model="februaryCheckbox"
-                                label="DPP bulan Februari Rp. 500.000"></q-checkbox><br />
-                              <q-checkbox v-model="marchCheckbox"
-                                label="DPP bulan Maret Rp. 500.000"></q-checkbox><br />
-                              <span style="font-size: smaller">Payment deadline</span>
-                              <span class="text-warning" style="font-size: smaller">10 Desember 2023</span>
+                              <span style="font-size: large"
+                                >Payment Options</span
+                              ><br />
+                              <template
+                                v-for="(billing, index) in nilaiBilling"
+                                :key="index"
+                              >
+                                <q-checkbox
+                                  v-model="billing.isChecked"
+                                  :label="`SPP ${
+                                    billing.month.name
+                                  } Rp. ${billing.bill_amount.toLocaleString(
+                                    'id-ID'
+                                  )}`"
+                                ></q-checkbox
+                                ><br />
+                              </template>
+                              <span style="font-size: smaller"
+                                >Payment deadline</span
+                              >
+                              <span
+                                class="text-warning"
+                                style="font-size: smaller"
+                                >10 Desember 2023</span
+                              >
                             </p>
-                            <p class="text-white" style="font-size: larger; margin-top: 10px"> Total: Rp. {{
-                            totalAmount.toLocaleString("id-ID") }}</p>
-                            <q-btn class="full-width q-mt-lg" outline style="color: white" label="Pay Now" />
-
+                            <p
+                              class="text-white"
+                              style="font-size: larger; margin-top: 10px"
+                            >
+                              <span style="color: black"
+                                >Total: Rp.
+                                {{ totalAmount.toLocaleString("id-ID") }}</span
+                              >
+                            </p>
+                            <q-btn
+                              class="full-width q-mt-lg"
+                              outline
+                              style="color: black"
+                              label="Pay Now"
+                              @click="showDialog = true"
+                            />
                           </div>
                         </q-card-section>
                       </q-card>
                     </div>
-
                   </div>
                 </q-card-section>
-                <div class="absolute-bottom text-subtitle2 text-center q-gutter-sm">
-                  <q-card class="bg-blue-grey-1" style="height: 25vh;">
-                    <q-card-section>
-                      <div class="text-left text-bold q-pt-sm q-px-md">
-                        <span style="font-size: large;">Payment Method</span>
-                      </div>
-
-                    </q-card-section>
-                  </q-card>
-                </div>
               </q-card>
             </div>
           </q-card-section>
         </q-card>
       </div>
     </div>
+     <!-- Dialog -->
+     <q-dialog v-model="showDialog">
+      <q-card>
+        <q-card-section class="q-pt-none">
+          <div>No Rekening: 1570000005034 an Sekolah Alam Depok</div>
+        </q-card-section>
+        <q-card-actions align="center">
+          <q-btn label="Close" color="primary" @click="showDialog = false" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
@@ -101,37 +142,45 @@ import { ref, watch, onMounted } from "vue";
 import axios from "axios";
 
 export default {
-  methods:{
+  methods: {
     formatDate(dateTimeString) {
       const date = new Date(dateTimeString);
-      const day = date.getDate().toString().padStart(2, '0');
-      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const day = date.getDate().toString().padStart(2, "0");
+      const month = (date.getMonth() + 1).toString().padStart(2, "0");
       const year = date.getFullYear().toString();
       return `${day}-${month}-${year}`;
-    }
+    },
   },
   setup() {
-    const nilaiBilling = ref([])
-    const dataBilling = ref([])
+    const nilaiBilling = ref([]);
+    const dataBilling = ref([]);
+    const showDialog = ref(false);
     const getBilling = async () => {
-      const idSiswa = sessionStorage.getItem("idSiswa")
+      const idSiswa = sessionStorage.getItem("idSiswa");
       const token = sessionStorage.getItem("token");
       try {
-        const response = await axios.get(`https://api-dev.curaweda.com:7000/api/monthly/show-by-student/${idSiswa}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
+        const response = await axios.get(
+          `https://api-dev.curaweda.com:7000/api/monthly/show-by-student/${idSiswa}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-        });
-        const filterDataBilling = response.data.data.filter((a) => a.payment_status !== "Paid")
-        const filterDataBillingSudahBayar = response.data.data.filter((a) => a.payment_status === "Paid")
+        );
+        const filterDataBilling = response.data.data.filter(
+          (a) => a.payment_status !== "Paid"
+        );
+        const filterDataBillingSudahBayar = response.data.data.filter(
+          (a) => a.payment_status === "Paid"
+        );
         console.log(filterDataBilling);
-        dataBilling.value = filterDataBillingSudahBayar
-        nilaiBilling.value = filterDataBilling
+        dataBilling.value = filterDataBillingSudahBayar;
+        nilaiBilling.value = filterDataBilling;
         // rekapSampah.value = response.data.data
       } catch (error) {
         console.log(error);
       }
-    }
+    };
 
     onMounted(() => {
       getBilling();
@@ -143,13 +192,24 @@ export default {
     const totalAmount = ref(0);
 
     const calculateTotal = () => {
-      totalAmount.value = (januaryCheckbox.value ? amountPerMonth : 0) +
-        (februaryCheckbox.value ? amountPerMonth : 0) +
-        (marchCheckbox.value ? amountPerMonth : 0);
+      totalAmount.value = nilaiBilling.value.reduce((total, billing) => {
+        if (billing.isChecked) {
+          return total + billing.bill_amount;
+        } else {
+          return total;
+        }
+      }, 0);
     };
     watch([januaryCheckbox, februaryCheckbox, marchCheckbox], () => {
       calculateTotal();
     });
+    watch(
+      nilaiBilling,
+      () => {
+        calculateTotal();
+      },
+      { deep: true }
+    );
     return {
       tab: ref("mails"),
       innerTab: ref("innerMails"),
@@ -166,6 +226,7 @@ export default {
       marchCheckbox,
       totalAmount,
       calculateTotal,
+      showDialog
     };
   },
 };
