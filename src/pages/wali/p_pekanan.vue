@@ -88,7 +88,7 @@ export default {
       const idSiswa = sessionStorage.getItem("idSiswa")
       const token = sessionStorage.getItem("token");
       try {
-        const response = await axios.get(`https://api-dev.curaweda.com:7000/api/timetable/show/${idSiswa}`, {
+        const response = await axios.get(`https://api-dev.curaweda.com:7000/api/timetable?search_query=&page=0&limit=10`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
