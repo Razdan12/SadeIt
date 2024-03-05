@@ -20,11 +20,7 @@
           </div>
         </div>
       </div>
-      <div class="q-mb-sm absolute-bottom-left flex tw-w-full justify-center items-center">
-        <q-btn class="text-blue-1" flat color="light-blue-3" label="siswa" to="/siswa" />
-        <q-btn class="text-blue-1" flat color="light-blue-3" label="wali" to="/wali" />
-        <q-btn class="text-blue-1" flat color="light-blue-3" label="timbangan"  to="/timbangan" />
-      </div>
+      
     </q-page>
   </div>
 </template>

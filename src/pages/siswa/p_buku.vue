@@ -249,7 +249,8 @@ export default {
       idSiswa: ref(sessionStorage.getItem("idSiswa")),
       slider: ref(),
       rekap: ref(),
-      borrow: ref()
+      borrow: ref(),
+
     }
   },
   methods: {
@@ -294,8 +295,7 @@ export default {
             'Authorization': `Bearer ${this.token}`
           }
         });
-       
-       console.log(response.data.data);
+    
         this.borrow = response.data.data
       } catch (error) {
         console.log(error);
@@ -303,6 +303,7 @@ export default {
     },
   },
   mounted() {
+   
     this.getSliderBook()
     this.getRecapBook()
     this.getBorrowBook()

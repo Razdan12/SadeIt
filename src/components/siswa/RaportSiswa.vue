@@ -31,11 +31,7 @@
                 <q-tab name="page10" label="sass" />
                 <q-tab name="page11" label="karya seni" />
                 <q-tab name="page12" label="english" />
-                <q-tab name="page13" label="perkusi" />
-                <q-tab name="page14" label="silat" />
-                <q-tab name="page15" label="tari" />
-                <q-tab name="page16" label="futsal" />
-
+            
               </q-tabs>
           </div>
             <q-space />
@@ -53,31 +49,42 @@
               </q-tab-panel>
 
               <q-tab-panel name="page3">
-                <Pemimpin/>
+                <Pemimpin sub="2"/>
               </q-tab-panel>
 
               <q-tab-panel name="page4">
-                <Berfikir/>
+                <Pemimpin sub="3"/>
               </q-tab-panel>
 
               <q-tab-panel name="page5">
-                <div class="text-h6">page3</div>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                <Pemimpin sub="4"/>
               </q-tab-panel>
 
               <q-tab-panel name="page6">
-                <div class="text-h6">page3</div>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                <Pemimpin sub="5"/>
               </q-tab-panel>
 
               <q-tab-panel name="page7">
-                <div class="text-h6">page3</div>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                <Pemimpin sub="6"/>
               </q-tab-panel>
 
               <q-tab-panel name="page8">
-                <div class="text-h6">page3</div>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                <Pemimpin sub="7"/>
+              </q-tab-panel>
+              <q-tab-panel name="page9">
+                <Pemimpin sub="8"/>
+              </q-tab-panel>
+              <q-tab-panel name="page10">
+                <Pemimpin sub="9"/>
+              </q-tab-panel>
+              <q-tab-panel name="page11">
+                <Pemimpin sub="10"/>
+              </q-tab-panel>
+              <q-tab-panel name="page12">
+                <Pemimpin sub="11"/>
+              </q-tab-panel>
+              <q-tab-panel name="page13">
+                <Pemimpin sub="12"/>
               </q-tab-panel>
             </q-tab-panels>
 

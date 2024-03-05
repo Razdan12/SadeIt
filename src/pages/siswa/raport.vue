@@ -52,8 +52,17 @@ export default {
   setup() {
     const tab = ref("1");
     return {
-      tab
+     
+      tab: ref("1"),
+     
     };
   },
+  watch: {
+   tab(newVal) {
+    
+      sessionStorage.setItem('smt', newVal);
+    }
+  },
+
 };
 </script>
