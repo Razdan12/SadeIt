@@ -100,6 +100,8 @@ export default {
             'Authorization': `Bearer ${token}`
           }
         });
+
+        console.log(response);
         // columns.value = response.data.data
         // rows.value = response.data.data
         // rekapSampah.value = response.data.data
