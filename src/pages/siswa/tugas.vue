@@ -165,7 +165,11 @@
         </q-markup-table>
 
         <br />
-        <q-uploader style="width: 100%" label="Custom header" multiple>
+        <q-uploader
+          style="width: 100%"
+          label="Custom header"
+          accept=".pdf, .docx, .word,"
+        >
           <template v-slot:header="scope">
             <div class="row no-wrap items-center q-pa-sm q-gutter-xs">
               <q-btn
@@ -192,7 +196,7 @@
               <div class="col">
                 <div class="q-uploader__title">Upload your files</div>
                 <div class="q-uploader__subtitle">
-                  {{ scope.uploadSizeLabel }} / {{ scope.uploadProgressLabel }}
+                  {{ scope.uploadSizeLabel }}
                 </div>
               </div>
               <q-btn
@@ -265,7 +269,6 @@ export default {
       task2: ref(),
       idTask: ref(""),
       dataTask: ref(),
-      file: ref(),
     };
   },
   methods: {
@@ -288,7 +291,6 @@ export default {
             },
           }
         );
-
         if (response.status == 200) {
           this.small = false;
           Swal.fire({
@@ -298,132 +300,18 @@ export default {
             confirmButtonText: "Oke",
           });
         } else {
-          Swal.fire({
-            title: "Gagal mengupload tugas !",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Refresh Now",
-          });
         }
       } catch (error) {
-        console.error("Error uploading files:", error);
-        // Handle error if necessary
+        this.small = false;
+        console.error("Error uploading files:", error); // Handle error if necessary
+        Swal.fire({
+          title: "Gagal mengupload tugas!",
+          icon: "error",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Oke",
+        });
       }
     },
-    // file_selected: function (file) {
-    //   console.log(file);
-    //   this.selected_file = file[0];
-    //   this.check_if_document_upload = true;
-    // },
-    // onSubmit: function () {
-    //   const formData = new FormData();
-    //   formData.append("up_file", this.selected_file);
-
-    //   // Melakukan permintaan PUT menggunakan this.$api.put
-    //   this.$api.put(
-    //     `https://api-dev.curaweda.com:7000/api/student-task/upload/${this.idTask}`,
-    //     formData,
-    //     {
-    //       headers: {
-    //         "Content-Type": "multipart/form-data",
-    //         Authorization: `Bearer ${this.token}`,
-    //       },
-    //     }
-    //   );
-    // },
-    // onSubmit: function () {
-    //   const url = `https://api-dev.curaweda.com:7000/api/student-task/upload/${this.idTask}`;
-    //   const fileData = new FormData();
-    //   fileData.append("up_file", this.selected_file);
-    //   this.$api
-    //     .put(url, fileData, {
-    //       headers: {
-    //         "Content-Type": "multipart/form-data",
-    //         Authorization: `Bearer ${this.token}`,
-    //       },
-    //     })
-    //     .then(function () {
-    //       console.log("SUCCESS!!");
-    //     })
-    //     .catch(function () {
-    //       console.log("FAILURE!!");
-    //     });
-    // },
-    // uploadFile() {
-    //   return new Promise((resolve, reject) => {
-    //     // Konfigurasi data unggahan
-    //     const formData = new FormData();
-    //     formData.append("up_file", this.selected_file);
-
-    //     // Melakukan permintaan PUT menggunakan this.$api.put
-    //     this.$api
-    //       .put(
-    //         `https://api-dev.curaweda.com:7000/api/student-task/upload/${this.idTask}`,
-    //         formData,
-    //         {
-    //           headers: {
-    //             "Content-Type": "multipart/form-data",
-    //             Authorization: `Bearer ${this.token}`,
-    //           },
-    //         }
-    //       )
-    //       .then((response) => {
-    //         // Mengembalikan konfigurasi unggahan yang benar setelah permintaan berhasil
-    //         resolve({
-    //           url: response.config.url,
-    //           method: response.config.method,
-    //           headers: response.config.headers,
-    //         });
-    //       })
-    //       .catch((error) => {
-    //         // Menangani kesalahan jika permintaan gagal
-    //         console.error("Gagal melakukan permintaan PUT:", error);
-    //         reject(error);
-    //       });
-    //   });
-    // },
-    // uploadFile() {
-    //   const formData = new FormData();
-    //   formData.append("up_file", this.selected_file);
-    //   this.$api.put(
-    //     `https://api-dev.curaweda.com:7000/api/student-task/upload/${this.idTask}`,
-    //     formData,
-    //     {
-    //       headers: {
-    //         "Content-Type": "multipart/form-data",
-    //         Authorization: `Bearer ${this.token}`,
-    //       },
-    //     }
-    //   );
-    // },
-    // async uploadFile() {
-    //   try {
-    //     const formData = new FormData();
-    //     formData.append("up_file", this.selected_file); // Mengirimkan berkas yang dipilih
-
-    //     const response = await this.$api.put(
-    //       `https://api-dev.curaweda.com:7000/api/student-task/upload/${this.idTask}`,
-    //       formData,
-    //       {
-    //         headers: {
-    //           "Content-Type": "multipart/form-data",
-    //           Authorization: `Bearer ${this.token}`,
-    //         },
-    //       }
-    //     );
-    //     // Tambahkan logika lain jika diperlukan setelah unggahan berhasil
-    //   } catch (err) {
-    //     console.error("Upload gagal:", err);
-    //     // Tambahkan logika penanganan kesalahan jika diperlukan
-    //     Swal.fire({
-    //       title: "Gagal mengunggah berkas!",
-    //       text: "Silakan coba lagi atau hubungi admin",
-    //       icon: "error",
-    //     });
-    //   }
-    // },
     getDateTime(date) {
       const now = new Date(date);
       const formattedDate = now.toLocaleDateString("id-ID", {
