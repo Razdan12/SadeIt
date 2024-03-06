@@ -55,64 +55,57 @@
 import axios from "axios";
 import { ref, onMounted, getCurrentInstance, watch } from "vue";
 
-// const columns = [
+const columns = [
+  { name: 'senin', label: 'Senin', field: 'senin', align: 'center' },
+  { name: 'selasa', label: 'Selasa', field: 'selasa', align: 'center' },
+  { name: 'rabu', label: 'Rabu', field: 'rabu', align: 'center' },
+  { name: 'kamis', label: 'Kamis', field: 'kamis', align: 'center' },
+  { name: 'jumat', label: 'Jumat', field: 'jumat', align: 'center' },
 
-  // { name: 'senin', label: 'Senin', field: 'senin', align: 'center' },
-  // { name: 'selasa', label: 'Selasa', field: 'selasa', align: 'center' },
-  // { name: 'rabu', label: 'Rabu', field: 'rabu', align: 'center' },
-  // { name: 'kamis', label: 'Kamis', field: 'kamis', align: 'center' },
-  // { name: 'jumat', label: 'Jumat', field: 'jumat', align: 'center' },
+]
 
-// ]
-
-// const rows = [
-// { senin: 'Buka Kelas, Sholat Dhuha', selasa: 'Apel , Buka Kelas', rabu: 'Upacara Buka Kelas', kamis: 'Buka Kelas, Sholat Dhuha', jumat: 'Buka Kelas, Sholat Dhuha' },
-// { senin: 'Tahsin, Tahfizh', selasa: 'Sholat dhuha', rabu: 'Sholat Dhuha', kamis: 'Tahsin Tahfizh', jumat: 'Tahsin, Tahfizh' },
-// { senin: 'Snacktime', selasa: 'Snacktime', rabu: 'Tahsin Tahfizh', kamis: 'Snacktime', jumat: 'Snacktime' },
-// { senin: 'Freeplay', selasa: 'Freeplay', rabu: 'Snacktime', kamis: 'Freeplay', jumat: 'Freeplay' },
-// { senin: 'Aktivitas 1', selasa: 'SASS', rabu: 'Freeplay', kamis: 'Aktivitas 1', jumat: 'Jumsih' },
-// { senin: 'ISHOMA', selasa: 'ISHOMA', rabu: 'Aktivitas 1', kamis: 'ISHOMA', jumat: 'ISHOMA' },
-// { senin: 'Aktivitas 2', selasa: 'Islamika', rabu: 'ISHOMA', kamis: 'Aktivitas 2', jumat: 'Tutup Kelas' },
-// { senin: 'Tutup Kelas', selasa: 'Tutup Kelas', rabu: 'Aktivitas 2', kamis: 'Tutup Kelas', jumat: 'Ekstrakulikuler' },
-// { senin: '', selasa: '', rabu: 'Tutup Kelas', kamis: '', jumat: '' },
-
-
-// ]
+const rows = [
+{ senin: 'Buka Kelas, Sholat Dhuha', selasa: 'Apel , Buka Kelas', rabu: 'Upacara Buka Kelas', kamis: 'Buka Kelas, Sholat Dhuha', jumat: 'Buka Kelas, Sholat Dhuha' },
+{ senin: 'Tahsin, Tahfizh', selasa: 'Sholat dhuha', rabu: 'Sholat Dhuha', kamis: 'Tahsin Tahfizh', jumat: 'Tahsin, Tahfizh' },
+{ senin: 'Snacktime', selasa: 'Snacktime', rabu: 'Tahsin Tahfizh', kamis: 'Snacktime', jumat: 'Snacktime' },
+{ senin: 'Freeplay', selasa: 'Freeplay', rabu: 'Snacktime', kamis: 'Freeplay', jumat: 'Freeplay' },
+{ senin: 'Aktivitas 1', selasa: 'SASS', rabu: 'Freeplay', kamis: 'Aktivitas 1', jumat: 'Jumsih' },
+{ senin: 'ISHOMA', selasa: 'ISHOMA', rabu: 'Aktivitas 1', kamis: 'ISHOMA', jumat: 'ISHOMA' },
+{ senin: 'Aktivitas 2', selasa: 'Islamika', rabu: 'ISHOMA', kamis: 'Aktivitas 2', jumat: 'Tutup Kelas' },
+{ senin: 'Tutup Kelas', selasa: 'Tutup Kelas', rabu: 'Aktivitas 2', kamis: 'Tutup Kelas', jumat: 'Ekstrakulikuler' },
+{ senin: '', selasa: '', rabu: 'Tutup Kelas', kamis: '', jumat: '' },
+]
 
 export default {
   setup() {
     const columns = ref([ ]);
     const rows = ref([]);
-
-
-    const getJadwalKegiatan = async () => {
-      const idSiswa = sessionStorage.getItem("idSiswa")
-      const token = sessionStorage.getItem("token");
-      try {
-        const response = await axios.get(`https://api-dev.curaweda.com:7000/api/timetable/show/${idSiswa}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        columns.value = response.data.data
-        rows.value = response.data.data
-        // rekapSampah.value = response.data.data
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    onMounted(() => {
-      getJadwalKegiatan();
-    });
     return {
       separator: ref('cell'),
       columns,
-      getJadwalKegiatan,
       rows
     }
+  },
+  
+  methods: {
+    // fetchJadwal(){
+    //   const idSiswa = sessionStorage.getItem("idSiswa");
+    //   const token = sessionStorage.getItem("token");
+    //   try {
+    //     const response = await axios.get(`https://api-dev.curaweda.com:7000/api/timetable/show/${idSiswa}`, {
+    //       headers: {
+    //         'Authorization': `Bearer ${token}`
+    //       }
+    //     });
+    //     columns.value = response.data.data
+    //     rows.value = response.data.data
+    //     // rekapSampah.value = response.data.data
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
+    }
   }
-}
 </script>
 
 <style lang="sass">

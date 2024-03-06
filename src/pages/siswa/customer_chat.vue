@@ -33,13 +33,13 @@
                     <div ref="scrollTargetRef" class="q-pa-md" style="max-height: 100%; overflow: auto">
                       <q-infinite-scroll @load="onLoadRef" :scroll-target="scrollTargetRef">
                         <div class="q-pa-md row" style="height: 100%">
-                          <div style="width: 100%; height: 100%;" class="text-left">
+                          <div style="width: 100%; height: 100%;" class="text-left" v-for="message in messages" :key="message.id">
                             <q-chat-message name="me" :text="[
                               'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ',
                             ]" stamp="7 minutes ago" sent bg-color="amber-7" />
-                            <q-chat-message name="Jane" :text="[
+                            <!-- <q-chat-message name="Jane" :text="[
                               'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ',
-                            ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
+                            ]" stamp="4 minutes ago" text-color="white" bg-color="primary" /> -->
                            
                           </div>
                         </div>
@@ -124,15 +124,20 @@
 <script>
 import NavbarSiswa from "../../components/siswa/HederSiswa.vue";
 import { ref } from 'vue'
+import Swal from 'sweetalert2';
+
 export default {
   components: {
     NavbarSiswa,
   },
   setup() {
     return {
-      medium: ref(false)
+      medium: ref(false),
+      messages: ref([]),
+      token: ref(sessionStorage.getItem("token")),
+      idSiswa: ref(sessionStorage.getItem("idSiswa")),
     }
-  },
+  }
 };
 
 </script>

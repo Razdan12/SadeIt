@@ -7,23 +7,22 @@
             <q-header elevated class="bg-cyan-8">
               <q-toolbar>
                 <q-btn flat @click="drawer = !drawer" round dense icon="arrow_back" />
-                <q-toolbar-title>Nama</q-toolbar-title>
+                <q-toolbar-title>{{  currentReceiverName  }}</q-toolbar-title>
               </q-toolbar>
             </q-header>
 
             <q-drawer v-model="drawer" show-if-above :width="300" :breakpoint="400">
               <q-scroll-area style="height: calc(100% - 150px); margin-top: 80px; border-right: 1px solid #ddd">
                 <q-list padding>
-                  <q-item clickable v-ripple>
-                    <q-item-section avatar>
+                  <q-item clickable @click="setUpMessage(userChat)"  v-ripple v-for="userChat in users">
+                    <q-item-section avatar >
                       <q-avatar>
                         <img src="https://cdn.quasar.dev/img/avatar.png">
                       </q-avatar>
                     </q-item-section>
 
-                    <q-item-section>
-                      <p class="text-bold text-h6"> nama</p>
-                      <p> isi pesan ...</p>
+                    <q-item-section >
+                      <p class="text-bold text-h6">{{ userChat.idUser.full_name  }}</p>
                     </q-item-section>
                   </q-item>
 
@@ -33,7 +32,6 @@
               <q-img class="absolute-top" src="https://cdn.quasar.dev/img/material.png" style="height: 80px">
                 <div class="absolute-bottom bg-transparent">
                   <div class="text-weight-bold text-h4">Chats</div>
-
                 </div>
               </q-img>
               <div class="bg-red" style=" position: fixed; right: 80px; bottom: 80px;" @click="medium = true">
@@ -56,23 +54,8 @@
                     <div ref="scrollTargetRef" class="q-pa-md" style="max-height: 100%; overflow: auto">
                       <q-infinite-scroll @load="onLoadRef" :scroll-target="scrollTargetRef">
                         <div class="q-pa-md row" style="height: 100%">
-                          <div style="width: 100%; height: 100%;" class="text-left">
-                            <q-chat-message name="me" :text="[
-                              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ',
-                            ]" stamp="7 minutes ago" sent bg-color="amber-7" />
-                            <q-chat-message name="Jane" :text="[
-                              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ',
-                            ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
-                            <q-chat-message name="Jane" :text="[
-                              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ',
-                            ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
-                            <q-chat-message name="Jane" :text="[
-                              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ',
-                            ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
-                            <q-chat-message name="Jane" :text="[
-                              'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. ',
-                            ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
-
+                          <div style="width: 100%; height: 100%;" class="text-left" v-for="message in messages">
+                            <q-chat-message :name="message.sender" :text="[message.text]" :stamp="message.stamp" :sent="message.isSender" :bg-color="message.color" :text-color="message.textColor" />
                           </div>
                         </div>
                       </q-infinite-scroll>
@@ -81,10 +64,10 @@
                 </q-scroll-area>
                 <div class="flex justify-center items-center">
                   <div class="tw-w-5/6 flex justify-start">
-                    <q-input rounded outlined v-model="text" class="input bg-white tw-w-full" placeholder="Type Here" />
+                    <q-input rounded @keyup.enter="sendMessage" outlined v-model="inputMessage" class="input bg-white tw-w-full" placeholder="Type Here" />
                   </div>
                   <div class="tw-w-1/6 flex tw-pl-2">
-                    <q-btn round color="green" icon="send" />
+                    <q-btn round color="green" icon="send" @click="sendMessage"/>
                   </div>
 
                 </div>
@@ -145,7 +128,6 @@
             <div class="flex tw-flex-col justify-start items-start q-pl-md tw-w-5/6">
               <p class="text-bold text-h6"> nama</p>
             </div>
-
           </div>
         </q-card>
       </q-card-section>
@@ -160,6 +142,9 @@
 <script>
 import NavbarSiswa from "../../components/siswa/HederSiswa.vue";
 import { ref } from 'vue'
+import Swal from 'sweetalert2';
+
+
 export default {
   components: {
     NavbarSiswa,
@@ -167,10 +152,125 @@ export default {
   setup() {
     return {
       medium: ref(false),
-      drawer: ref(true)
+      drawer: ref(true),
+      users: ref([]),
+      messages: ref([]),
+      currentMessageId: ref(),
+      currentReceiverId: ref(),
+      currentReceiverName: ref('Name'),
+      token: ref(sessionStorage.getItem("token")),
+      idUser: ref(sessionStorage.getItem("idUser")),
     }
   },
-};
+  mounted(){
+    this.getUserChats()
+  },
+  watch:{
+    currentMessageId: {
+      handler(value){
+        this.getMessages()
+      }
+    }
+  },
+  methods: {
+    //GET ALL USER CHAT
+    async getUserChats(){
+      try{
+        const { data }= await this.$api.get(`user-chat/show-by-user/${this.idUser}`, {
+          headers: {
+              'Authorization': `Bearer ${this.token}`
+          }
+        })
+        if(!data) throw Error('Currently No Message for you')
+        this.users = data.data
+        
+        const firstShownUser = this.users[0]
+        this.currentMessageId = firstShownUser.unique_id
+        this.currentReceiverId = firstShownUser.with_id
+        this.currentReceiverName = firstShownUser.idUser.full_name
+      }catch(err){
+        Swal.fire({
+          title: err.message,
+          text: "Tunggu sebentar ya, atau refresh kembali",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Refresh Now"
+        }).then((result) => {
+          if (result.isConfirmed) {
+           window.location.reload()
+          }
+        });
+      }
+    },
+
+    //GET MESSAGE
+    async setUpMessage(rowData){
+      try{
+        this.currentMessageId = rowData.unique_id,
+        this.currentReceiverId = rowData.with_id
+        this.currentReceiverName = rowData.idUser.full_name
+      }catch(err){
+        console.log(err)
+      }
+    },
+    async getMessages(){
+      try{
+        const currentTime = new Date()
+        const { data } = await this.$api.get(`message/show-by-uid/${this.currentMessageId}`, {
+          headers: {
+              'Authorization': `Bearer ${this.token}`
+          }
+        })
+        this.messages = data.data.map(message => ({
+          text: message.message,
+          sender: message.sender_id != this.idUser ? this.currentReceiverName : "Me",
+          color: message.sender_id != this.idUser ? "primary" : "amber-7",
+          textColor: message.sender_id != this.idUser ? "white" : "black",
+          isSender: message.sender_id  != this.idUser ? false : true,
+          stamp: this.countTime(currentTime, new Date(message.createdAt))
+        }))
+      }catch(err){
+        console.log(err)
+      }
+    },
+    countTime (newestDate, time){
+      try {
+        console.log(newestDate, time)
+        const timeDiff = newestDate - time;
+        const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+        if (hours > 0) {
+          return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
+        } else if (minutes > 0) {
+          return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} ago`;
+        } else {
+          return `${seconds} ${seconds === 1 ? 'second' : 'seconds'} ago`;
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
+    //SEND MESSAGE 
+    async sendMessage() {
+      try{
+        const { data  } = await this.$api.post('message/create', {
+          user_id: this.idUser,
+          with_id: this.currentReceiverId,
+          message: this.inputMessage
+        }, { headers: { 'Authorization': `Bearer ${this.token}`, 'Content-Type': 'Application/json' } })
+        this.inputMessage = ""
+        this.getMessages()
+      }catch(err){
+        console.log(err)
+      }
+    },
+  }
+}
 
 </script>
 

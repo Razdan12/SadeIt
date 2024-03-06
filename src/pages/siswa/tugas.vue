@@ -193,9 +193,9 @@ export default {
     async getDataTugas() {
       try {
         const taskParent = await this.$api.get(`student-task/show-by-student/${this.idSiswa}?cat=Work With Parents`, {
-          headers: {
-            'Authorization': `Bearer ${this.token}`
-          }
+            headers: {
+              'Authorization': `Bearer ${this.token}`
+            }
         });
         const taskKelompok = await this.$api.get(`student-task/show-by-student/${this.idSiswa}?cat=Project Kelompok`, {
           headers: {
