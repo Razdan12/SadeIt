@@ -24,19 +24,19 @@
                   indicator-color="primary"
                   align="justify"
                 >
-                  <q-tab name="mails" label="Semester Ganjil" />
-                  <q-tab name="alarms" label="Semester Genap" />
+                  <q-tab name="1" label="Semester Ganjil" />
+                  <q-tab name="2" label="Semester Genap" />
                 </q-tabs>
 
                 <q-separator />
 
                 <q-tab-panels v-model="tab" animated>
-                  <q-tab-panel name="mails" class="q-pa-none">
-                    <Rapot />
+                  <q-tab-panel name="1" class="q-pa-none">
+                    <Rapot :TabPilihan="'1'"/>
                   </q-tab-panel>
 
-                  <q-tab-panel name="alarms">
-                    <Rapot />
+                  <q-tab-panel name="2">
+                    <Rapot :TabPilihan="'2'"/>
                   </q-tab-panel>
                 </q-tab-panels>
               </q-card>
@@ -61,29 +61,9 @@ export default {
   },
 
    setup() {
-    const nilai = ref([])
-    const getJadwalKegiatan = async () => {
-      const idSiswa = sessionStorage.getItem("idSiswa")
-      const token = sessionStorage.getItem("token");
-      try {
-        const response = await axios.get(`https://api-dev.curaweda.com:7000/api/number-report/show-by-student/${idSiswa}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        nilai.value = response.data.data
-        // rekapSampah.value = response.data.data
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    onMounted(() => {
-      getJadwalKegiatan();
-    });
+ 
     return {
-      tab: ref("mails"),
-      getJadwalKegiatan
+      tab: ref("1"),
     };
   },
 };

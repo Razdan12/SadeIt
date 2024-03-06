@@ -18,28 +18,57 @@
             <q-card class="my-card tw-w-full">
               <q-card-section>
 
-                <q-table class="my-sticky-header-table" flat bordered :separator="separator" :rows="rows"
-                  :rows-per-page-options="[10]" :columns="columns" row-key="name" style="height: fit-content;">
-                  <template v-slot:body-cell-senin="props">
-                    <q-td :props="props"
-                      :style="{ backgroundColor: props.row.senin === 'Aktivitas 1' ? 'yellow' : props.row.senin === 'Aktivitas 2' ? 'green' : 'white' }">
-                      {{ props.row.senin }}
-                    </q-td>
-                  </template>
-                  <template v-slot:body-cell-rabu="props">
-                    <q-td :props="props"
-                      :style="{ backgroundColor: props.row.rabu === 'Aktivitas 1' ? 'yellow' : props.row.rabu === 'Aktivitas 2' ? 'green' : 'white' }">
-                      {{ props.row.rabu }}
-                    </q-td>
-                  </template>
-                  <template v-slot:body-cell-kamis="props">
-                    <q-td :props="props"
-                      :style="{ backgroundColor: props.row.kamis === 'Aktivitas 1' ? 'yellow' : props.row.kamis === 'Aktivitas 2' ? 'green' : 'white' }">
-                      {{ props.row.kamis }}
-                    </q-td>
-                  </template>
-                </q-table>
-
+                <q-markup-table separator="cell" flat bordered>
+                  <thead>
+                    <tr class="bg-blue-3 text-bold">
+                      <th class="text-center">Senin</th>
+                      <th class="text-center">Selasa</th>
+                      <th class="text-center">Rabu</th>
+                      <th class="text-center">Kamis</th>
+                      <th class="text-center">Jum'at</th>
+                      <th class="text-center">Sabtu</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="text-center">Buka Kelas</td>
+                      <td class="text-center">Apel</td>
+                      <td class="text-center">Upacara</td>
+                      <td class="text-center">Sholat Dhuha</td>
+                      <td class="text-center">Sholat Dhuha</td>
+                      <td class="text-center">Sholat Dhuha</td>
+                     
+                    </tr>
+                    <tr>
+                      <td class="text-center">Buka Kelas</td>
+                      <td class="text-center">Apel</td>
+                      <td class="text-center">Upacara</td>
+                      <td class="text-center">Sholat Dhuha</td>
+                      <td class="text-center">Sholat Dhuha</td>
+                      <td class="text-center">Sholat Dhuha</td>
+                     
+                    </tr>
+                    <tr>
+                      <td class="text-center">Buka Kelas</td>
+                      <td class="text-center">Apel</td>
+                      <td class="text-center">Upacara</td>
+                      <td class="text-center">Sholat Dhuha</td>
+                      <td class="text-center"></td>
+                      <td class="text-center">Sholat Dhuha</td>
+                     
+                    </tr>
+                    <tr>
+                      <td class="text-center">Buka Kelas</td>
+                      <td class="text-center">Apel</td>
+                      <td class="text-center">Upacara</td>
+                      <td class="text-center">Sholat Dhuha</td>
+                      <td class="text-center">Sholat Dhuha</td>
+                      <td class="text-center"></td>
+                     
+                    </tr>
+                    
+                  </tbody>
+                </q-markup-table>
 
               </q-card-section>
             </q-card>
@@ -54,16 +83,34 @@
 import axios from "axios";
 import { ref, onMounted, getCurrentInstance, watch } from "vue";
 
-const columns = [
-  { name: 'senin', label: 'Senin', field: 'senin', align: 'center' },
-  { name: 'selasa', label: 'Selasa', field: 'selasa', align: 'center' },
-  { name: 'rabu', label: 'Rabu', field: 'rabu', align: 'center' },
-  { name: 'kamis', label: 'Kamis', field: 'kamis', align: 'center' },
-  { name: 'jumat', label: 'Jumat', field: 'jumat', align: 'center' },
-]
+
 
 export default {
   setup() {
+    const columns = ref([]);
+    const rows = ref([]);
+
+
+    const getJadwalKegiatan = async () => {
+      const idSiswa = sessionStorage.getItem("idSiswa")
+      const token = sessionStorage.getItem("token");
+      try {
+        const response = await axios.get(`https://api-dev.curaweda.com:7000/api/timetable/show/${idSiswa}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        // columns.value = response.data.data
+        // rows.value = response.data.data
+        // rekapSampah.value = response.data.data
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    onMounted(() => {
+      getJadwalKegiatan();
+    });
     return {
       separator: ref('cell'),
       columns,

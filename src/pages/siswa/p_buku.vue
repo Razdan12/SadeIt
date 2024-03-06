@@ -472,12 +472,8 @@ export default {
       slider: ref(),
       rekap: ref(),
       borrow: ref(),
-      comment: ref(),
-      bookreviewall: ref([]),
-      countRating: ref(),
-      bookreview: ref([]),
-      bookdata: ref([]),
-    };
+
+    }
   },
   methods: {
     getDateTime(date) {
@@ -528,10 +524,10 @@ export default {
               Authorization: `Bearer ${this.token}`,
             },
           }
-        );
-
-        console.log(response.data.data);
-        this.borrow = response.data.data;
+        });
+       
+       console.log(response.data.data);
+        this.borrow = response.data.data
       } catch (error) {
         console.log(error);
       }
@@ -673,9 +669,9 @@ export default {
     },
   },
   mounted() {
-    this.getSliderBook();
-    this.getRecapBook();
-    this.getBorrowBook();
+    this.getSliderBook()
+    this.getRecapBook()
+    this.getBorrowBook()
   },
 };
 </script>

@@ -7,8 +7,7 @@
           <q-card-section>
             <div class="text-center tw-mb-5">
               <p>
-                <span class="text-center text-black text-bold" style="font-size: x-large">KEHADIRAN SISWA TAHUN
-                  2023-2024</span><br />
+                <span class="text-center text-black text-bold" style="font-size: x-large">KEHADIRAN SISWA</span><br />
                 <span class="text-center text-black text-bold" style="font-size: larger">
                   Bulan {{ currentmonth }}</span>
               </p>

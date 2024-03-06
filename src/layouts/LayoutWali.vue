@@ -19,7 +19,7 @@
 
         <div class="q-pl-md">
           <div class="text-bold text-left">
-            <p>Sarrah Aditya Nareswari <br />120002312 <br />Kelas 16 D</p>
+            <p>{{dataNama.name}}<br>Wali Murid</p>
           </div>
         </div>
       </div>
@@ -117,7 +117,6 @@ import Swal from 'sweetalert2'
 export default {
   setup() {
     const leftDrawerOpen = ref(false);
-
     return {
       leftDrawerOpen,
       toggleLeftDrawer() {
@@ -129,6 +128,10 @@ export default {
     return {
       currentDate: "",
       currentTime: "",
+      nama: ref(""),
+            nis: ref(""),
+            kelas: ref(""),
+      dataNama:ref(JSON.parse(sessionStorage.getItem('data')))
     };
   },
 
@@ -158,7 +161,7 @@ export default {
         confirmButtonText: "Yes, logout"
       }).then((result) => {
         if (result.isConfirmed) {
-          sessionStorage.removeItem("token");
+          sessionStorage.clear();
           this.$router.push("/");
         }
       });
@@ -180,6 +183,26 @@ export default {
       //     this.$router.push("/login");
       //   }
     },
+    async getDataSiswa() {
+            const idUser = sessionStorage.getItem("idUser")
+            const token = sessionStorage.getItem("token")
+            try {
+                const response = await this.$api.get(`/user-access/show-by-user/${idUser}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                this.nama = response.data.data[0].student.full_name
+                this.nis = response.data.data[0].student.nis
+                this.kelas = response.data.data[0].student.class
+                const id = response.data.data[0].student.id
+                sessionStorage.setItem('idSiswa', id)
+
+            } catch (error) {
+                console.log(error);
+            }
+        },
   },
 
 
