@@ -242,7 +242,7 @@
             </q-card>
           </q-card-section>
 
-          <!-- <q-dialog v-model="medium">
+          <q-dialog v-model="medium">
             <q-card style="width: 700px; max-width: 80vw; max-height: 700px">
               <q-card-section class="">
                 <div class="text-h4 text-bold q-pl-md">
@@ -339,13 +339,12 @@
               </q-card-section>
 
               <q-card-actions align="right" class="bg-white text-teal">
-                <q-btn flat label="Update" @click="updateRating()" />
-                <q-btn flat label="Delete" @click="deleteRating()" />
+                <q-btn flat label="Ok" @click="closeDialog()" />
               </q-card-actions>
             </q-card>
-          </q-dialog> -->
+          </q-dialog>
 
-          <q-dialog v-model="medium">
+          <!-- <q-dialog v-model="medium">
             <q-card style="width: 700px; max-width: 80vw; max-height: 700px">
               <q-card-section class="">
                 <div class="text-h4 text-bold q-pl-md">
@@ -442,11 +441,10 @@
               </q-card-section>
 
               <q-card-actions align="right" class="bg-white text-teal">
-                <q-btn flat label="Update" @click="updateRating()" />
-                <q-btn flat label="Delete" @click="deleteRating()" />
+                <q-btn flat label="Ok" @click="closeDialog()" />
               </q-card-actions>
             </q-card>
-          </q-dialog>
+          </q-dialog> -->
         </div>
       </div>
     </div>
@@ -671,7 +669,7 @@ export default {
       this.bookdata = data;
       console.log(this.bookdata);
       this.getBook();
-      this.getBookAll();
+      // this.getBookAll();
     },
   },
   mounted() {
