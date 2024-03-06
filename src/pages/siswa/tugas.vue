@@ -168,7 +168,6 @@
         <q-uploader
           style="width: 100%"
           label="Custom header"
-          @rejected="onRejected"
           accept=".pdf, .docx, .word,"
         >
           <template v-slot:header="scope">
@@ -249,25 +248,13 @@
 import { ref } from "vue";
 import NavbarSiswa from "../../components/siswa/HederSiswa.vue";
 import Swal from "sweetalert2";
-import { useQuasar } from "quasar";
 
 export default {
   components: {
     NavbarSiswa,
   },
   setup() {
-    // handle if user not post except pdf and word
-    const $q = useQuasar();
-
-    function onRejected(rejectedEntries) {
-      $q.notify({
-        type: "negative",
-        message: `Please upload only pdf or word document`,
-      });
-    }
-
     return {
-      onRejected,
       tab: ref("mails"),
       innerTab: ref("innerMails"),
       small: ref(false),
@@ -318,7 +305,7 @@ export default {
         this.small = false;
         console.error("Error uploading files:", error); // Handle error if necessary
         Swal.fire({
-          title: "Gagal mengupload tugas !",
+          title: "Gagal mengupload tugas!",
           icon: "error",
           confirmButtonColor: "#3085d6",
           confirmButtonText: "Oke",
