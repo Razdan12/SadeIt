@@ -1,9 +1,9 @@
 {
-  "name": "sade",
+  "name": "Sekolah Alam Depok",
   "version": "0.0.1",
-  "description": "sade",
-  "productName": "sade",
-  "author": "cahyadi ",
+  "description": "Sekolah Alam Depok",
+  "productName": "Sekolah Alam Depok",
+  "author": "Curaweda Palagan Innotech",
   "private": true,
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",

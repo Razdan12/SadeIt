@@ -332,6 +332,7 @@ export default {
           Authorization: `Bearer ${this.token}`,
         },
       });
+    
       if (response.data) {
         Swal.fire({
           title: "Success!",
@@ -386,7 +387,7 @@ export default {
           },
         }
       );
-      // console.log(response);
+      console.log(response);
       if (response.data) {
         const data = response.data;
         this.bookreview = data;

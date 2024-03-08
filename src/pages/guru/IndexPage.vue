@@ -117,101 +117,7 @@
                 </q-card>
               </div>
             </div>
-            <div class=" flex tw-flex-wrap tw-mt-2 row">
-              <div class="tw-w-1/3 tw-p-3  col-12 col-md">
-
-                <q-card class="bg-yellow-1 ">
-                  <q-card-section>
-                    <div class="row flex justify-center items-center">
-                      <div class="col-md-4">
-
-                        <q-img src="../../assets/camper.png" style="width: 60%" />
-                      </div>
-                      <div class="col-md-8 text-left">
-                        <p>
-                          <span style="font-size: xx-large">Agenda Kegiatan</span>
-                        </p>
-                        <q-markup-table class="bg-yellow-1 text-bold" flat>
-                          <tbody>
-                            <tr>
-                              <td class="text-left"></td>
-                              <td class="text-right"></td>
-                            </tr>
-                            <tr>
-                              <td class="text-left"></td>
-                              <td class="text-right"></td>
-                            </tr>
-                            
-                          </tbody>
-                        </q-markup-table>
-                      </div>
-                    </div>
-                  </q-card-section>
-                </q-card>
-              </div>
-              <div class="tw-w-1/3 tw-p-3 col-12 col-md">
-
-                <q-card class="bg-light-blue-1 ">
-                  <q-card-section>
-                    <div class="row flex justify-center items-center">
-                      <div class="col-md-4">
-
-                        <q-img src="../../assets/book/total.png" style="width: 60%" />
-                      </div>
-                      <div class="col-md-8 text-left">
-                        <p>
-                          <span style="font-size: xx-large">Bank Sampah</span>
-                        </p>
-                        <q-markup-table class="bg-light-blue-1" flat>
-                          <tbody>
-                            <tr>
-                              <td class="text-left">Terkumpul</td>
-                              <td class="text-right">0</td>
-                              <td class="text-left">kg</td>
-                            </tr>
-                            <tr>
-                              <td class="text-left">Target</td>
-                              <td class="text-right">0</td>
-                              <td class="text-left">Hari</td>
-                            </tr>
-                          </tbody>
-                        </q-markup-table>
-                      </div>
-                    </div>
-                  </q-card-section>
-                </q-card>
-              </div>
-              <div class="tw-w-1/3 tw-p-3 col-12 col-md">
-
-                <q-card class="bg-light-blue-1 ">
-                  <q-card-section>
-                    <div class="row flex justify-center items-center">
-                      <div class="col-md-4">
-
-                        <q-img src="../../assets/Achievement.png" style="width: 60%" />
-                      </div>
-                      <div class="col-md-8 text-left">
-                        <p>
-                          <span style="font-size: xx-large">Achievement</span>
-                        </p>
-                        <q-markup-table class="bg-light-blue-1" flat>
-                          <tbody>
-                            <tr>
-                              <td class="text-left" style="font-size: medium">
-                               
-                              </td>
-                            </tr>
-                            <tr>
-                              <td class="text-left"></td>
-                            </tr>
-                          </tbody>
-                        </q-markup-table>
-                      </div>
-                    </div>
-                  </q-card-section>
-                </q-card>
-              </div>
-            </div>
+         
 
             <div class="tw-w-full tw-p-3">
 
@@ -248,39 +154,10 @@ export default {
     }
   },
   mounted() {
-    this.getPresensi()
-    this.getAgenda()
+   
   },
   methods: {
-    async getPresensi() {
-      try {
-        const response = await this.$api.get(`student-attendance/recap-by-student/${this.idSiswa}`, {
-          headers: {
-            'Authorization': `Bearer ${this.token}`
-          }
-        })
-    
-        this.presensi = response.data.data
-       
-      } catch (err) {
-      console.log(err);
-      }
-    },
-    async getAgenda() {
-      const level = sessionStorage.getItem('level')
-      try {
-        const response = await this.$api.get(`/edu-calendar/show-ongoing?level=${level}`, {
-          headers: {
-            'Authorization': `Bearer ${this.token}`
-          }
-        })
-      
-        this.presensi = response.data.data
-       
-      } catch (err) {
-      console.log(err);
-      }
-    }
+  
   }
 
 };

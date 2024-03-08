@@ -91,16 +91,6 @@ const routes = [
     ],
   },
   {
-    path: "/timbangan",
-    component: () => import("layouts/TimbanganLayout.vue"),
-    children: [
-      {
-        path: "/timbangan",
-        component: () => import("pages/banksampah/timbangan.vue"),
-      },
-    ],
-  },
-  {
     path: "/wali",
     component: () => import("layouts/LayoutWali.vue"),
     children: [
@@ -140,6 +130,29 @@ const routes = [
         path: "/wali/cs",
         component: () => import("pages/wali/customer_care.vue"),
       },
+    ],
+  },
+  {
+    path: "/guru",
+    component: () => import("layouts/LayoutGuru.vue"),
+    children: [
+      {
+        path: "/guru",
+        component: () => import("pages/guru/IndexPage.vue"),
+      },
+      {
+        path: "/guru/agenda-kegiatan",
+        component: () => import("pages/guru/agendaKegiatan.vue"),
+      },
+      {
+        path: "/guru/jadwal-mengajar",
+        component: () => import("pages/guru/jadwalMengajar.vue"),
+      },
+      {
+        path: "/guru/presensi",
+        component: () => import("pages/guru/presensi.vue"),
+      },
+      
     ],
   },
 

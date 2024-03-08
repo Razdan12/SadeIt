@@ -134,6 +134,7 @@ export default {
             'Authorization': `Bearer ${this.token}`
           }
         });
+        console.log(data);
         for(let activity of data.data.result){
           const activityDate = new Date(activity.updatedAt).getDate()
           schedules[activityDate - 1] = activity.title

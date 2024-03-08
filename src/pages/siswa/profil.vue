@@ -121,6 +121,7 @@ export default {
             'Authorization': `Bearer ${token}`
           }
         });
+        console.log(response);
 
         this.dataSiswa = response.data.data[0].student
         this.dataUser = response.data.data[0].user

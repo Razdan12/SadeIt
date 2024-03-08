@@ -117,7 +117,6 @@ export default {
       const token = data.token
       const role = data.role
       try {
-
         const response = await this.$api.get(`/user-access/show-by-user/${idCust}`, {
           headers: {
             'Authorization': `Bearer ${token}`
