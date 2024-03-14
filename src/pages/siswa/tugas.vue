@@ -7,11 +7,7 @@
           <q-card-section>
             <div class="text-center">
               <p>
-                <span
-                  class="text-center text-black text-bold"
-                  style="font-size: x-large"
-                  >TUGAS SISWA</span
-                >
+                <span class="text-center text-black text-bold" style="font-size: x-large">TUGAS SISWA</span>
               </p>
             </div>
           </q-card-section>
@@ -54,18 +50,9 @@
                         <td class="text-center">-</td>
                         <td class="text-center">
                           <div>
-                            <q-btn
-                              class="q-mx-sm"
-                              icon="download"
-                              color="green"
-                              @click="downloadTaskId(item.id)"
-                            />
-                            <q-btn
-                              class="q-mx-sm"
-                              icon="upload"
-                              color="blue"
-                              @click="getTaskId(item.id)"
-                            />
+                            <q-btn class="q-mx-sm" icon="download" color="green"
+                              @click="downloadTask(item.down_file)" />
+                            <q-btn class="q-mx-sm" icon="upload" color="blue" @click="getTaskId(item.id)" />
                           </div>
                         </td>
                       </tr>
@@ -111,12 +98,7 @@
                         <td class="text-center">-</td>
                         <td class="text-center">
                           <div>
-                            <q-btn
-                              class="q-mx-sm"
-                              icon="upload"
-                              color="blue"
-                              @click="getTaskId(item.id)"
-                            />
+                            <q-btn class="q-mx-sm" icon="upload" color="blue" @click="getTaskId(item.id)" />
                           </div>
                         </td>
                       </tr>
@@ -165,31 +147,15 @@
         </q-markup-table>
 
         <br />
-        <q-uploader
-          style="width: 100%"
-          label="Custom header"
-          accept=".pdf, .docx, .word,"
-        >
+        <q-uploader style="width: 100%" label="Custom header" accept=".pdf, .docx, .word,">
           <template v-slot:header="scope">
             <div class="row no-wrap items-center q-pa-sm q-gutter-xs">
-              <q-btn
-                v-if="scope.queuedFiles.length > 0"
-                icon="clear_all"
-                @click="scope.removeQueuedFiles"
-                round
-                dense
-                flat
-              >
+              <q-btn v-if="scope.queuedFiles.length > 0" icon="clear_all" @click="scope.removeQueuedFiles" round dense
+                flat>
                 <q-tooltip>Clear All</q-tooltip>
               </q-btn>
-              <q-btn
-                v-if="scope.uploadedFiles.length > 0"
-                icon="done_all"
-                @click="scope.removeUploadedFiles"
-                round
-                dense
-                flat
-              >
+              <q-btn v-if="scope.uploadedFiles.length > 0" icon="done_all" @click="scope.removeUploadedFiles" round
+                dense flat>
                 <q-tooltip>Remove Uploaded Files</q-tooltip>
               </q-btn>
               <q-spinner v-if="scope.isUploading" class="q-uploader__spinner" />
@@ -199,37 +165,15 @@
                   {{ scope.uploadSizeLabel }}
                 </div>
               </div>
-              <q-btn
-                v-if="scope.canAddFiles"
-                type="a"
-                icon="add_box"
-                @click="scope.pickFiles"
-                round
-                dense
-                flat
-              >
+              <q-btn v-if="scope.canAddFiles" type="a" icon="add_box" @click="scope.pickFiles" round dense flat>
                 <q-uploader-add-trigger />
                 <q-tooltip>Pick Files</q-tooltip>
               </q-btn>
-              <q-btn
-                v-if="scope.canUpload"
-                icon="cloud_upload"
-                @click="uploadFiles(scope)"
-                round
-                dense
-                flat
-              >
+              <q-btn v-if="scope.canUpload" icon="cloud_upload" @click="uploadFiles(scope)" round dense flat>
                 <q-tooltip>Upload Files</q-tooltip>
               </q-btn>
 
-              <q-btn
-                v-if="scope.isUploading"
-                icon="clear"
-                @click="scope.abort"
-                round
-                dense
-                flat
-              >
+              <q-btn v-if="scope.isUploading" icon="clear" @click="scope.abort" round dense flat>
                 <q-tooltip>Abort Upload</q-tooltip>
               </q-btn>
             </div>
@@ -282,7 +226,7 @@ export default {
         });
 
         const response = await this.$api.put(
-          `https://api-dev.curaweda.com:7000/api/student-task/upload/${this.idTask}`,
+          `student-task/upload/${this.idTask}`,
           formData,
           {
             headers: {
@@ -333,10 +277,11 @@ export default {
     async getDataTugas() {
       try {
         const taskParent = await this.$api.get(`student-task/show-by-student/${this.idSiswa}?cat=Work With Parents`, {
-            headers: {
-              'Authorization': `Bearer ${this.token}`
-            }
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
         });
+        console.log(taskParent);
         const taskKelompok = await this.$api.get(`student-task/show-by-student/${this.idSiswa}?cat=Project Kelompok`, {
           headers: {
             'Authorization': `Bearer ${this.token}`
@@ -375,6 +320,35 @@ export default {
         console.log(error);
       }
     },
+
+    async downloadTask(path) {
+      try {
+        const response = await this.$api.get(`student-task/download?filepath=${path}`, {
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+          responseType: 'blob',
+        });
+        const urlParts = path.split('/');
+        const fileName = urlParts.pop();
+        const blobUrl = window.URL.createObjectURL(response.data);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.setAttribute('download', fileName);
+        link.style.display = 'none'; 
+
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.URL.revokeObjectURL(blobUrl);
+
+      } catch (error) {
+        console.error('Error downloading file:', error);
+      }
+    }
+    ,
+
+
 
     getTaskId(id) {
       this.idTask = id;

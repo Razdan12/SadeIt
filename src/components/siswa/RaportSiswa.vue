@@ -118,49 +118,49 @@
           <q-card>
             <q-tab-panels v-model="tab2" animated>
               <q-tab-panel name="page1">
-               akhlak
+                <RapotPortofolio />
               </q-tab-panel>
 
               <q-tab-panel name="page2">
-                pengendalian diri
+                <RapotPortofolio />
               </q-tab-panel>
 
               <q-tab-panel name="page3">
-               independen
+                <RapotPortofolio />
               </q-tab-panel>
 
               <q-tab-panel name="page4">
-                Profesional
+                <RapotPortofolio />
               </q-tab-panel>
 
               <q-tab-panel name="page5">
-                Berfikir intelek
+                <RapotPortofolio />
               </q-tab-panel>
 
               <q-tab-panel name="page6">
-               MTK
+                <RapotPortofolio />
               </q-tab-panel>
 
               <q-tab-panel name="page7">
-                Bhsa Indo
+                <RapotPortofolio />
               </q-tab-panel>
 
               <q-tab-panel name="page8">
-                Sains
+                <RapotPortofolio />
               </q-tab-panel>
               <q-tab-panel name="page9">
-               Sosial
+                <RapotPortofolio />
               </q-tab-panel>
               <q-tab-panel name="page10">
-               Art
+                <RapotPortofolio />
               </q-tab-panel>
               <q-tab-panel name="page11">
-                English
+                <RapotPortofolio />
               </q-tab-panel>
               <q-tab-panel name="page12">
-               <KomentarUmum/>
+                <KomentarUmum />
               </q-tab-panel>
-              
+
             </q-tab-panels>
 
             <q-separator />
@@ -172,10 +172,49 @@
         <q-tab-panel name="ortu">
           <div class="text-h4 q-mb-md">Komentar Orang Tua</div>
           <div class="tw-flex tw-w-full">
-            <q-editor v-model="editor" min-height="10rem" class=" tw-w-full text-left" />
+            <div class="tw-w-full tw-p-3 text-left tw-border-2 tw-rounded-md">
+              <p>
+
+              
+              Alhamdulillahirobbil ‘alamiin Aisha telah melalui proses belajar jarak jauh selama 2,5 bulan dengan baik.
+              Aisha adalah siswa yang senantiasa hadir tepat waktu dalam pertemuan belajar secara online.
+              5 menit sebelum kelas dimulai biasanya aisha sudah hadir di lokasi. Maksimal keterlambatannya berkisar
+              antara 3 hingga 5 menit dari jadwal yang telah ditetapkan. Saat pembelajaran daring berlangsung, Asiha ti
+              dak perlu diingatkan untuk menyalakan videonya. Namun ia meminta izin kepada fasil untuk menonaktifkan microphone miliknya sebab seringkali kondisi di rumah cukup berisik dan banyak suara-
+              suara yang dapat mengganggu kenyamanan proses belajar daring. Walaupun ia menonaktifkn microphoe,
+                <br/>
+                <br/>
+              Aisha tetap dapat mengikuti pembelajaran daring dengan aktif.
+              Jika ia diberi pertanyaan atau diminta menyampaikan pendapatnya, Aisha akan langsung menyalakan mic
+              rophonenya dan menyampaikan jawaban atau tanggapannya secara lisan jika kondisi di rumah sedang ko
+              ndusif/ tenang. Jika tidak, Aisha akan segera merespon via chat di Zoom. Jika Aisha merespon via chat di
+              Zoom, biasanya responnya singkat dan to the point. Namun jika Aisha menjawab secara lisan,
+              Aisha dapat menjelaskan dengan cukup detail dengan bahasanya sendiri.
+              <br/>
+                <br/>
+              Aisha adalah siswa yang serius namun santai dalam belajar. Ia tidak ragu-
+              ragu menyampaikan pertanyaan pada fasilitator jika ada hal yang tidak ia pahami atau jika ada hal yang p
+              <br/>
+                <br/>
+              erlu ia klarifikasi. Jika ia memang sudah memahami pembelajaran yang dilakukan dan tidak ada yang ingin
+              ditanyakan, maka Aisha tidak akan mengajukan pertanyaan.
+              Pengerjaan tugas-tugas yang diberikan kepada Aisha cukup baik.
+              Aisha mampu menyelesaikan 80% penugasan yang diberikan tepat waktu. Sementara 20% tugas lainnya d
+              ikumpulkan terlambat dari batas waktu yang diberikan. Kisaran keterlambatannya antara 1 hingga 8 hari.
+              Semoga di tema 2 dan selanjutnya Aisha bisa mengelola waktu penyelesaian tugas dengan lebih baik.
+              Jika meninjau rutinitas harian Aisha, ada 4 aktivitas yang masih belum rutin dilakukan oleh Aisha setiap
+              ha
+              ri, yaitu olahraga ringan, dzikir al ma’tsurat, tahsin dan tahfidz. Untuk olahraga ringan, melihat hobi
+              dan k
+              esukaannya adalah mendengarkan musik, menyanyi dan menari,
+              Aisha bisa menggunakan video dance yang diiringi musik sebagai aktivitas olahraganya di rumah agar tera
+              sa menyenangkan. Untuk dzikir al ma’tsurat, tahsin dan tahfidz, mohon bantuan Ayah dan Bunda untuk bi
+              sa mengingatkan ananda setiap harinya.
+            </p>
+            </div>
           </div>
           <div class="tw-flex tw-w-full justify-end tw-p-5">
-            <q-btn color="secondary" label="Simpan" />
+            <!-- <q-btn color="secondary" label="Simpan" /> -->
           </div>
         </q-tab-panel>
       </q-tab-panels>
@@ -192,6 +231,7 @@ import Pemimpin from "./raport/narasiPemimpin.vue";
 import Berfikir from "./raport/narasiBerfikir.vue";
 import NumberRaport from "./raport/numberRaport.vue"
 import KomentarUmum from "./raport/portoKomentar.vue"
+import RapotPortofolio from "./raport/rapotPortofolio.vue"
 
 export default {
   name: 'Rapot',
@@ -207,7 +247,8 @@ export default {
     Pemimpin,
     Berfikir,
     NumberRaport,
-    KomentarUmum
+    KomentarUmum,
+    RapotPortofolio
   },
 
   setup(props) {
