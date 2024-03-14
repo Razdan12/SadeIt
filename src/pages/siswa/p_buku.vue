@@ -7,7 +7,7 @@
           <q-card-section>
             <div class="text-center">
               <p>
-                <span class="text-center text-black text-bold" style="font-size: x-large">Peminjaman Buku</span>
+                <span class="text-center text-black text-bold" style="font-size: x-large">PEMINJAMAN BUKU</span>
               </p>
             </div>
           </q-card-section>

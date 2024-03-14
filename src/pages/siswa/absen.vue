@@ -328,7 +328,7 @@ export default defineComponent({
                 details: Item.status,
                 start: getCurrentDay(date.getDate()),
                 end: getCurrentDay(date.getDate()),
-                bgcolor: Item.status === 'Hadir' ? "green" : Item.status === 'Izin' ? 'yellow' : Item.status === 'Sakit' ? 'blue': 'red',
+                bgcolor: Item.status === 'Hadir' ? "green" : Item.status === 'Izin' ? 'yellow' : Item.status === 'Sakit' ? 'blue': Item.status === 'Alfa' ? 'red' : 'cyan',
               }
               return rest
             }

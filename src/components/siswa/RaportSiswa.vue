@@ -19,72 +19,72 @@
         <q-tab-panel name="innerAlarms">
           <div>
             <q-tabs v-model="tab2" inline-label outside-arrows mobile-arrows class="bg-blue-5 text-white shadow-2">
-                <q-tab name="page1" label="Tahsin" />
-                <q-tab name="page2" label="akhlak & Perilaku" />
-                <q-tab name="page3" label="kepemimpinan" />
-                <q-tab name="page4" label="kemampuan berfikir" />
-                <q-tab name="page5" label="islamika" />
-                <q-tab name="page6" label="IPA" />
-                <q-tab name="page7" label="MTK" />
-                <q-tab name="page8" label="Bhs indo" />
-                <q-tab name="page9" label="sosial" />
-                <q-tab name="page10" label="sass" />
-                <q-tab name="page11" label="karya seni" />
-                <q-tab name="page12" label="english" />
-            
-              </q-tabs>
+              <q-tab name="page1" label="Tahsin" />
+              <q-tab name="page2" label="akhlak & Perilaku" />
+              <q-tab name="page3" label="kepemimpinan" />
+              <q-tab name="page4" label="kemampuan berfikir" />
+              <q-tab name="page5" label="islamika" />
+              <q-tab name="page6" label="IPA" />
+              <q-tab name="page7" label="MTK" />
+              <q-tab name="page8" label="Bhs indo" />
+              <q-tab name="page9" label="sosial" />
+              <q-tab name="page10" label="sass" />
+              <q-tab name="page11" label="karya seni" />
+              <q-tab name="page12" label="english" />
+
+            </q-tabs>
           </div>
-            <q-space />
-            <q-separator />
+          <q-space />
+          <q-separator />
 
           <div class="text-h4 q-mb-md" style="margin-top: 20px;">Raport Narasi</div>
           <q-card>
             <q-tab-panels v-model="tab2" animated>
               <q-tab-panel name="page1">
-                <Tahsin/>
+                <Tahsin />
               </q-tab-panel>
 
               <q-tab-panel name="page2">
-               <Akhlak/>
+                <Akhlak />
               </q-tab-panel>
 
               <q-tab-panel name="page3">
-                <Pemimpin sub="2"/>
+                <Pemimpin sub="2" />
               </q-tab-panel>
 
               <q-tab-panel name="page4">
-                <Pemimpin sub="3"/>
+                <Pemimpin sub="3" />
               </q-tab-panel>
 
               <q-tab-panel name="page5">
-                <Pemimpin sub="4"/>
+                <Pemimpin sub="4" />
               </q-tab-panel>
 
               <q-tab-panel name="page6">
-                <Pemimpin sub="5"/>
+                <Pemimpin sub="5" />
               </q-tab-panel>
 
               <q-tab-panel name="page7">
-                <Pemimpin sub="6"/>
+                <Pemimpin sub="6" />
               </q-tab-panel>
 
               <q-tab-panel name="page8">
-                <Pemimpin sub="7"/>
+                <Pemimpin sub="7" />
               </q-tab-panel>
               <q-tab-panel name="page9">
-                <Pemimpin sub="8"/>
+                <Pemimpin sub="8" />
               </q-tab-panel>
               <q-tab-panel name="page10">
-                <Pemimpin sub="9"/>
+                <Pemimpin sub="9" />
               </q-tab-panel>
               <q-tab-panel name="page11">
-                <Pemimpin sub="10"/>
+                <Pemimpin sub="10" />
               </q-tab-panel>
               <q-tab-panel name="page12">
-                <Pemimpin sub="11"/>
+                <Pemimpin sub="11" />
               </q-tab-panel>
               <q-tab-panel name="page13">
-                <Pemimpin sub="12"/>
+                <Pemimpin sub="12" />
               </q-tab-panel>
             </q-tab-panels>
 
@@ -95,16 +95,78 @@
         </q-tab-panel>
 
         <q-tab-panel name="innerMovies">
-          <div class="text-h4 q-mb-md">Raport Portofolio</div>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam
-            odio iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur
-            culpa fuga nulla ullam. In, libero.</p>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam
-            odio iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur
-            culpa fuga nulla ullam. In, libero.</p>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam
-            odio iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur
-            culpa fuga nulla ullam. In, libero.</p>
+          <div>
+            <q-tabs v-model="tab2" inline-label outside-arrows mobile-arrows class="bg-blue-5 text-white shadow-2">
+              <q-tab name="page1" label="Akhlaq" />
+              <q-tab name="page2" label="Pengendalian Diri" />
+              <q-tab name="page3" label="Independent" />
+              <q-tab name="page4" label="Profesional" />
+              <q-tab name="page5" label="Berfikir Intelek" />
+              <q-tab name="page6" label="MTK" />
+              <q-tab name="page7" label="Bhs indo" />
+              <q-tab name="page8" label="Sains" />
+              <q-tab name="page9" label="Sosial" />
+              <q-tab name="page10" label="Art" />
+              <q-tab name="page11" label="english" />
+              <q-tab name="page12" label="Komentar Umum" />
+
+            </q-tabs>
+          </div>
+          <q-space />
+          <q-separator />
+
+          <q-card>
+            <q-tab-panels v-model="tab2" animated>
+              <q-tab-panel name="page1">
+               akhlak
+              </q-tab-panel>
+
+              <q-tab-panel name="page2">
+                pengendalian diri
+              </q-tab-panel>
+
+              <q-tab-panel name="page3">
+               independen
+              </q-tab-panel>
+
+              <q-tab-panel name="page4">
+                Profesional
+              </q-tab-panel>
+
+              <q-tab-panel name="page5">
+                Berfikir intelek
+              </q-tab-panel>
+
+              <q-tab-panel name="page6">
+               MTK
+              </q-tab-panel>
+
+              <q-tab-panel name="page7">
+                Bhsa Indo
+              </q-tab-panel>
+
+              <q-tab-panel name="page8">
+                Sains
+              </q-tab-panel>
+              <q-tab-panel name="page9">
+               Sosial
+              </q-tab-panel>
+              <q-tab-panel name="page10">
+               Art
+              </q-tab-panel>
+              <q-tab-panel name="page11">
+                English
+              </q-tab-panel>
+              <q-tab-panel name="page12">
+               <KomentarUmum/>
+              </q-tab-panel>
+              
+            </q-tab-panels>
+
+            <q-separator />
+
+
+          </q-card>
         </q-tab-panel>
 
         <q-tab-panel name="ortu">
@@ -129,6 +191,7 @@ import Akhlak from "./raport/narasiAkhlak.vue";
 import Pemimpin from "./raport/narasiPemimpin.vue";
 import Berfikir from "./raport/narasiBerfikir.vue";
 import NumberRaport from "./raport/numberRaport.vue"
+import KomentarUmum from "./raport/portoKomentar.vue"
 
 export default {
   name: 'Rapot',
@@ -139,11 +202,12 @@ export default {
     }
   },
   components: {
-   Tahsin,
-   Akhlak,
-   Pemimpin,
-   Berfikir,
-   NumberRaport
+    Tahsin,
+    Akhlak,
+    Pemimpin,
+    Berfikir,
+    NumberRaport,
+    KomentarUmum
   },
 
   setup(props) {

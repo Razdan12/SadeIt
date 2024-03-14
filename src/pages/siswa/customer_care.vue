@@ -34,7 +34,7 @@
                   <div class="text-weight-bold text-h4">Chats</div>
                 </div>
               </q-img>
-              <div class="bg-red" style=" position: fixed; right: 80px; bottom: 80px;" @click="medium = true">
+              <div class="bg-red" style=" position: fixed; right: 80px; bottom: 80px;" @click="getUsers">
                 <q-btn key="btn_size_round_md" round color="primary" size="lg" icon="add" class="absolute" />
               </div>
 
@@ -60,6 +60,14 @@
                               :sent="message.isSender" :bg-color="message.color" :text-color="message.textColor" />
                           </div>
 
+                          <div style="width: 100%; height: 100%;" class="text-left" :hidden="typing">
+                            <q-chat-message bg-color="amber" sent>
+                              <q-spinner-dots size="2rem" />
+                            </q-chat-message>
+
+                          </div>
+
+
                         </div>
                       </q-infinite-scroll>
                     </div>
@@ -68,7 +76,7 @@
                 <div class="flex justify-center items-center">
                   <div class="tw-w-5/6 flex justify-start">
                     <q-input rounded @keyup.enter="sendMessage" outlined v-model="inputMessage"
-                      class="input bg-white tw-w-full" placeholder="Type Here" />
+                      class="input bg-white tw-w-full" placeholder="Type Here" ref="messageInput" />
                   </div>
                   <div class="tw-w-1/6 flex tw-pl-2">
                     <q-btn round color="green" icon="send" @click="sendMessage" />
@@ -93,44 +101,21 @@
       </q-card-section>
 
       <q-card-section class="q-pt-none">
-        <q-card class="tw-m-1 tw-cursor-pointer">
-          <div class="flex justify-start items-center q-pa-md">
+
+        <q-card class="tw-m-1 tw-cursor-pointer" v-for="user in dataUser">
+          <div class="flex justify-start items-center q-pa-md" clickable @click="newMessage(user)">
             <div class="tw-w-1/6">
               <q-avatar>
-                <img src="https://cdn.quasar.dev/img/avatar.png">
+                <img src="https://thinksport.com.au/wp-content/uploads/2020/01/avatar-.jpg">
               </q-avatar>
             </div>
             <div class="flex tw-flex-col justify-start items-start q-pl-md tw-w-5/6">
-              <p class="text-bold text-h6"> nama</p>
+              <p class="text-bold text-h6">{{ user?.full_name }}</p>
             </div>
 
           </div>
         </q-card>
-        <q-card class="tw-m-1 tw-cursor-pointer">
-          <div class="flex justify-start items-center q-pa-md">
-            <div class="tw-w-1/6">
-              <q-avatar>
-                <img src="https://cdn.quasar.dev/img/avatar.png">
-              </q-avatar>
-            </div>
-            <div class="flex tw-flex-col justify-start items-start q-pl-md tw-w-5/6">
-              <p class="text-bold text-h6"> nama</p>
-            </div>
 
-          </div>
-        </q-card>
-        <q-card class="tw-m-1 tw-cursor-pointer">
-          <div class="flex justify-start items-center q-pa-md">
-            <div class="tw-w-1/6">
-              <q-avatar>
-                <img src="https://cdn.quasar.dev/img/avatar.png">
-              </q-avatar>
-            </div>
-            <div class="flex tw-flex-col justify-start items-start q-pl-md tw-w-5/6">
-              <p class="text-bold text-h6"> nama</p>
-            </div>
-          </div>
-        </q-card>
       </q-card-section>
 
       <q-card-actions align="right" class="bg-white text-teal">
@@ -161,8 +146,11 @@ export default {
       currentReceiverName: ref(''),
       token: ref(sessionStorage.getItem("token")),
       idUser: ref(sessionStorage.getItem("idUser")),
-      idSender: ref('')
-      // inputMessage: ref('')
+      idSender: ref(''),
+      inputMessage: ref(''),
+      dataUser: ref([]),
+      fokus: ref(false),
+      typing: ref(true)
     }
   },
   mounted() {
@@ -173,7 +161,10 @@ export default {
       handler(value) {
         this.getMessages()
       }
-    }
+    },
+    inputMessage(newVal) {
+      newVal ? this.typing = false : this.typing = true
+    },
   },
   methods: {
     //GET ALL USER CHAT
@@ -184,7 +175,7 @@ export default {
             'Authorization': `Bearer ${this.token}`
           }
         })
-        console.log(response.data.data);
+
         this.users = response.data.data
 
       } catch (err) {
@@ -204,18 +195,30 @@ export default {
       }
     },
 
-    //GET MESSAGE
     async setUpMessage(rowData) {
       this.currentReceiverId = rowData.with_id
       this.currentReceiverName = rowData.withUser.full_name
+      this.getMessages()
+    },
+    async newMessage(rowData) {
+      this.currentReceiverId = rowData.id;
+      this.currentReceiverName = rowData.full_name;
+      this.messages = []
+      this.medium = false
+    },
+
+    async getUsers() {
+      this.medium = true
+      this.getDataGuru()
+    },
+    async getMessages() {
       try {
         const currentTime = new Date()
-        const response = await this.$api.get(`user-chat/show-conversation?userid=${this.idUser}&withid=${rowData.with_id}`, {
+        const response = await this.$api.get(`user-chat/show-conversation?userid=${this.idUser}&withid=${this.currentReceiverId}`, {
           headers: {
             'Authorization': `Bearer ${this.token}`
           }
         })
-       
         const data = response.data.data[0].messages
         this.messages = data?.map(message => ({
           text: message.message,
@@ -223,50 +226,57 @@ export default {
           color: message.sender_id != this.idUser ? "primary" : "amber-7",
           textColor: message.sender_id != this.idUser ? "white" : "black",
           isSender: message.sender_id != this.idUser ? false : true,
-          stamp: this.countTime(currentTime, new Date(message.createdAt))
+          stamp: this.getCurrentDateTime(message.createdAt)
         }))
+        this.getUserChats()
       } catch (err) {
         console.log(err)
       }
     },
 
-
-    countTime(newestDate, time) {
-      try {
-        const timeDiff = newestDate - time;
-        const hours = Math.floor(timeDiff / (1000 * 60 * 60));
-        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-
-        if (hours > 0) {
-          return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
-        } else if (minutes > 0) {
-          return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} ago`;
-        } else {
-          return `${seconds} ${seconds === 1 ? 'second' : 'seconds'} ago`;
-        }
-      } catch (err) {
-        console.log(err)
-      }
+    getCurrentDateTime(date) {
+      const now = new Date(date);
+      const formattedDate = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'numeric', year: 'numeric' });
+      const formattedTime = now.toLocaleTimeString('id-ID', { hour: 'numeric', minute: 'numeric' });
+      return `${formattedDate} , ${formattedTime}`
     },
 
-    //SEND MESSAGE 
     async sendMessage() {
       try {
         const data = {
-          user_id: 19,
-          with_id: 9,
-          message: "contoh pesan ya okee"
+          user_id: parseInt(this.idUser),
+          with_id: parseInt(this.currentReceiverId),
+          message: this.inputMessage
         }
-        console.log(data);
-        const response = await this.$api.post('message/create', data, {
+        if (!this.inputMessage || !this.currentReceiverId) {
+          console.log('no message');
+        } else {
+
+          const response = await this.$api.post('message/create', data, {
+            headers: {
+              'Authorization': `Bearer ${this.token}`,
+              'Content-Type': 'Application/json'
+            }
+          })
+        }
+        this.getMessages()
+        this.inputMessage = ''
+
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async getDataGuru() {
+      try {
+
+        const response = await this.$api.get('user/show-by-roles?ids=6', {
           headers: {
             'Authorization': `Bearer ${this.token}`,
             'Content-Type': 'Application/json'
           }
         })
-
-        console.log(response);
+        this.dataUser = response.data.data
+        console.log(response.data.data);
 
       } catch (err) {
         console.log(err)

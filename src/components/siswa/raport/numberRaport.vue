@@ -110,6 +110,7 @@ export default {
                         'Authorization': `Bearer ${this.token}`
                     }
                 });
+                
                
                 this.dataRaport = response.data.data.number_reports
                 this.dataPresensi = response.data.data.attendances

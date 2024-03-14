@@ -12,36 +12,28 @@
                     </th>
                 </tr>
                 <tr>
-                    <th class="text-left text-bold" style="width: 20px; font-size: medium;">Keterangan</th>
-                    <th class="text-center text-bold " style="width: 20px; font-size: medium;">Nilai</th>
+                    <th class="text-left text-bold">Keterangan</th>
+                    <th class="text-center text-bold">Membutuhkan banyak latihan</th>
+                    <th class="text-center text-bold">Berkembang</th>
+                    <th class="text-center text-bold">Mandiri</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(item, index) in item?.narrative_reports" :key="item.id">
                     <td class="text-left">{{ item?.desc }}</td>
-                    <td class="text-center">{{ item?.grade}}</td>
+                    <td class="text-center">
+                        <q-radio v-model="shape" disable checked-icon="task_alt" unchecked-icon="panorama_fish_eye" :val=" item?.grade == 1"/>
+                    </td>
+                    <td class="text-center">
+                        <q-radio v-model="shape" disable checked-icon="task_alt" unchecked-icon="panorama_fish_eye" :val=" item?.grade == 2"/>
+                    </td>
+                    <td class="text-center">
+                        <q-radio v-model="shape" disable checked-icon="task_alt" unchecked-icon="panorama_fish_eye" :val=" item?.grade == 3"/>
+                    </td>
                 </tr>  
             </tbody> 
         </q-markup-table>
       
-        <br>
-        <q-separator />
-        <br>
-
-        <div class="text-h6 text-bold text-left">Komentar pembimbing:</div>
-
-        <div>
-            <q-card>
-                <q-card-section>
-                  
-                    <P class="text-left">
-                        -
-                    </P>
-                    <br>
-                   
-                </q-card-section>
-            </q-card>
-        </div>
     </div>
 </template>
 
@@ -54,7 +46,7 @@ export default {
  
   setup() {
         return {
-            shape: ref('line'),
+            shape: ref(true),
             semester: ref(sessionStorage.getItem("smt")),
             idSiswa: ref(sessionStorage.getItem("idSiswa")),
             token: ref(sessionStorage.getItem("token")),
