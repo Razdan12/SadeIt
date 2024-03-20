@@ -7,11 +7,10 @@
           <q-card-section>
             <div class="text-center">
               <p>
-                <span class="text-center text-black text-bold" style="font-size: x-large">Rencana Pekanan</span>
+                <span class="text-center text-black text-bold" style="font-size: x-large">RENCANA PEKANAN</span>
               </p>
               <p>
-                <span class="text-center text-black" style="font-size: x-large">Periode : 3 Desember 2023 s/d 29 Desember
-                  2023</span>
+                <span class="text-center text-black" style="font-size: x-large">{{ periode }}</span>
               </p>
             </div>
           </q-card-section>
@@ -19,28 +18,49 @@
             <q-card class="my-card tw-w-full">
               <q-card-section>
 
-                <q-table class="my-sticky-header-table" flat bordered :separator="separator" :rows="rows"
-                  :rows-per-page-options="[10]" :columns="columns" row-key="name" style="height: fit-content;">
-                  <template v-slot:body-cell-senin="props">
-                    <q-td :props="props"
-                      :style="{ backgroundColor: props.row.senin === 'Aktivitas 1' ? 'yellow' : props.row.senin === 'Aktivitas 2' ? 'green' : 'white' }">
-                      {{ props.row.senin }}
-                    </q-td>
-                  </template>
-                  <template v-slot:body-cell-rabu="props">
-                    <q-td :props="props"
-                      :style="{ backgroundColor: props.row.rabu === 'Aktivitas 1' ? 'yellow' : props.row.rabu === 'Aktivitas 2' ? 'green' : 'white'}">
-                      {{ props.row.rabu }}
-                    </q-td>
-                  </template>
-                  <template v-slot:body-cell-kamis="props">
-                    <q-td :props="props"
-                      :style="{ backgroundColor: props.row.kamis === 'Aktivitas 1' ? 'yellow' : props.row.kamis === 'Aktivitas 2' ? 'green' : 'white' }">
-                      {{ props.row.kamis }}
-                    </q-td>
-                  </template>
-                </q-table>
+                <q-markup-table separator="cell" flat bordered>
+                  <thead>
+                    <tr class="bg-blue-3 text-bold">
+                      <th class="text-center">Pekan / Tanggal</th>
+                      <th class="text-center">Senin</th>
+                      <th class="text-center">Selasa</th>
+                      <th class="text-center">Rabu</th>
+                      <th class="text-center">Kamis</th>
+                      <th class="text-center">Jum'at</th>
 
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(item, index) in rows" :key="item.id">
+                      <td v-if="!index || rows[index - 1]?.tanggal !== item?.tanggal"
+                        :rowspan="rows?.filter((Item) => Item?.tanggal === item?.tanggal).length">
+                        {{ item?.tanggal }}
+                      </td>
+                      <td class="text-center" v-if="!index || rows[index - 1]?.senin !== item?.senin "
+                        :rowspan="rows?.filter((Item) => Item?.senin === item?.senin && Item?.tanggal === item?.tanggal).length">
+                        {{ item?.senin }}
+                      </td>
+                      <td class="text-center" v-if="!index || rows[index - 1]?.selasa !== item?.selasa"
+                        :rowspan="rows?.filter((Item) => Item?.selasa === item?.selasa && Item?.tanggal === item?.tanggal).length">
+                        {{ item?.selasa }}
+                      </td>
+                      <td class="text-center" v-if="!index || rows[index - 1]?.rabu !== item?.rabu"
+                        :rowspan="rows?.filter((Item) => Item?.rabu === item?.rabu && Item?.tanggal === item?.tanggal).length">
+                        {{ item?.rabu }}
+                      </td>
+                      <td class="text-center" v-if="!index || rows[index - 1]?.kamis !== item?.kamis"
+                        :rowspan="rows?.filter((Item) => Item?.kamis === item?.kamis && Item?.tanggal === item?.tanggal).length">
+                        {{ item?.kamis }}
+                      </td>
+                      <td class="text-center" v-if="!index || rows[index - 1]?.jumat !== item?.jumat"
+                        :rowspan="rows?.filter((Item) => Item?.jumat === item?.jumat && Item?.tanggal === item?.tanggal).length">
+                        {{ item?.jumat }}
+                      </td>
+
+                    </tr>
+
+                  </tbody>
+                </q-markup-table>
 
               </q-card-section>
             </q-card>
@@ -54,62 +74,145 @@
 <script>
 import axios from "axios";
 import { ref, onMounted, getCurrentInstance, watch } from "vue";
-// const columns = [
-
-//   { name: 'senin', label: 'Senin', field: 'senin', align: 'center' },
-//   { name: 'selasa', label: 'Selasa', field: 'selasa', align: 'center' },
-//   { name: 'rabu', label: 'Rabu', field: 'rabu', align: 'center' },
-//   { name: 'kamis', label: 'Kamis', field: 'kamis', align: 'center' },
-//   { name: 'jumat', label: 'Jumat', field: 'jumat', align: 'center' },
-
-// ]
-
-// const rows = [
-//   { senin: 'Buka Kelas, Sholat Dhuha', selasa: 'Apel , Buka Kelas', rabu: 'Upacara Buka Kelas', kamis: 'Buka Kelas, Sholat Dhuha', jumat: 'Buka Kelas, Sholat Dhuha' },
-//   { senin: 'Tahsin, Tahfizh', selasa: 'Sholat dhuha', rabu: 'Sholat Dhuha', kamis: 'Tahsin Tahfizh', jumat: 'Tahsin, Tahfizh' },
-//   { senin: 'Snacktime', selasa: 'Snacktime', rabu: 'Tahsin Tahfizh', kamis: 'Snacktime', jumat: 'Snacktime' },
-//   { senin: 'Freeplay', selasa: 'Freeplay', rabu: 'Snacktime', kamis: 'Freeplay', jumat: 'Freeplay' },
-//   { senin: 'Aktivitas 1', selasa: 'SASS', rabu: 'Freeplay', kamis: 'Aktivitas 1', jumat: 'Jumsih' },
-//   { senin: 'ISHOMA', selasa: 'ISHOMA', rabu: 'Aktivitas 1', kamis: 'ISHOMA', jumat: 'ISHOMA' },
-//   { senin: 'Aktivitas 2', selasa: 'Islamika', rabu: 'ISHOMA', kamis: 'Aktivitas 2', jumat: 'Tutup Kelas' },
-//   { senin: 'Tutup Kelas', selasa: 'Tutup Kelas', rabu: 'Aktivitas 2', kamis: 'Tutup Kelas', jumat: 'Ekstrakulikuler' },
-//   { senin: '', selasa: '', rabu: 'Tutup Kelas', kamis: '', jumat: '' },
 
 
-// ]
 
 export default {
-
-
   setup() {
-    const columns = ref([])
-    const rows = ref([])
-    const getJadwalKegiatan = async () => {
-      const idSiswa = sessionStorage.getItem("idSiswa")
-      const token = sessionStorage.getItem("token");
-      try {
-        const response = await axios.get(`https://api-dev.curaweda.com:7000/api/timetable?search_query=&page=0&limit=10`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        columns.value = response.data.data
-        rows.value = response.data.data
-        // rekapSampah.value = response.data.data
-      } catch (error) {
-        console.log(error);
-      }
-    }
 
-    onMounted(() => {
-      getJadwalKegiatan();
-    });
+
     return {
       separator: ref('cell'),
-      columns,
-      getJadwalKegiatan,
-      rows
+      periode: ref(''),
+      rows: [
+        {
+          id: 1,
+          tanggal: '1 (9 - 12 Januari 2024)',
+          senin: 'libur',
+          selasa: 'bersih rapi bersama',
+          rabu: "Muraja'ah bersama",
+          kamis: "Muraja'ah bersama",
+          jumat: "Muraja'ah bersama"
+
+        },
+        {
+          id: 2,
+          tanggal: '1 (9 - 12 Januari 2024)',
+          senin: 'libur',
+          selasa: 'bersih rapi bersama',
+          rabu: "Presentasi WWP Sains",
+          kamis: "Peniaian ibadah sholat",
+          jumat: "Jumsih"
+
+        },
+        {
+          id: 3,
+          tanggal: '1 (9 - 12 Januari 2024)',
+          senin: 'libur',
+          selasa: 'bersih rapi bersama',
+          rabu: "Presentasi WWP Sains",
+          kamis: "Screening math",
+          jumat: "Daily Writing"
+
+        },
+        {
+          id: 4,
+          tanggal: '1 (9 - 12 Januari 2024)',
+          senin: 'libur',
+          selasa: 'bersih rapi bersama',
+          rabu: "Presentasi WWP Sains",
+          kamis: "Screening math",
+          jumat: "Ekskul"
+
+        },
+        {
+          id: 5,
+          tanggal: '2 (15 - 19 Januari 2024)',
+          senin: 'Tahsin',
+          selasa: 'Tahsin',
+          rabu: 'Tahsin',
+          kamis: 'Tahsin',
+          jumat: 'Tahsin'
+
+        },
+        {
+          id: 6,
+          tanggal: '2 (15 - 19 Januari 2024)',
+          senin: 'Kunjungan perpustakaan',
+          selasa: 'Display konsep pesawat sederhana',
+          rabu: "Peran sosialku di sekolah",
+          kamis: "Eksplor area EA",
+          jumat: "JUMSIH"
+
+        },
+        {
+          id: 7,
+          tanggal: '2 (15 - 19 Januari 2024)',
+          senin: 'Kunjungan perpustakaan',
+          selasa: 'Display konsep pesawat sederhana',
+          rabu: "Peran sosialku di sekolah",
+          kamis: "Eksplor area EA",
+          jumat: "JUMSIH"
+
+        },
+        {
+          id: 8,
+          tanggal: '2 (15 - 19 Januari 2024)',
+          senin: 'Kunjungan perpustakaan',
+          selasa: 'EFLES',
+          rabu: "Peran sosialku di sekolah",
+          kamis: "Eksplor area EA",
+          jumat: "JUMSIH"
+
+        },
+        {
+          id: 9,
+          tanggal: '2 (15 - 19 Januari 2024)',
+          senin: 'ART',
+          selasa: 'Display konsep pesawat sederhana (2)',
+          rabu: "Islamika",
+          kamis: "Math",
+          jumat: "Daily writing"
+
+        },
+        {
+          id: 9,
+          tanggal: '2 (15 - 19 Januari 2024)',
+          senin: 'Konsep pesawat sederhana',
+          selasa: 'Display konsep pesawat sederhana (2)',
+          rabu: "Islamika",
+          kamis: "Math",
+          jumat: "ekskul"
+
+        },
+        
+
+      ],
+      token: sessionStorage.getItem("token")
     }
+  },
+  mounted() {
+    this.getJadwalKegiatan()
+  },
+  methods: {
+    async getJadwalKegiatan() {
+      // try {
+      //   const { schedules, pushIndex } = this.createEmptySchedule()
+      //   console.log(schedules, pushIndex)
+      //   const { data } = await axios.get(`https://api-dev.curaweda.com:7000/api/timetable?page=0&limit=10`, {
+      //     headers: {
+      //       'Authorization': `Bearer ${this.token}`
+      //     }
+      //   });
+      //   console.log(data);
+
+      // } catch (error) {
+      //   console.log(error);
+      // }
+
+    },
+
+
   }
 }
 </script>

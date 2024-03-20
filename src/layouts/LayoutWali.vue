@@ -200,7 +200,10 @@ export default {
                 this.nis = response.data.data[0].student.nis
                 this.kelas = response.data.data[0].student.class
                 const id = response.data.data[0].student.id
+                const level = response.data.data[0].student.level
                 sessionStorage.setItem('idSiswa', id)
+                sessionStorage.setItem('level', level)
+                
 
             } catch (error) {
                 console.log(error);

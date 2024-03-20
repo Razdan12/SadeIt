@@ -135,6 +135,11 @@ const routes = [
         path: "/wali/cs",
         component: () => import("pages/wali/customer_care.vue"),
       },
+      {
+        path: "/siswa/cs/chat",
+        component: () => import("pages/wali/customer_chat.vue"),
+        meta: { requiresAuth: true },
+      },
     ],
   },
   {
