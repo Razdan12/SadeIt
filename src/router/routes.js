@@ -99,6 +99,11 @@ const routes = [
         component: () => import("pages/wali/dashboard.vue"),
       },
       {
+        path: "/wali/profil",
+        component: () => import("pages/wali/profil.vue"),
+        meta: { requiresAuth: true },
+      },
+      {
         path: "/wali/absen",
         component: () => import("pages/wali/absen.vue"),
       },

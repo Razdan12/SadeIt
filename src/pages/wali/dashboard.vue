@@ -203,7 +203,10 @@
                         <tbody>
                           <tr>
                             <td class="text-left" style="font-size: medium">
-                              Sertﬁkat Lomba Panjat
+                              Upload Sertifikat
+                            </td>
+                            <td>
+                                <q-btn round color="blue-2" icon="file_upload" />
                             </td>
                           </tr>
                           <tr>
