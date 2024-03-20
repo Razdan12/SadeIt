@@ -1,30 +1,32 @@
 <template>
   <div class="container">
+    <!-- <NavbarSiswa/> -->
     <div class="row">
       <div class="col-md-12">
-        <q-card class="text-center bg-blue-2" style="height: 87vh">
+        <div class="text-center bg-blue-2 flex tw-flex-col tw-min-h-screen">
 
           <q-card-section>
             <div class="text-center">
               <p>
-                <span class="text-center text-black text-bold" style="font-size: x-large">KALENDER KEGIATAN TAHUN 2023-2024</span><br>
-                <span class="text-center text-black text-bold" style="font-size: x-large"> BULAN {{ new Date().toLocaleString('en-US', { month: 'long' }).toUpperCase() }} {{ new Date().getFullYear() }}</span>
+                <span class="text-center text-black text-bold" style="font-size: x-large">KALENDER KEGIATAN</span><br>
+                <span class="text-center text-black text-bold" style="font-size: large"> Bulan {{ currentmonth }}</span>
 
               </p>
             </div>
           </q-card-section>
           <q-card-section>
-            <q-card class="my-card">
-              <q-card-section>
-                <div class="subcontent">
+            <q-card class="my-card tw-h-full flex tw-w-full ">
+              <q-card-section class=" tw-w-full">
+                <div class="subcontent tw-h-full">
                   <navigation-bar @today="onToday" @prev="onPrev" @next="onNext" style="color: green;" flat />
 
                   <div class="row justify-center">
-                    <div style="display: max-width: 900px; width: 90%; height: 60vh;">
-                      <q-calendar-month ref="calendar" v-model="selectedDate" animated bordered focusable hoverable locale="id"
-                        no-active-date :day-min-height="80" :day-height="0" @change="onChange" @moved="onMoved"
-                        @click-date="onClickDate" @click-day="onClickDay" @click-workweek="onClickWorkweek"
-                        @click-head-workweek="onClickHeadWorkweek" @click-head-day="onClickHeadDay">
+                    <div style=" width: 90%; ">
+                      <q-calendar-month ref="calendar" v-model="selectedDate" animated bordered focusable hoverable
+                        locale="id" no-active-date :day-min-height="80" :day-height="0" @change="onChange"
+                        @moved="onMoved" @click-date="onClickDate" @click-day="onClickDay"
+                        @click-workweek="onClickWorkweek" @click-head-workweek="onClickHeadWorkweek"
+                        @click-head-day="onClickHeadDay">
                         <template #week="{ scope: { week, weekdays } }">
                           <template v-for="(computedEvent, index) in getWeekEvents(week, weekdays)" :key="index">
                             <div :class="badgeClasses(computedEvent)" :style="badgeStyles(computedEvent, week.length)">
@@ -33,6 +35,7 @@
                                 {{ computedEvent.event.title + (computedEvent.event.time ? ' - ' +
                                   computedEvent.event.time : '') }}
                                 <q-tooltip>{{ computedEvent.event.details }}</q-tooltip>
+
                               </div>
                             </div>
                           </template>
@@ -47,7 +50,7 @@
 
 
 
-        </q-card>
+        </div>
       </div>
     </div>
   </div>
@@ -69,6 +72,7 @@ import '@quasar/quasar-ui-qcalendar/src/QCalendarMonth.sass'
 
 import { defineComponent, ref } from 'vue'
 import NavigationBar from '../../components/NavigationBar.vue'
+import NavbarSiswa from '../../components/siswa/HederSiswa.vue'
 
 // The function below is used to set up our demo data
 const CURRENT_DAY = new Date()
@@ -83,109 +87,30 @@ export default defineComponent({
   name: 'MonthSlotWeek',
   components: {
     NavigationBar,
-    QCalendarMonth
+    QCalendarMonth,
+    NavbarSiswa
   },
   data() {
     return {
       selectedDate: today(),
-      // events: [
-      //   {
-      //     id: 1,
-      //     title: 'Ekskul',
-      //     details: 'Ekskul',
-      //     start: getCurrentDay(20),
-      //     end: getCurrentDay(20),
-      //     bgcolor: 'green'
-      //   },
-      //   {
-      //     id: 2,
-      //     title: 'Acara Khusus',
-      //     details: 'Acara Khusus',
-      //     start: getCurrentDay(3),
-      //     end: getCurrentDay(3),
-      //     bgcolor: 'blue'
-      //   },
-      //   {
-      //     id: 3,
-      //     title: 'Acara Khusus',
-      //     details: 'Acara Khusus',
-      //     start: getCurrentDay(4),
-      //     end: getCurrentDay(4),
-      //     bgcolor: 'blue'
-      //   },
-      //   {
-      //     id: 4,
-      //     title: 'Acara Khusus',
-      //     details: 'Acara Khusus',
-      //     start: getCurrentDay(5),
-      //     end: getCurrentDay(5),
-      //     bgcolor: 'blue'
-      //   },
-      //   {
-      //     id: 5,
-      //     title: 'Acara Khusus',
-      //     details: 'Acara Khusus',
-      //     start: getCurrentDay(14),
-      //     end: getCurrentDay(14),
-      //     bgcolor: 'blue'
-      //   },
-      //   {
-      //     id: 6,
-      //     title: 'Acara Khusus',
-      //     details: 'Acara Khusus',
-      //     start: getCurrentDay(17),
-      //     end: getCurrentDay(17),
-      //     bgcolor: 'blue'
-
-      //   },
-      //   {
-      //     id: 7,
-      //     title: 'Acara Khusus',
-      //     details: 'Acara Khusus',
-      //     start: getCurrentDay(24),
-      //     end: getCurrentDay(24),
-      //     bgcolor: 'blue'
-      //   },
-      //   {
-      //     id: 8,
-      //     title: 'Ekskul',
-      //     details: 'Ekskul',
-      //     start: getCurrentDay(13),
-      //     end: getCurrentDay(13),
-      //     bgcolor: 'green'
-      //   },
-      //   {
-      //     id: 9,
-      //     title: 'Libur',
-      //     details: 'libur',
-      //     start: getCurrentDay(2),
-      //     end: getCurrentDay(6),
-      //     bgcolor: 'red'
-      //   },
-      //   {
-      //     id: 10,
-      //     title: 'Acara Khusus',
-      //     details: 'Acara Khusus',
-      //     start: getCurrentDay(25),
-      //     end: getCurrentDay(25),
-      //     bgcolor: 'blue'
-      //   },
-      //   {
-      //     id: 11,
-      //     title: 'Acara Khusus',
-      //     details: 'Acara Khusus',
-      //     start: getCurrentDay(26),
-      //     end: getCurrentDay(26),
-      //     bgcolor: 'blue'
-      //   },
-
-      // ],
-      token: ref(sessionStorage.getItem("token")),
-      idSiswa: ref(sessionStorage.getItem("idSiswa")),
       events: ref([]),
+      currentmonth: ref(''),
+      year: ref(''),
+      month: ref(''),
+      token: sessionStorage.getItem("token")
+
     }
   },
+
   methods: {
+    getCurrentDateTime() {
+      const now = new Date();
+      const options = { month: 'long', year: 'numeric' };
+      this.currentmonth = now.toLocaleDateString('id-ID', options);
+      this.year = now.getFullYear()
+      this.month = now.getMonth() + 1
+    },
+
     getWeekEvents(week, weekdays) {
       const firstDay = parsed(week[0].date + ' 00:00')
       const lastDay = parsed(week[week.length - 1].date + ' 23:59')
@@ -299,43 +224,66 @@ export default defineComponent({
       this.$refs.calendar.next()
     },
     onMoved(data) {
-      console.log('onMoved', data)
+      const tanggalBaru = new Date(data.date)
+      this.year = tanggalBaru.getFullYear()
+      this.month = tanggalBaru.getMonth() + 1
+      const options = { month: 'long', year: 'numeric' };
+      this.currentmonth = tanggalBaru.toLocaleDateString('id-ID', options);
     },
     onChange(data) {
-      console.log('onChange', data)
+      // console.log('onChange', data)
     },
     onClickDate(data) {
-      console.log('onClickDate', data)
+      // console.log('onClickDate', data)
     },
     onClickDay(data) {
-      console.log('onClickDay', data)
+      // console.log('onClickDay', data)
     },
     onClickWorkweek(data) {
-      console.log('onClickWorkweek', data)
+      // console.log('onClickWorkweek', data)
     },
     onClickHeadDay(data) {
-      console.log('onClickHeadDay', data)
+      // console.log('onClickHeadDay', data)
     },
     onClickHeadWorkweek(data) {
-      console.log('onClickHeadWorkweek', data)
+      // console.log('onClickHeadWorkweek', data)
     },
+
     async getKalenderKegitan() {
-     try {
-      const response = await this.$api.get(`edu-calendar?search_query=&page=0&limit=10`, {
+      try {
+        const response = await this.$api.get(`edu-calendar-detail?search_query=&page=0&limit=10`, {
           headers: {
             'Authorization': `Bearer ${this.token}`
           }
         });
-        this.events.values = response.data.data
-        // this.rekapMinggu = response.data.data
-     } catch (error) {
+       
+        const data = response.data.data.result
 
-     }
+        const dataKegiatan = await Promise.all(
+          data.map((item, index) => {
+            const rest = {
+              id: index,
+              title: item.agenda,
+              details: item.agenda,
+              start: getCurrentDay(new Date(item.start_date).getDate()),
+              end: getCurrentDay(new Date(item.end_date).getDate()),
+              bgcolor: 'blue',
+            }
+            return rest
+          })
+        )
+        this.events = dataKegiatan
+       
+      } catch (error) {
+
+      }
     },
   },
   mounted() {
     this.getKalenderKegitan();
+    this.getCurrentDateTime();
   },
+
 })
 </script>
 

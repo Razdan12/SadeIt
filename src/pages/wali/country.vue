@@ -60,6 +60,7 @@
                         </th>
                         <th class="text-center">Durasi</th>
                         <th class="text-center">Total Durasi</th>
+                        <th class="text-center">Keterangan</th>
                         <th class="text-center" style="width: 100px"></th>
                       </tr>
                     </thead>
@@ -72,6 +73,7 @@
                         <td class="text-left">{{ activity.name }}</td>
                         <td class="text-right">{{ activity.duration }}</td>
                         <td class="text-right">{{ activity.totalDuration }}</td>
+                        <td class="text-right">{{ activity.keterangan }}</td>
                         <td class="text-right">
                           <q-btn color="secondary" label="Sertifikat" />
                         </td>

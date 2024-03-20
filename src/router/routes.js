@@ -99,6 +99,11 @@ const routes = [
         component: () => import("pages/wali/dashboard.vue"),
       },
       {
+        path: "/wali/profil",
+        component: () => import("pages/wali/profil.vue"),
+        meta: { requiresAuth: true },
+      },
+      {
         path: "/wali/absen",
         component: () => import("pages/wali/absen.vue"),
       },
@@ -129,6 +134,11 @@ const routes = [
       {
         path: "/wali/cs",
         component: () => import("pages/wali/customer_care.vue"),
+      },
+      {
+        path: "/siswa/cs/chat",
+        component: () => import("pages/wali/customer_chat.vue"),
+        meta: { requiresAuth: true },
       },
     ],
   },

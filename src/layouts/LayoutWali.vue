@@ -12,7 +12,7 @@
     </q-header>
 
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
-      <div class="flex q-pl-md" style="margin-top: 10px;flex-direction: row;">
+      <div class="flex q-pl-md" style="margin-top: 10px;flex-direction: row;" @click="directProfil">
         <q-avatar class="" size="60px">
           <img src="../assets/sarrah.png" />
         </q-avatar>
@@ -143,6 +143,9 @@ export default {
   },
 
   methods: {
+    directProfil() {
+            this.$router.push("/wali/profil")
+        },
     getCurrentDateTime() {
       const now = new Date();
       const formattedDate = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
@@ -197,7 +200,10 @@ export default {
                 this.nis = response.data.data[0].student.nis
                 this.kelas = response.data.data[0].student.class
                 const id = response.data.data[0].student.id
+                const level = response.data.data[0].student.level
                 sessionStorage.setItem('idSiswa', id)
+                sessionStorage.setItem('level', level)
+                
 
             } catch (error) {
                 console.log(error);
