@@ -128,15 +128,23 @@ const routes = [
         component: () => import("pages/wali/country.vue"),
       },
       {
+        path: "/wali/tugas",
+        component: () => import("pages/wali/tugas.vue"),
+      },
+      {
         path: "/wali/ppekanan",
         component: () => import("pages/wali/p_pekanan.vue"),
+      },
+      {
+        path: "/wali/achievement",
+        component: () => import("pages/wali/archivement.vue"),
       },
       {
         path: "/wali/cs",
         component: () => import("pages/wali/customer_care.vue"),
       },
       {
-        path: "/siswa/cs/chat",
+        path: "/wali/cs/chat",
         component: () => import("pages/wali/customer_chat.vue"),
         meta: { requiresAuth: true },
       },

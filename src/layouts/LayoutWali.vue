@@ -70,6 +70,15 @@
             Raport Digital
           </q-item-section>
         </q-item>
+        <q-item to="/wali/tugas" class="text-blue-4" active-class="text-orange" clickable v-ripple>
+          <q-item-section avatar>
+            <q-icon name="assignment_add" style="font-size: 2rem" />
+          </q-item-section>
+
+          <q-item-section class="text-bold" style="font-size: 1rem">
+            Tugas
+          </q-item-section>
+        </q-item>
 
         <q-item to="/wali/billing" class="text-blue-4" active-class="text-orange" clickable v-ripple>
           <q-item-section avatar>
@@ -87,6 +96,15 @@
 
           <q-item-section class="text-bold" style="font-size: 1rem">
             One Day For Your Country
+          </q-item-section>
+        </q-item>
+        <q-item to="/wali/achievement" class="text-blue-4" active-class="text-orange" clickable v-ripple>
+          <q-item-section avatar>
+            <q-icon name="emoji_events" style="font-size: 2rem" />
+          </q-item-section>
+
+          <q-item-section class="text-bold" style="font-size: 1rem">
+            Achievement
           </q-item-section>
         </q-item>
         <q-item to="/wali/cs" class="text-blue-4" active-class="text-orange" clickable v-ripple>
