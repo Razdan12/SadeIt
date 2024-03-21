@@ -14,7 +14,7 @@
                 <q-card class="bg-green-1 tw-w-full tw-h-80">
                   <q-card-section>
                     <div class="row flex tw-flex-col justify-center items-center">
-                      <p><span style="font-size: xx-large">Presensi</span></p>
+                      <p><span style="font-size: 200%" class="text-bold">Presensi</span></p>
                       <div class="row flex justify-center items-center tw-w-full">
 
                         <div class="img">
@@ -51,7 +51,7 @@
                   <q-card-section>
                     <div class="row flex tw-flex-col justify-center items-center">
                       <p>
-                        <span style="font-size: xx-large">Asesmen</span>
+                        <p><span style="font-size: 200%" class="text-bold">Asesment</span></p>
                         <br />
                         <span> Semester 1 </span>
                       </p>
@@ -97,15 +97,14 @@
 
                 <q-card class="bg-light-green-1 tw-w-full tw-h-80">
                   <q-card-section>
-                    <P class="text-bold text-left">Overview <br />
-                      Tema : <span class="text-blue"></span>
-                      <br />
-                      Pemahaman Bermakna : <br />
-                      periode : <br />
-                      TUP :
-                      <span class="text-blue"></span>
-                    </P>
-
+                    <p style="font-size: 200%" class="text-bold">Overview</p>
+                    <div class="text-left text-bold">
+                      <p>Tema:</p>
+                      <p>Pemahaman:</p>
+                      <p>Periode:</p>
+                      <p>TUP:</p>
+                    </div>
+                    
                     <div class="text-justify" style="width: 95%">
                       <q-scroll-area style="height: 20vh" class="q-pa-sm">
                         <p>
@@ -128,9 +127,7 @@
                         <q-img src="../../assets/camper.png" style="width: 60%" />
                       </div>
                       <div class="col-md-8 text-left">
-                        <p>
-                          <span style="font-size: xx-large">Agenda Kegiatan</span>
-                        </p>
+                        <p style="font-size: 200%" class="text-bold">Agenda Kegiatan</p>
                         <q-markup-table class="bg-yellow-1 text-bold" flat>
                           <tbody>
                             <tr>
@@ -159,9 +156,7 @@
                         <q-img src="../../assets/book/total.png" style="width: 60%" />
                       </div>
                       <div class="col-md-8 text-left">
-                        <p>
-                          <span style="font-size: xx-large">Bank Sampah</span>
-                        </p>
+                        <p style="font-size: 200%" class="text-bold">Bank Sampah</p>
                         <q-markup-table class="bg-light-blue-1" flat>
                           <tbody>
                             <tr>
@@ -191,9 +186,8 @@
                         <q-img src="../../assets/Achievement.png" style="width: 60%" />
                       </div>
                       <div class="col-md-8 text-left">
-                        <p>
-                          <span style="font-size: xx-large">Achievement</span>
-                        </p>
+                        <p style="font-size: 200%" class="text-bold">Achievement</p>
+                       
                         <q-markup-table class="bg-light-blue-1" flat>
                           <tbody>
                             <tr>

@@ -306,7 +306,7 @@ export default {
             },
           }
         );
-
+          console.log(response);
         this.rekap = response.data.data[0];
       } catch (error) {
         console.log(error);
@@ -320,7 +320,7 @@ export default {
           },
         })
 
-
+        console.log(response.data);
         this.borrow = response.data.data
       } catch (error) {
         console.log(error);
@@ -365,6 +365,7 @@ export default {
             },
           }
         );
+        console.log(response);
         this.bookRating = response.data.data
         this.totalRating = Math.round(response?.data.data.total_ratings) 
    

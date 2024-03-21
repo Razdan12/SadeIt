@@ -78,11 +78,7 @@ const routes = [
         component: () => import("pages/siswa/customer_care.vue"),
         meta: { requiresAuth: true },
       },
-      {
-        path: "/siswa/cs/chat",
-        component: () => import("pages/siswa/customer_chat.vue"),
-        meta: { requiresAuth: true },
-      },
+     
       {
         path: "/siswa/profil",
         component: () => import("pages/siswa/profil.vue"),
@@ -143,11 +139,7 @@ const routes = [
         path: "/wali/cs",
         component: () => import("pages/wali/customer_care.vue"),
       },
-      {
-        path: "/wali/cs/chat",
-        component: () => import("pages/wali/customer_chat.vue"),
-        meta: { requiresAuth: true },
-      },
+      
     ],
   },
   {
