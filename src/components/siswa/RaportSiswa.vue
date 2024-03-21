@@ -105,10 +105,9 @@
 
         <q-tab-panel name="innerMovies">
           <q-card>
-            <div style="width: 100%; height: 600px;">
-              <RapotPortofolio/>
+            <div style="width: 100%; height: 600px">
+              <RapotPortofolio />
             </div>
-           
           </q-card>
         </q-tab-panel>
 
@@ -117,17 +116,22 @@
           <div class="tw-flex tw-w-full">
             <div class="tw-w-full tw-p-3 text-left tw-border-2 tw-rounded-md">
               <p>
-              {{ submittedComment }}
+                {{ submittedComment }}
               </p>
               <q-input
-            v-model="editedComment"
-            filled
-            outlined
-            label="Edit Komentar"
-            placeholder="Edit komentar Anda di sini..."
-            type="textarea"
-            />
-          <q-btn @click="submitComment" class="q-mt-md" color="primary" label="Submit" />
+                v-model="editedComment"
+                filled
+                outlined
+                label="Edit Komentar"
+                placeholder="Edit komentar Anda di sini..."
+                type="textarea"
+              />
+              <q-btn
+                @click="submitComment"
+                class="q-mt-md"
+                color="primary"
+                label="Submit"
+              />
             </div>
           </div>
           <div class="tw-flex tw-w-full justify-end tw-p-5">
@@ -150,18 +154,67 @@ import KomentarUmum from "./raport/portoKomentar.vue";
 import RapotPortofolio from "./raport/rapotPortofolio.vue";
 
 export default {
-  data(){
+  data() {
     return {
-      editedComment: '',
-      submittedComment: ''
+      editedComment: "",
+      submittedComment: "",
     };
   },
   methods: {
-    submitComment() {
-      console.log(this.TabPilihan);
-      this.submittedComment = this.editedComment;
-      this.editedComment = '';
-    } 
+    async getCommnentParent() {
+      const idUser = sessionStorage.getItem("idSiswa");
+      const token = sessionStorage.getItem("token");
+      try {
+        const response = await this.$api.get(
+          `/student-report/show-by-student?id=${idUser}&semester=${this.TabPilihan}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        // console.log(response);
+        (this.submittedComment = response.data.data[0].parent_comments),
+          sessionStorage.setItem(
+            "student_class_id",
+            response.data.data[0].student_class_id
+          );
+        sessionStorage.setItem("raportId", response.data.data[0].id);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async submitComment() {
+      const student_class_id = sessionStorage.getItem("student_class_id");
+      const RaportId = sessionStorage.getItem("raportId");
+      console.log(RaportId);
+      const token = sessionStorage.getItem("token");
+      try {
+        console.log("masuk sini");
+        const response = await this.$api.put(
+          `/student-report/update/${RaportId}`,
+          {
+            "student_class_id": student_class_id,
+            semester: this.TabPilihan,
+            parent_comments: this.editedComment,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response);
+      
+        this.getCommnentParent();
+        this.editedComment = "";
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  mounted() {
+    this.getCommnentParent();
   },
   name: "Rapot",
   props: {
@@ -189,8 +242,8 @@ export default {
       splitterModel: ref(20),
       editor: ref("Sangat Baik !"),
       TabPilihan: props.TabPilihan,
-      editedComment:ref(''),
-      submittedComment:ref('')
+      editedComment: ref(""),
+      submittedComment: ref(""),
     };
   },
 };
