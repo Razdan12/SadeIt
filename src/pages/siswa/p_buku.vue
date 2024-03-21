@@ -153,8 +153,8 @@
                         <tr v-for="(item, index) in borrow" :key="item.id">
                           <td class="text-center">
                             <q-img :src="item?.book.cover
-                                          ? item?.book.cover
-                                          : 'https://www.marytribble.com/wp-content/uploads/2020/12/book-cover-placeholder.png'
+                                        ? item?.book.cover
+                                        : 'https://www.marytribble.com/wp-content/uploads/2020/12/book-cover-placeholder.png'
                                         " />
                           </td>
                           <td class="text-left">{{ item?.book.title }}</td>
@@ -187,22 +187,22 @@
             <q-card style="width: 700px; max-width: 80vw; max-height: 700px">
               <q-card-section class="">
                 <div class="text-h4 text-bold q-pl-md">
-                  {{ this.countRating }} Review
+                  150 Review
                 </div>
                 <div class="flex items-center q-pl-md">
-                  <p class="text-h4 text-bold">{{ this.countRating }}</p>
-                  <q-rating v-model="countRating" max="5" size="2em" color="orange" icon="star_border"
+                  <!-- <p class="text-h4 text-bold">{{ totalRating }}</p> -->
+                  <q-rating v-model="totalRating" max="5" size="2em" color="orange" icon="star_border"
                     icon-selected="star" icon-half="star_half" no-dimming readonly />
                 </div>
               </q-card-section>
-
+              <q-separator style="width: 100%; margin-top: 20px; margin-bottom: 20px" color="orange" />
               <q-card-section class="q-pt-none flex justify-center items-center">
                 <div style="width: 100%; margin-left: 20px; margin-right: 20px">
                   <p>Masukan Rating</p>
                   <q-rating v-model="ratingWajib" max="5" size="2em" color="orange" icon="star_border"
                     icon-selected="star" icon-half="star_half" no-dimming />
-                  <q-input outlined bottom-slots v-model="comment" label="Label" counter maxlength="100" class="q-py-sm"
-                    :dense="dense">
+                  <q-input outlined bottom-slots v-model="comment" label="Review" counter maxlength="100" class="q-py-sm"
+                   >
 
                     <template v-slot:after>
                       <q-btn round dense flat icon="send" @click="postRating()" />
@@ -210,16 +210,17 @@
                   </q-input>
                 </div>
                 <q-separator style="width: 100%; margin-top: 20px; margin-bottom: 20px" color="orange" />
+                
                 <div style="margin: 20px">
                   <p class="text-h5">Semua Rating</p>
                 </div>
-                <q-card style="margin-top: 10px; display: block; width: 100%" v-for="(list, index) in this.bookreview"
+                <q-card style="margin-top: 10px; display: block; width: 100%" v-for="(list, index) in this.bookRating?.reviews"
                   :key="index">
                   <div style="width: 95%; border-radius: 10px; margin: 5px" class="q-pa-md" v-if="list.rating">
                     <div>
                       <q-rating v-model="list.rating" max="5" size="2em" color="orange" icon="star_border"
                         icon-selected="star" icon-half="star_half" no-dimming readonly />
-                      <p class="text-h6">{{ this.bookdata.book.title }}</p>
+                      <p class="text-bold">{{ list.student.full_name }}</p>
                       <p class="">
                         {{ list.comment }}
                       </p>
@@ -254,13 +255,16 @@ export default {
     return {
       slide: ref(1),
       autoplay: ref(true),
-      ratingWajib: ref(4.3),
+      ratingWajib: ref(0),
       medium: ref(false),
       token: ref(sessionStorage.getItem("token")),
       idSiswa: ref(sessionStorage.getItem("idSiswa")),
       slider: ref(),
       rekap: ref(),
       borrow: ref(),
+      bookRating: ref(),
+      totalRating: ref(0),
+      comment: ref('')
 
     }
   },
@@ -273,6 +277,10 @@ export default {
         year: "numeric",
       });
       return formattedDate;
+    },
+    getRound() {
+     const round = Math.round(this.bookRating?.total_ratings)
+      return round;
     },
     async getSliderBook() {
       try {
@@ -307,159 +315,82 @@ export default {
     async getBorrowBook() {
       try {
         const response = await this.$api.get(`borrow-book/show-by-student/${this.idSiswa}`, {
-        headers: {
-          Authorization: `Bearer ${this.token}`,
-        },
-      })
-        
-      console.log(response.data.data);
-      this.borrow = response.data.data
-    } catch(error) {
-      console.log(error);
-    }
-  },
-  async postRating() {
-    try {
-      const data = {
-        rating: this.ratingWajib,
-        student_id: parseInt(sessionStorage.getItem("idSiswa")),
-        book_id: this.bookdata.book.id,
-        comment: this.comment,
-      };
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        })
 
-      const response = await this.$api.post(`/book-review/create`, data, {
-        headers: {
-          Authorization: `Bearer ${this.token}`,
-        },
-      });
-    
-      if (response.data) {
-        Swal.fire({
-          title: "Success!",
-          text: `Rating buku ${this.bookdata.book.title} berhasil ditambahkan`,
-          icon: "success",
-        });
-        this.medium = false;
-        this.clearData();
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  },
-  async updateRating() {
-    try {
-      const data = {
-        rating: this.ratingWajib,
-        student_id: parseInt(sessionStorage.getItem("idSiswa")),
-        book_id: this.bookdata.book.id,
-        comment: this.comment,
-      };
 
-      const response = await this.$api.put(
-        `/book-review/update/${this.idSiswa}`,
-        data,
-        {
+        this.borrow = response.data.data
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async postRating() {
+      try {
+        const data = {
+          rating: this.ratingWajib,
+          student_id: parseInt(sessionStorage.getItem("idSiswa")),
+          book_id: this.bookdata.book.id,
+          comment: this.comment,
+        };
+      
+        const response = await this.$api.post(`/book-review/create`, data, {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },
-        }
-      );
-      if (response.data) {
-        Swal.fire({
-          title: "Success!",
-          text: `Rating buku ${this.bookdata.book.title} berhasil terupdate`,
-          icon: "success",
         });
-        this.medium = false;
-        this.clearData();
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  },
-  async getBook() {
-    try {
-      const response = await this.$api.get(
-        `/book-review/show/${this.bookdata.book.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${this.token}`,
-          },
+
+        if (response.data) {
+          Swal.fire({
+            title: "Success!",
+            text: `Rating buku ${this.bookdata.book.title} berhasil ditambahkan`,
+            icon: "success",
+          });
+          this.medium = false;
+          this.clearData();
         }
-      );
-      console.log(response);
-      if (response.data) {
-        const data = response.data;
-        this.bookreview = data;
-        this.countreview = this.bookreview.length;
-        console.log(this.counterview);
+      } catch (err) {
+        console.error(err);
       }
-    } catch (error) {
-      console.error(error);
-    }
-  },
-  async deleteRating() {
-    try {
-      const response = await this.$api.delete(
-        `/book-review/delete/${this.bookdata.book.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${this.token}`,
-          },
-        }
-      );
-      if (response.data) {
-        Swal.fire({
-          title: "Success!",
-          text: `Rating buku ${this.bookdata.book.title} berhasil terhapus`,
-          icon: "success",
-        });
-        this.medium = false;
-        this.clearData();
+    },
+
+    async getBookAll() {
+      try {
+        const response = await this.$api.get(
+          `book-review/show-by-book/${this.bookdata.book.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${this.token}`,
+            },
+          }
+        );
+        this.bookRating = response.data.data
+        this.totalRating = Math.round(response?.data.data.total_ratings) 
+   
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-    }
+    },
+    closeDialog() {
+      this.medium = false;
+    },
+    clearData() {
+      this.ratingWajib = null;
+      this.bookdata = null;
+      this.comment = null;
+    },
+    handleRating(data) {
+      this.medium = true;
+      this.bookdata = data;
+      this.getBookAll();
+    },
   },
-  async getBookAll() {
-    try {
-      const response = await this.$api.get(
-        `book-review?search_query=&page=0&limit=10`,
-        {
-          headers: {
-            Authorization: `Bearer ${this.token}`,
-          },
-        }
-      );
-      if (response.data) {
-        const data = response.data.data.result;
-        this.bookreviewall = data;
-        console.log(this.bookreviewall);
-      }
-    } catch (error) {
-      console.error(error);
-    }
+  mounted() {
+    this.getSliderBook()
+    this.getRecapBook()
+    this.getBorrowBook()
   },
-  closeDialog() {
-    this.medium = false;
-  },
-  clearData() {
-    this.ratingWajib = null;
-    this.bookdata = null;
-    this.comment = null;
-  },
-  handleRating(data) {
-    this.medium = true;
-    this.bookdata = data;
-    this.getBook();
-    // this.getBookAll();
-  },
-},
-mounted() {
-  this.getSliderBook()
-  this.getRecapBook()
-  this.getBorrowBook()
-},
 };
 </script>
 
