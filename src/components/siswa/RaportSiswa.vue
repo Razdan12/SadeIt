@@ -105,10 +105,9 @@
 
         <q-tab-panel name="innerMovies">
           <q-card>
-            <div style="width: 100%; height: 600px;">
-              <RapotPortofolio/>
+            <div style="width: 100%; height: 600px">
+              <RapotPortofolio />
             </div>
-           
           </q-card>
         </q-tab-panel>
 
@@ -117,54 +116,22 @@
           <div class="tw-flex tw-w-full">
             <div class="tw-w-full tw-p-3 text-left tw-border-2 tw-rounded-md">
               <p>
-                Alhamdulillahirobbil ‘alamiin Aisha telah melalui proses belajar
-                jarak jauh selama 2,5 bulan dengan baik. Aisha adalah siswa yang
-                senantiasa hadir tepat waktu dalam pertemuan belajar secara
-                online. 5 menit sebelum kelas dimulai biasanya aisha sudah hadir
-                di lokasi. Maksimal keterlambatannya berkisar antara 3 hingga 5
-                menit dari jadwal yang telah ditetapkan. Saat pembelajaran
-                daring berlangsung, Asiha ti dak perlu diingatkan untuk
-                menyalakan videonya. Namun ia meminta izin kepada fasil untuk
-                menonaktifkan microphone miliknya sebab seringkali kondisi di
-                rumah cukup berisik dan banyak suara- suara yang dapat
-                mengganggu kenyamanan proses belajar daring. Walaupun ia
-                menonaktifkn microphoe,
-                <br />
-                <br />
-                Aisha tetap dapat mengikuti pembelajaran daring dengan aktif.
-                Jika ia diberi pertanyaan atau diminta menyampaikan pendapatnya,
-                Aisha akan langsung menyalakan mic rophonenya dan menyampaikan
-                jawaban atau tanggapannya secara lisan jika kondisi di rumah
-                sedang ko ndusif/ tenang. Jika tidak, Aisha akan segera merespon
-                via chat di Zoom. Jika Aisha merespon via chat di Zoom, biasanya
-                responnya singkat dan to the point. Namun jika Aisha menjawab
-                secara lisan, Aisha dapat menjelaskan dengan cukup detail dengan
-                bahasanya sendiri.
-                <br />
-                <br />
-                Aisha adalah siswa yang serius namun santai dalam belajar. Ia
-                tidak ragu- ragu menyampaikan pertanyaan pada fasilitator jika
-                ada hal yang tidak ia pahami atau jika ada hal yang p
-                <br />
-                <br />
-                erlu ia klarifikasi. Jika ia memang sudah memahami pembelajaran
-                yang dilakukan dan tidak ada yang ingin ditanyakan, maka Aisha
-                tidak akan mengajukan pertanyaan. Pengerjaan tugas-tugas yang
-                diberikan kepada Aisha cukup baik. Aisha mampu menyelesaikan 80%
-                penugasan yang diberikan tepat waktu. Sementara 20% tugas
-                lainnya d ikumpulkan terlambat dari batas waktu yang diberikan.
-                Kisaran keterlambatannya antara 1 hingga 8 hari. Semoga di tema
-                2 dan selanjutnya Aisha bisa mengelola waktu penyelesaian tugas
-                dengan lebih baik. Jika meninjau rutinitas harian Aisha, ada 4
-                aktivitas yang masih belum rutin dilakukan oleh Aisha setiap ha
-                ri, yaitu olahraga ringan, dzikir al ma’tsurat, tahsin dan
-                tahfidz. Untuk olahraga ringan, melihat hobi dan k esukaannya
-                adalah mendengarkan musik, menyanyi dan menari, Aisha bisa
-                menggunakan video dance yang diiringi musik sebagai aktivitas
-                olahraganya di rumah agar tera sa menyenangkan. Untuk dzikir al
-                ma’tsurat, tahsin dan tahfidz, mohon bantuan Ayah dan Bunda
-                untuk bi sa mengingatkan ananda setiap harinya.
+                {{ submittedComment }}
               </p>
+              <q-input
+                v-model="editedComment"
+                filled
+                outlined
+                label="Edit Komentar"
+                placeholder="Edit komentar Anda di sini..."
+                type="textarea"
+              />
+              <q-btn
+                @click="submitComment"
+                class="q-mt-md"
+                color="primary"
+                label="Submit"
+              />
             </div>
           </div>
           <div class="tw-flex tw-w-full justify-end tw-p-5">
@@ -187,6 +154,68 @@ import KomentarUmum from "./raport/portoKomentar.vue";
 import RapotPortofolio from "./raport/rapotPortofolio.vue";
 
 export default {
+  data() {
+    return {
+      editedComment: "",
+      submittedComment: "",
+    };
+  },
+  methods: {
+    async getCommnentParent() {
+      const idUser = sessionStorage.getItem("idSiswa");
+      const token = sessionStorage.getItem("token");
+      try {
+        const response = await this.$api.get(
+          `/student-report/show-by-student?id=${idUser}&semester=${this.TabPilihan}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        // console.log(response);
+        (this.submittedComment = response.data.data[0].parent_comments),
+          sessionStorage.setItem(
+            "student_class_id",
+            response.data.data[0].student_class_id
+          );
+        sessionStorage.setItem("raportId", response.data.data[0].id);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async submitComment() {
+      const student_class_id = sessionStorage.getItem("student_class_id");
+      const RaportId = sessionStorage.getItem("raportId");
+      console.log(RaportId);
+      const token = sessionStorage.getItem("token");
+      try {
+        console.log("masuk sini");
+        const response = await this.$api.put(
+          `/student-report/update/${RaportId}`,
+          {
+            "student_class_id": student_class_id,
+            semester: this.TabPilihan,
+            parent_comments: this.editedComment,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response);
+      
+        this.getCommnentParent();
+        this.editedComment = "";
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  mounted() {
+    this.getCommnentParent();
+  },
   name: "Rapot",
   props: {
     TabPilihan: {
@@ -213,6 +242,8 @@ export default {
       splitterModel: ref(20),
       editor: ref("Sangat Baik !"),
       TabPilihan: props.TabPilihan,
+      editedComment: ref(""),
+      submittedComment: ref(""),
     };
   },
 };

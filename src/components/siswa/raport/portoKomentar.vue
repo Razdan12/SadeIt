@@ -1,5 +1,5 @@
 <template>
-    <div class="flex tw-flex-col tw-items-start">
+    <q-page class="flex tw-flex-col tw-items-start">
 
         <div class="text-h5 text-bold">
             Komentar Umum
@@ -22,22 +22,16 @@
                 ndusif/ tenang. Jika tidak, Aisha akan segera merespon via chat di Zoom. Jika Aisha merespon via chat di
                 Zoom, biasanya responnya singkat dan to the point. Namun jika Aisha menjawab secara lisan,
                 Aisha dapat menjelaskan dengan cukup detail dengan bahasanya sendiri.
-                <br/>
-                <br/>
-                Aisha adalah siswa yang serius namun santai dalam belajar. Ia tidak ragu-
-                ragu menyampaikan pertanyaan pada fasilitator jika ada hal yang tidak ia pahami atau jika ada hal yang p
-                <br/>
-                <br/>
-                erlu ia klarifikasi. Jika ia memang sudah memahami pembelajaran yang dilakukan dan tidak ada yang ingin
-                ditanyakan, maka Aisha tidak akan mengajukan pertanyaan.
-                Pengerjaan tugas-tugas yang diberikan kepada Aisha cukup baik.
-                Aisha mampu menyelesaikan 80% penugasan yang diberikan tepat waktu. Sementara 20% tugas lainnya d
-                ikumpulkan terlambat dari batas waktu yang diberikan. Kisaran keterlambatannya antara 1 hingga 8 hari.
-                Semoga di tema 2 dan selanjutnya Aisha bisa mengelola waktu penyelesaian tugas dengan lebih baik.
-                Jika meninjau rutinitas harian Aisha, ada 4 aktivitas yang masih belum rutin dilakukan oleh Aisha setiap ha
-                ri, yaitu olahraga ringan, dzikir al ma’tsurat, tahsin dan tahfidz. Untuk olahraga ringan, melihat hobi dan k
-                esukaannya adalah mendengarkan musik, menyanyi dan menari,
             </p>
+            <q-input
+            v-model="editedComment"
+            filled
+            outlined
+            label="Edit Komentar"
+            placeholder="Edit komentar Anda di sini..."
+            type="textarea"
+            />
+    <q-btn @click="submitComment" class="q-mt-md" color="primary" label="Submit" />
         </div>
-    </div>
+    </q-page>
 </template>
