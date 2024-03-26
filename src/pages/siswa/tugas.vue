@@ -281,7 +281,7 @@ export default {
             'Authorization': `Bearer ${this.token}`
           }
         });
-        console.log(taskParent);
+       
         const taskKelompok = await this.$api.get(`student-task/show-by-student/${this.idSiswa}?cat=Project Kelompok`, {
           headers: {
             'Authorization': `Bearer ${this.token}`

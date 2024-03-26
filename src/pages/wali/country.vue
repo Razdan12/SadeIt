@@ -21,7 +21,7 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="q-pa-md">
-                      <div class="text-h6 text-left">Filter</div>
+                      <!-- <div class="text-h6 text-left">Filter</div>
                       <q-select
                         dense
                         outlined
@@ -29,24 +29,24 @@
                         :options="activityOptions"
                         label=""
                         style="width: 50%"
-                      />
+                      /> -->
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <div class="q-pa-md text-right text-bold">
+                    <div class=" text-right text-bold">
                       <br /><br />
                       <span style="font-size: large">
                         Target : <br />
-                        8 Jam Pertahun
+                        {{ activity[0]?.forcountry.target }} Jam Pertahun
                       </span>
                     </div>
                   </div>
                 </div>
               </q-card-section>
               <q-card-section>
-                <div class="q-pa-md">
+                <div class="">
                   <div
-                    class="q-my-md text-left text-bold"
+                    class=" text-left text-bold"
                     style="font-size: x-large"
                   >
                     Rekap
@@ -66,16 +66,16 @@
                     </thead>
                     <tbody>
                       <tr
-                        v-for="(activity, index) in filteredActivities"
+                        v-for="(activity, index) in activity"
                         :key="index"
                       >
                         <td class="text-center">{{ index + 1 }}</td>
-                        <td class="text-left">{{ activity.name }}</td>
-                        <td class="text-right">{{ activity.duration }}</td>
-                        <td class="text-right">{{ activity.totalDuration }}</td>
-                        <td class="text-right">{{ activity.keterangan }}</td>
+                        <td class="text-left">{{ activity?.activity }}</td>
+                        <td class="text-right">{{ activity?.duration }}</td>
+                        <td class="text-right">{{ activity?.forcountry.target }}</td>
+                        <td class="text-right">{{ activity?.remark }}</td>
                         <td class="text-right">
-                          <q-btn color="secondary" label="Sertifikat" />
+                          <q-btn color="secondary" label="Sertifikat" @click="downloadSertifikat('k')"/>
                         </td>
                       </tr>
                     </tbody>
@@ -91,51 +91,74 @@
 </template>
 
 <script>
-import { ref, computed, watch } from "vue";
+import Swal from "sweetalert2";
+import { ref} from "vue";
 
 export default {
-  setup() {
-    const activities = ref([
-      { id: 1, name: "Guru Tamu", duration: "2 jam", totalDuration: "2 jam" },
-      {
-        id: 2,
-        name: "Perpustakaan",
-        duration: "2 jam",
-        totalDuration: "4 jam",
-      },
-      // Tambahkan aktivitas lain sesuai kebutuhan Anda
-    ]);
-
-    const selectedActivity = ref(null);
-    const filteredActivities = ref(activities.value); // Inisialisasi filteredActivities dengan semua aktivitas
-
-    // Fungsi untuk mendapatkan daftar unik dari aktivitas
-    const getActivityOptions = computed(() => {
-      const uniqueActivities = [
-        ...new Set(activities.value.map((activity) => activity.name)),
-      ];
-      return uniqueActivities.map((activity) => ({
-        label: activity,
-        value: activity,
-      }));
-    });
-
-    // Memperbarui filteredActivities ketika selectedActivity berubah
-    watch(selectedActivity, (newValue, oldValue) => {
-      if (!newValue) {
-        filteredActivities.value = activities.value; // Kembalikan semua aktivitas jika tidak ada yang dipilih
-      } else {
-        filteredActivities.value = activities.value.filter(
-          (activity) => activity.name === newValue.value
-        );
-      }
-    });
-
+  data() {
     return {
-      activityOptions: getActivityOptions,
-      selectedActivity,
-      filteredActivities,
-    };
+      activity : ref([]),
+      selectedActivity : ref([])
+    }},
+    methods: {
+    async getDataCountry() {
+      try {
+        const id = sessionStorage.getItem("idUser")
+        const token = sessionStorage.getItem("token")
+        const response = await this.$api.get(`for-country-detail/show-by-user/${id}?academic=2023/2024`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        this.activity = response.data.data
+        console.log(response.data.data);
+
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async downloadSertifikat(path) {
+      Swal.fire({
+          title: "Sertifikat Belum Tersedia !",
+          // text: "Refresh halaman atau hubungi admin",
+          icon: "warning",
+          showCancelButton: false,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Close",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // window.location.reload();
+          }
+        });
+      // try {
+      //   const response = await this.$api.get(`student-task/download?filepath=${path}`, {
+      //     headers: {
+      //       Authorization: `Bearer ${this.token}`,
+      //     },
+      //     responseType: 'blob',
+      //   });
+      //   const urlParts = path.split('/');
+      //   const fileName = urlParts.pop();
+      //   const blobUrl = window.URL.createObjectURL(response.data);
+      //   const link = document.createElement('a');
+      //   link.href = blobUrl;
+      //   link.setAttribute('download', fileName);
+      //   link.style.display = 'none'; 
+
+      //   document.body.appendChild(link);
+      //   link.click();
+      //   link.remove();
+      //   window.URL.revokeObjectURL(blobUrl);
+
+      // } catch (error) {
+      //   console.error('Error downloading file:', error);
+      // }
+    }
+
   },
+  mounted() {
+   this.getDataCountry()
+  },  
 };
 </script>
