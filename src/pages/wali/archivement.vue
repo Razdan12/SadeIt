@@ -19,19 +19,24 @@
             <q-card style="height: 700px">
               <q-card-section>
                 <div class="q-pa-md">
-                  <div class="d-flex justify-content-between align-items-center">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
                     <div class="text-bold" style="font-size: x-large">
                       <div class="text-left" style="font-size: x-large">
                         List
                       </div>
-                      <div class="text-right text-bold" style="font-size: x-large">
+                      <div
+                        class="text-right text-bold"
+                        style="font-size: x-large"
+                      >
                         <q-btn
                           dense
                           round
                           color="blue-2"
                           icon="add"
                           @click="showAddDialog = true"
-                          style="margin-right: 10px; margin-bottom: 10px;"
+                          style="margin-right: 10px; margin-bottom: 10px"
                         />
                       </div>
                     </div>
@@ -48,7 +53,10 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(activity, index) in filteredActivities" :key="index">
+                      <tr
+                        v-for="(activity, index) in filteredActivities"
+                        :key="index"
+                      >
                         <td class="text-center">{{ index + 1 }}</td>
                         <td class="text-left">{{ activity.name }}</td>
                         <td class="text-right">{{ activity.tanggal }}</td>
@@ -84,14 +92,20 @@
         <q-card-section>
           <q-input v-model="newActivityName" label="Kegiatan" />
           <q-input v-model="newActivityDate" label="Tanggal" type="date" />
-          <q-uploader
-        v-model="uploadedFiles"
-        label="Unggah File"
-        accept=".jpg, .png"
-        color="blue-2"
-        @added="fileAdded"
-        @removed="fileRemoved"
-      />
+          <!-- <q-uploader
+            v-model="uploadedFiles"
+            label="Unggah File"
+            accept=".jpg, .png"
+            color="blue-2"
+            @added="fileAdded"
+            @removed="fileRemoved"
+          /> -->
+
+          <q-file outlined v-model="selectedFile">
+            <template v-slot:prepend>
+              <q-icon name="attach_file" />
+            </template>
+          </q-file>
         </q-card-section>
         <q-card-actions align="right">
           <q-btn label="Cancel" color="secondary" @click="cancelAddActivity" />
@@ -104,6 +118,7 @@
 
 <script>
 import { ref, computed, watch } from "vue";
+import Swal from "sweetalert2";
 
 export default {
   setup() {
@@ -116,21 +131,21 @@ export default {
       },
       // Tambahkan aktivitas lain sesuai kebutuhan Anda
     ]);
-    const uploadedFiles = ref([]);
+    // const uploadedFiles = ref([]);
     const selectedActivity = ref(null);
     const filteredActivities = ref(activities.value);
     const showAddDialog = ref(false); // variabel untuk mengontrol apakah dialog harus ditampilkan atau tidak
     const newActivityName = ref(""); // variabel untuk menyimpan nilai input kegiatan baru
     const newActivityDate = ref(""); // variabel untuk menyimpan nilai input tanggal baru
-    const fileAdded = (file) => {
-      uploadedFiles.value.push(file);
-    };
-    const fileRemoved = (file) => {
-      const index = uploadedFiles.value.indexOf(file);
-      if (index !== -1) {
-        uploadedFiles.value.splice(index, 1);
-      }
-    };
+    // const fileAdded = (file) => {
+    //   uploadedFiles.value.push(file);
+    // };
+    // const fileRemoved = (file) => {
+    //   const index = uploadedFiles.value.indexOf(file);
+    //   if (index !== -1) {
+    //     uploadedFiles.value.splice(index, 1);
+    //   }
+    // };
     // Fungsi untuk mendapatkan daftar unik dari aktivitas
     const getActivityOptions = computed(() => {
       const uniqueActivities = [
@@ -154,20 +169,20 @@ export default {
     });
 
     // Fungsi untuk menambahkan aktivitas baru
-    const submitNewActivity = () => {
-      // Lakukan logika untuk menyimpan aktivitas baru, misalnya, dengan menambahkannya ke array activities
-      activities.value.push({
-        id: activities.value.length + 1,
-        name: newActivityName.value,
-        tanggal: newActivityDate.value, 
-      });
-      console.log(uploadedFiles.value);
-      // Tutup dialog setelah menambahkan aktivitas
-      showAddDialog.value = false;
-      // Kosongkan nilai input setelah menambahkan aktivitas
-      newActivityName.value = "";
-      newActivityDate.value = "";
-    };
+    // const submitNewActivity = () => {
+    //   // Lakukan logika untuk menyimpan aktivitas baru, misalnya, dengan menambahkannya ke array activities
+    //   activities.value.push({
+    //     id: activities.value.length + 1,
+    //     name: newActivityName.value,
+    //     tanggal: newActivityDate.value,
+    //   });
+    //   console.log(uploadedFiles.value);
+    //   // Tutup dialog setelah menambahkan aktivitas
+    //   showAddDialog.value = false;
+    //   // Kosongkan nilai input setelah menambahkan aktivitas
+    //   newActivityName.value = "";
+    //   newActivityDate.value = "";
+    // };
 
     // Fungsi untuk membatalkan penambahan aktivitas
     const cancelAddActivity = () => {
@@ -179,18 +194,87 @@ export default {
     };
 
     return {
+      idSiswa: ref(sessionStorage.getItem("idSiswa")),
       activityOptions: getActivityOptions,
       selectedActivity,
       filteredActivities,
       showAddDialog,
       newActivityName,
       newActivityDate,
-      submitNewActivity,
+      selectedFile: ref(),
+      // submitNewActivity,
       cancelAddActivity,
-      uploadedFiles,
-      fileAdded,
-      fileRemoved,
+      // uploadedFiles,
+      // fileAdded,
+      // fileRemoved,
     };
+  },
+
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    async fetchData() {
+      try {
+        const token = sessionStorage.getItem("token");
+        const response = await this.$api.get(
+          `achievement/show/${this.idSiswa}`,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.status == 200) {
+          console.log("hallo");
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    async submitNewActivity() {
+      const filesToUpload = this.selectedFile;
+      // const data = {
+      //   student_id: this.idSiswa,
+      //   achievement_desc: this.newActivityName,
+      //   issued_at: this.newActivityDate,
+      // };
+
+      const formData = new FormData();
+      formData.append("student_id", this.idSiswa);
+      formData.append("achievement_desc", this.newActivityName);
+      formData.append("issued_at", this.newActivityDate);
+      // formData.append("file", this.selectedFile);
+      // filesToUpload.forEach((file) => {
+      //   formData.append("file", file);
+      // });
+      console.log(filesToUpload);
+
+      try {
+        const token = sessionStorage.getItem("token");
+        const response = await this.$api.post(
+          `achievement/create`,
+          // data,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.status == 200) {
+          Swal.fire({
+            title: "Success!",
+            text: `Rating buku ${this.bookdata.book.title} berhasil ditambahkan`,
+            icon: "success",
+          });
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    },
   },
 };
 </script>
