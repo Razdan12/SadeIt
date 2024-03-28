@@ -122,92 +122,7 @@ import Swal from "sweetalert2";
 
 export default {
   setup() {
-    const activities = ref([
-      { id: 1, name: "Guru Tamu", tanggal: "22-02-2024" },
-      {
-        id: 2,
-        name: "Perpustakaan",
-        tanggal: "25-02-2024",
-      },
-      // Tambahkan aktivitas lain sesuai kebutuhan Anda
-    ]);
-    // const uploadedFiles = ref([]);
-    const selectedActivity = ref(null);
-    const filteredActivities = ref(activities.value);
-    const showAddDialog = ref(false); // variabel untuk mengontrol apakah dialog harus ditampilkan atau tidak
-    const newActivityName = ref(""); // variabel untuk menyimpan nilai input kegiatan baru
-    const newActivityDate = ref(""); // variabel untuk menyimpan nilai input tanggal baru
-    // const fileAdded = (file) => {
-    //   uploadedFiles.value.push(file);
-    // };
-    // const fileRemoved = (file) => {
-    //   const index = uploadedFiles.value.indexOf(file);
-    //   if (index !== -1) {
-    //     uploadedFiles.value.splice(index, 1);
-    //   }
-    // };
-    // Fungsi untuk mendapatkan daftar unik dari aktivitas
-    const getActivityOptions = computed(() => {
-      const uniqueActivities = [
-        ...new Set(activities.value.map((activity) => activity.name)),
-      ];
-      return uniqueActivities.map((activity) => ({
-        label: activity,
-        value: activity,
-      }));
-    });
-
-    // Memperbarui filteredActivities ketika selectedActivity berubah
-    watch(selectedActivity, (newValue, oldValue) => {
-      if (!newValue) {
-        filteredActivities.value = activities.value;
-      } else {
-        filteredActivities.value = activities.value.filter(
-          (activity) => activity.name === newValue.value
-        );
-      }
-    });
-
-    // Fungsi untuk menambahkan aktivitas baru
-    // const submitNewActivity = () => {
-    //   // Lakukan logika untuk menyimpan aktivitas baru, misalnya, dengan menambahkannya ke array activities
-    //   activities.value.push({
-    //     id: activities.value.length + 1,
-    //     name: newActivityName.value,
-    //     tanggal: newActivityDate.value,
-    //   });
-    //   console.log(uploadedFiles.value);
-    //   // Tutup dialog setelah menambahkan aktivitas
-    //   showAddDialog.value = false;
-    //   // Kosongkan nilai input setelah menambahkan aktivitas
-    //   newActivityName.value = "";
-    //   newActivityDate.value = "";
-    // };
-
-    // Fungsi untuk membatalkan penambahan aktivitas
-    const cancelAddActivity = () => {
-      // Tutup dialog tanpa menyimpan aktivitas
-      showAddDialog.value = false;
-      // Kosongkan nilai input setelah membatalkan
-      newActivityName.value = "";
-      newActivityDate.value = "";
-    };
-
-    return {
-      idSiswa: ref(sessionStorage.getItem("idSiswa")),
-      activityOptions: getActivityOptions,
-      selectedActivity,
-      filteredActivities,
-      showAddDialog,
-      newActivityName,
-      newActivityDate,
-      selectedFile: ref(),
-      // submitNewActivity,
-      cancelAddActivity,
-      // uploadedFiles,
-      // fileAdded,
-      // fileRemoved,
-    };
+   
   },
 
   mounted() {
@@ -235,20 +150,12 @@ export default {
     },
     async submitNewActivity() {
       const filesToUpload = this.selectedFile;
-      // const data = {
-      //   student_id: this.idSiswa,
-      //   achievement_desc: this.newActivityName,
-      //   issued_at: this.newActivityDate,
-      // };
-
+    
       const formData = new FormData();
       formData.append("student_id", this.idSiswa);
       formData.append("achievement_desc", this.newActivityName);
       formData.append("issued_at", this.newActivityDate);
-      // formData.append("file", this.selectedFile);
-      // filesToUpload.forEach((file) => {
-      //   formData.append("file", file);
-      // });
+     
       console.log(filesToUpload);
 
       try {
