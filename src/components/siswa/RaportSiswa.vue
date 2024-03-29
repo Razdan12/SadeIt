@@ -114,24 +114,27 @@
         <q-tab-panel name="ortu">
           <div class="text-h4 q-mb-md">Komentar Orang Tua</div>
           <div class="tw-flex tw-w-full">
-            <div class="tw-w-full tw-p-3 text-left tw-border-2 tw-rounded-md">
+            <div class="tw-w-full tw-p-3 text-left tw-border-2 tw-rounded-md" style="min-height: 200px;">
               <p>
                 {{ submittedComment }}
+             
               </p>
-              <q-input
-                v-model="editedComment"
-                filled
-                outlined
-                label="Edit Komentar"
-                placeholder="Edit komentar Anda di sini..."
-                type="textarea"
-              />
-              <q-btn
-                @click="submitComment"
-                class="q-mt-md"
-                color="primary"
-                label="Submit"
-              />
+              <div v-if="!submittedComment && parseInt(role) === 8">
+                <q-input
+                  v-model="editedComment"
+                  filled
+                  outlined
+                  label="Edit Komentar"
+                  placeholder="Edit komentar Anda di sini..."
+                  type="textarea"
+                />
+                <q-btn
+                  @click="submitComment"
+                  class="q-mt-md text-right"
+                  color="primary"
+                  label="Simpan"
+                />
+              </div>
             </div>
           </div>
           <div class="tw-flex tw-w-full justify-end tw-p-5">
@@ -150,7 +153,6 @@ import Akhlak from "./raport/narasiAkhlak.vue";
 import Pemimpin from "./raport/narasiPemimpin.vue";
 import Berfikir from "./raport/narasiBerfikir.vue";
 import NumberRaport from "./raport/numberRaport.vue";
-import KomentarUmum from "./raport/portoKomentar.vue";
 import RapotPortofolio from "./raport/rapotPortofolio.vue";
 
 export default {
@@ -158,6 +160,7 @@ export default {
     return {
       editedComment: "",
       submittedComment: "",
+      role: ref(sessionStorage.getItem("role"))
     };
   },
   methods: {
@@ -173,7 +176,7 @@ export default {
             },
           }
         );
-        // console.log(response);
+       
         (this.submittedComment = response.data.data[0].parent_comments),
           sessionStorage.setItem(
             "student_class_id",
@@ -187,10 +190,10 @@ export default {
     async submitComment() {
       const student_class_id = sessionStorage.getItem("student_class_id");
       const RaportId = sessionStorage.getItem("raportId");
-      console.log(RaportId);
+     
       const token = sessionStorage.getItem("token");
       try {
-        console.log("masuk sini");
+      
         const response = await this.$api.put(
           `/student-report/update/${RaportId}`,
           {
@@ -204,7 +207,6 @@ export default {
             },
           }
         );
-        console.log(response);
       
         this.getCommnentParent();
         this.editedComment = "";
@@ -229,7 +231,7 @@ export default {
     Pemimpin,
     Berfikir,
     NumberRaport,
-    KomentarUmum,
+   
     RapotPortofolio,
   },
 

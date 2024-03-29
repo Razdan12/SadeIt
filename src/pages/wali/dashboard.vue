@@ -13,13 +13,13 @@
             </p>
           </div>
           <!-- Student Selection Dropdown -->
-          <q-select
+          <!-- <q-select
             v-model="selectedStudent"
             :options="dataSiswa"
             label="Pilih Siswa"
             outlined
             class="tw-mb-3"
-          ></q-select>
+          ></q-select> -->
           <!-- <div v-if="selectedSiswa"> -->
           <div class="tw-mt-3 tw-flex tw-flex-wrap row">
             <div class="tw-w-1/3 tw-p-3 col-12 col-md">
@@ -297,41 +297,43 @@ export default {
     const dataSakit = ref(0);
     const rekapSampah = ref(0);
     const uploaderRef = ref(null);
-    const getDataSiswa = async () => {
-      try {
-        const token = sessionStorage.getItem("token");
-        const idSiswa = sessionStorage.getItem("idUser");
 
-        // Use getCurrentInstance to get access to the current component instance
-        const instance = getCurrentInstance();
-        const response =
-          await instance.appContext.config.globalProperties.$api.get(
-            `user-access/show-by-user/${idSiswa}`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
+    // const getDataSiswa = async () => {
+    //   try {
+    //     const token = sessionStorage.getItem("token");
+    //     const idSiswa = sessionStorage.getItem("idUser");
 
-        const data = response.data.data;
+    //     // Use getCurrentInstance to get access to the current component instance
+    //     const instance = getCurrentInstance();
+    //     const response =
+    //       await instance.appContext.config.globalProperties.$api.get(
+    //         `user-access/show-by-user/${idSiswa}`,
+    //         {
+    //           headers: {
+    //             Authorization: `Bearer ${token}`,
+    //           },
+    //         }
+    //       );
 
-        dataSiswa.value = await Promise.all(
-          data.map((Item) => {
-            return {
-              label: Item.student.nickname,
-              value: Item.student.id,
-            };
-          })
-        );
-        const value = JSON.parse(sessionStorage.getItem("newValue"));
-        sessionStorage.setItem("idSiswa", data[0].student_id);
-        idSiswas.value = data[0].student_id;
-        selectedStudent.value = value ? value : dataSiswa.value[0];
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    //     const data = response.data.data;
+
+    //     dataSiswa.value = await Promise.all(
+    //       data.map((Item) => {
+    //         return {
+    //           label: Item.student.nickname,
+    //           value: Item.student.id,
+    //         };
+    //       })
+    //     );
+    //     const value = JSON.parse(sessionStorage.getItem("newValue"));
+    //     sessionStorage.setItem("idSiswa", data[0].student_id);
+    //     idSiswas.value = data[0].student_id;
+    //     selectedStudent.value = value ? value : dataSiswa.value[0];
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
+
     const getRekapSampahbulan = async () => {
       const idSiswa =
         sessionStorage.getItem("idSiswa") !== null
@@ -454,13 +456,11 @@ export default {
     };
     // Call getDataSiswa when component is mounted
     onMounted(() => {
-      getDataSiswa();
+     
       getRekapSampahbulan();
       getRekapAbsensi();
     });
     watch(selectedStudent, (newVal, oldVal) => {
-      // console.log(oldVal);
-
       sessionStorage.setItem("newValue", JSON.stringify(newVal));
       sessionStorage.setItem("idSiswa", newVal.value);
       getRekapSampahbulan();
@@ -478,7 +478,7 @@ export default {
       dataIzin,
       dataSakit,
       selectedStudent,
-      getDataSiswa,
+     
       openFileUploadModal,
       fileUploadModalOpen,
       onFileAdded,
