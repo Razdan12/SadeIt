@@ -85,13 +85,13 @@
           <q-input v-model="newActivityName" label="Kegiatan" />
           <q-input v-model="newActivityDate" label="Tanggal" type="date" />
           <q-uploader
-        v-model="uploadedFiles"
-        label="Unggah File"
-        accept=".jpg, .png"
-        color="blue-2"
-        @added="fileAdded"
-        @removed="fileRemoved"
-      />
+            v-model="uploadedFiles"
+            label="Unggah File"
+            accept=".jpg, .png"
+            color="blue-2"
+            @added="fileAdded"
+            @removed="fileRemoved"
+          />
         </q-card-section>
         <q-card-actions align="right">
           <q-btn label="Cancel" color="secondary" @click="cancelAddActivity" />
