@@ -92,20 +92,19 @@
         <q-card-section>
           <q-input v-model="newActivityName" label="Kegiatan" />
           <q-input v-model="newActivityDate" label="Tanggal" type="date" />
-          <!-- <q-uploader
+          <q-uploader
             v-model="uploadedFiles"
             label="Unggah File"
             accept=".jpg, .png"
             color="blue-2"
             @added="fileAdded"
-            @removed="fileRemoved"
-          /> -->
+          />
 
-          <q-file outlined v-model="selectedFile">
+          <!-- <q-file outlined v-model="selectedFile">
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file>
+          </q-file> -->
         </q-card-section>
         <q-card-actions align="right">
           <q-btn label="Cancel" color="secondary" @click="cancelAddActivity" />
@@ -122,9 +121,22 @@ import Swal from "sweetalert2";
 
 export default {
   setup() {
-   
+    return {
+      activity : ref([]),
+      showAddDialog : ref(false),
+      newActivityName: ref(""),
+      newActivityDate: ref(""),
+      uploadedFiles:ref([])
+    }
   },
-
+  // data() {
+  //   return {
+  //     showAddDialog: false,
+  //     newActivityName: "",
+  //     newActivityDate:"",
+  //     activity: []
+  //   };
+  // },
   mounted() {
     this.fetchData();
   },
@@ -132,8 +144,9 @@ export default {
     async fetchData() {
       try {
         const token = sessionStorage.getItem("token");
+        const idSiswa = sessionStorage.getItem('idSiswa')
         const response = await this.$api.get(
-          `achievement/show/${this.idSiswa}`,
+          `achievement/show-by-student/${idSiswa}`,
           {
             headers: {
               "Content-Type": "multipart/form-data",
@@ -143,20 +156,28 @@ export default {
         );
         if (response.status == 200) {
           console.log("hallo");
+          console.log(response);
         }
       } catch (err) {
         console.error(err);
       }
     },
+    async fileAdded (files){
+      this.uploadedFiles = files
+    },
     async submitNewActivity() {
-      const filesToUpload = this.selectedFile;
+      const filesToUpload = this.uploadedFiles;
+      // console.log(filesToUpload[0]);
+      const idSiswa = sessionStorage.getItem('idSiswa')
+      // console.log(idSiswa);
+      
     
       const formData = new FormData();
-      formData.append("student_id", this.idSiswa);
+      formData.append("student_id", idSiswa);
       formData.append("achievement_desc", this.newActivityName);
       formData.append("issued_at", this.newActivityDate);
-     
-      console.log(filesToUpload);
+      formData.append("file", filesToUpload[0]);
+    ;
 
       try {
         const token = sessionStorage.getItem("token");
@@ -182,6 +203,10 @@ export default {
         console.error(err);
       }
     },
+
+    async cancelAddActivity (){
+      this.showAddDialog = false
+    }
   },
 };
 </script>
